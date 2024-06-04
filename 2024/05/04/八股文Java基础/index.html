@@ -1,0 +1,1301 @@
+
+<!DOCTYPE html><html lang="zh-Hans">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.28.1" theme-name="Stellar" theme-version="1.28.1">
+  
+  <meta name="generator" content="Hexo 7.2.0">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f9fafb">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  
+  <title>Java基础复习 - BlueofWarmth</title>
+
+  
+    <meta name="description" content="Java基础Java SE vs Java EE Java SE（Java Platform，Standard Edition）: Java 平台标准版，Java 编程语言的基础，它包含了支持 Java 应用程序开发和运行的核心类库以及虚拟机等核心组件。 Java EE（Java Platform, Enterprise Edition ）：Java 平台企业版，建立在 Java SE 的基础上，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java基础复习">
+<meta property="og:url" content="http://blueofwarmth.github.io/2024/05/04/%E5%85%AB%E8%82%A1%E6%96%87Java%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="BlueofWarmth">
+<meta property="og:description" content="Java基础Java SE vs Java EE Java SE（Java Platform，Standard Edition）: Java 平台标准版，Java 编程语言的基础，它包含了支持 Java 应用程序开发和运行的核心类库以及虚拟机等核心组件。 Java EE（Java Platform, Enterprise Edition ）：Java 平台企业版，建立在 Java SE 的基础上，">
+<meta property="og:locale">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404290838554.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404290840987.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404290842413.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404290906829.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202405071531107.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202405071531918.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404290924003.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404291024140.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404291115718.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404291123388.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404291124219.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404291126141.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404291133884.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404291851790.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404291856094.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404292000435.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404300909256.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404300916690.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404300922366.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404292007777.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404292128656.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404292156399.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404292156949.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404292157785.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404292158090.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404292200726.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404300846850.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404300847363.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404300848143.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202405060915869.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202405060916543.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202405060919300.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202405060920981.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202405060922577.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202405060933641.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202405060934998.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202405060938943.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202405061032749.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202405061041998.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202405061045682.png">
+<meta property="og:image" content="http://blueofwarmth.github.io/AppData/Roaming/Typora/typora-user-images/image-20240506110747068.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202405061125519.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202405061138828.png">
+<meta property="og:image" content="http://blueofwarmth.github.io/2024/05/AppData/Roaming/Typora/typora-user-images/image-20240506141935009.png">
+<meta property="article:published_time" content="2024-05-04T09:04:37.000Z">
+<meta property="article:modified_time" content="2024-06-04T09:30:31.967Z">
+<meta property="article:author" content="QyingliBoost">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404290838554.png">
+  
+  
+  
+  <meta name="keywords" content="Java">
+
+  <!-- feed -->
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.28.1">
+
+  
+
+  
+
+  
+</head>
+<body>
+
+<div class="l_body s:aa content tech" id="start" layout="post" ><aside class="l_left"><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="/img/photo.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">Qyingli</div><div class="sub cap">十号荣耀, 谁不曾不想.</div></a></div></header>
+
+<div class="nav-area">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="Search"></form><div id="search-result"></div><div class="search-no-result">No Results!</div></div>
+
+
+<nav class="menu dis-select"><a class="nav-item active" title="博客" href="/" style="color:#1BCDFC"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5.879 2.879C5 3.757 5 5.172 5 8v8c0 2.828 0 4.243.879 5.121C6.757 22 8.172 22 11 22h2c2.828 0 4.243 0 5.121-.879C19 20.243 19 18.828 19 16V8c0-2.828 0-4.243-.879-5.121C17.243 2 15.828 2 13 2h-2c-2.828 0-4.243 0-5.121.879M8.25 17a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75M9 12.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 9A.75.75 0 0 1 9 8.25h6a.75.75 0 0 1 0 1.5H9A.75.75 0 0 1 8.25 9" clip-rule="evenodd"/><path fill="currentColor" d="M5.235 4.058C5 4.941 5 6.177 5 8v8c0 1.823 0 3.058.235 3.942L5 19.924c-.975-.096-1.631-.313-2.121-.803C2 18.243 2 16.828 2 14v-4c0-2.829 0-4.243.879-5.121c.49-.49 1.146-.707 2.121-.803zm13.53 15.884C19 19.058 19 17.822 19 16V8c0-1.823 0-3.059-.235-3.942l.235.018c.975.096 1.631.313 2.121.803C22 5.757 22 7.17 22 9.999v4c0 2.83 0 4.243-.879 5.122c-.49.49-1.146.707-2.121.803z" opacity=".5"/></svg></a><a class="nav-item" title="文档" href="/wiki/" style="color:#3DC550"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M14.25 4.48v3.057c0 .111 0 .27.02.406a.936.936 0 0 0 .445.683a.96.96 0 0 0 .783.072c.13-.04.272-.108.378-.159L17 8.005l1.124.534c.106.05.248.119.378.16a.958.958 0 0 0 .783-.073a.936.936 0 0 0 .444-.683c.021-.136.021-.295.021-.406V3.031c.113-.005.224-.01.332-.013C21.154 2.98 22 3.86 22 4.933v11.21c0 1.112-.906 2.01-2.015 2.08c-.97.06-2.108.179-2.985.41c-1.082.286-1.99 1.068-3.373 1.436c-.626.167-1.324.257-1.627.323V5.174c.32-.079 1.382-.203 1.674-.371c.184-.107.377-.216.576-.323m5.478 8.338a.75.75 0 0 1-.546.91l-4 1a.75.75 0 0 1-.364-1.456l4-1a.75.75 0 0 1 .91.546" clip-rule="evenodd"/><path fill="currentColor" d="M18.25 3.151c-.62.073-1.23.18-1.75.336a8.2 8.2 0 0 0-.75.27v3.182l.75-.356l.008-.005a1.13 1.13 0 0 1 .492-.13c.047 0 .094.004.138.01c.175.029.315.1.354.12l.009.005l.749.356V3.647z"/><path fill="currentColor" d="M12 5.214c-.334-.064-1.057-.161-1.718-.339C8.938 4.515 8.05 3.765 7 3.487c-.887-.234-2.041-.352-3.018-.412C2.886 3.007 2 3.9 2 4.998v11.146c0 1.11.906 2.01 2.015 2.079c.97.06 2.108.179 2.985.41c.486.129 1.216.431 1.873.726c1.005.451 2.052.797 3.127 1.034z" opacity=".5"/><path fill="currentColor" d="M4.273 12.818a.75.75 0 0 1 .91-.545l4 1a.75.75 0 1 1-.365 1.455l-4-1a.75.75 0 0 1-.545-.91m.909-4.545a.75.75 0 1 0-.364 1.455l4 1a.75.75 0 0 0 .364-1.455z"/></svg></a></nav>
+</div>
+<div class="widgets">
+
+
+<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">Recent Update</span></div><div class="widget-body fs14"><a class="item title" href="/2023/12/04/Java%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5/"><span class="title">Java学习笔记 -第一阶段</span></a><a class="item title" href="/2023/12/22/Java%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5/"><span class="title">Java学习笔记 -第二阶段</span></a><a class="item title" href="/2024/02/04/Java%E7%AC%AC%E4%B8%89%E9%98%B6%E6%AE%B5/"><span class="title">Java学习笔记 -第三阶段</span></a><a class="item title" href="/2022/05/04/%E6%97%A5%E6%9C%9F%E8%BD%AC%E5%8C%96--%E7%BD%91%E9%A1%B5demo/"><span class="title">网页小项目--日期转化</span></a><a class="item title" href="/2023/06/04/%E5%89%8D%E7%AB%AF%E4%B8%89%E5%A4%A7%E4%BB%B6-0-1/"><span class="title">前端三大件项目--美食计划</span></a><a class="item title" href="/2022/03/04/JavaScript%E5%B0%8F%E9%A1%B9%E7%9B%AE--%E9%AA%B0%E5%AD%90%E6%B8%B8%E6%88%8F/"><span class="title">JavaScript小项目--骰子游戏</span></a><a class="item title" href="/2022/03/22/%E7%89%B9%E5%B8%88%E5%82%85%E7%9A%84%E4%BA%BA%E5%83%8F%E5%90%8E%E6%9C%9F/"><span class="title">PS认识摄影后期</span></a><a class="item title" href="/2023/02/17/C%E8%AF%AD%E8%A8%80%20%E7%BF%81%E6%81%BA%E7%AC%94%E8%AE%B0/"><span class="title">C语言 翁恺学习笔记</span></a><a class="item title" href="/2022/04/17/%E7%BD%91%E7%BB%9C%E8%BF%90%E4%BD%9C/"><span class="title">网络运行</span></a><a class="item title" href="/2021/05/17/%E5%B8%83%E8%BE%BE%E4%BD%A9%E6%96%AF%E5%A4%A7%E9%A5%AD%E5%BA%97/"><span class="title">布达佩斯大饭店</span></a></div></widget>
+</div>
+
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">Home</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">Blog</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E8%AE%B0%E5%BD%95/">记录</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">Posted on: <time datetime="2024-05-04T09:04:37.000Z">2024-05-04</time></span><span class="sep updated"></span><span class="text updated">Updated on: <time datetime="2024-06-04T09:30:31.967Z">2024-06-04</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>Java基础复习</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><h1 id="Java基础"><a href="#Java基础" class="headerlink" title="Java基础"></a>Java基础</h1><h2 id="Java-SE-vs-Java-EE"><a href="#Java-SE-vs-Java-EE" class="headerlink" title="Java SE vs Java EE"></a><a href="##java-se-vs-java-ee">Java SE vs Java EE</a></h2><ul>
+<li>Java SE（Java Platform，Standard Edition）: Java 平台标准版，Java 编程语言的基础，它包含了支持 Java 应用程序开发和运行的核心类库以及虚拟机等核心组件。</li>
+<li>Java EE（Java Platform, Enterprise Edition ）：Java 平台企业版，建立在 Java SE 的基础上，包含了支持企业级应用程序开发和部署的标准和规范（比如 Servlet、JSP、EJB、JDBC、JPA、JTA、JavaMail、JMS）。 Java EE 可以用于构建分布式、可移植、健壮、可伸缩和安全的服务端 Java 应用程序，例如 Web 应用程序。</li>
+</ul>
+<h2 id="JVM-vs-JDK-vs-JRE"><a href="#JVM-vs-JDK-vs-JRE" class="headerlink" title="JVM vs JDK vs JRE"></a>JVM vs JDK vs JRE</h2><h3 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a><a href="##jvm">JVM</a></h3><p>Java 虚拟机（JVM）是运行 Java 字节码的虚拟机。使用相同的字节码，它们都会给出相同的结果</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404290838554.png" alt="image-20240429083825365"></p>
+<h3 id="JDK-和-JRE"><a href="#JDK-和-JRE" class="headerlink" title="JDK 和 JRE"></a><a href="##jdk-%E5%92%8C-jre">JDK 和 JRE</a></h3><p>JDK（Java Development Kit），它是功能齐全的 Java SDK，是提供给开发者使用，能够创建和编译 Java 程序的开发套件。它包含了 JRE，同时还包含了编译 java 源码的编译器 javac 以及一些其他工具比如 javadoc（文档注释工具）、jdb（调试器）、jconsole（基于 JMX 的可视化监控⼯具）、javap（反编译工具）等等。</p>
+<p>JRE（Java Runtime Environment） 是 Java 运行时环境。它是运行已编译 Java 程序所需的所有内容的集合，主要包括 Java 虚拟机（JVM）、Java 基础类库（Class Library）。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404290840987.png" alt="image-20240429084010940"></p>
+<h2 id="为什么说-Java-语言-“编译与解释并存”？"><a href="#为什么说-Java-语言-“编译与解释并存”？" class="headerlink" title="为什么说 Java 语言 “编译与解释并存”？"></a><a target="_blank" rel="noopener" href="https://javaguide.cn/java/basis/java-basic-questions-01.html##%E4%B8%BA%E4%BB%80%E4%B9%88%E8%AF%B4-java-%E8%AF%AD%E8%A8%80-%E7%BC%96%E8%AF%91%E4%B8%8E%E8%A7%A3%E9%87%8A%E5%B9%B6%E5%AD%98">为什么说 Java 语言 “编译与解释并存”？</a></h2><p><strong>编译型</strong>：<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%B7%A8%E8%AD%AF%E8%AA%9E%E8%A8%80">编译型语言 open in new window</a> 会通过 <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%B7%A8%E8%AD%AF%E5%99%A8">编译器 open in new window</a> 将源代码一次性翻译成可被该平台执行的机器码。一般情况下，编译语言的执行速度比较快，开发效率比较低。</p>
+<p><strong>解释型</strong>：<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%9B%B4%E8%AD%AF%E8%AA%9E%E8%A8%80">解释型语言 open in new window</a> 会通过 <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%9B%B4%E8%AD%AF%E5%99%A8">解释器 open in new window</a> 一句一句的将代码解释（interpret）为机器代码后再执行。解释型语言开发效率比较快，执行速度比较慢。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404290842413.png" alt="image-20240429084240353"></p>
+<p><strong>为什么说 Java 语言 “编译与解释并存”？</strong></p>
+<p>因为 Java 程序要经过先编译，后解释两个步骤，由 Java 编写的程序需要先经过编译步骤，生成字节码（<code>.class</code> 文件），这种字节码必须由 Java 解释器来解释执行。</p>
+<h2 id="包装类型的缓存机制了解么？"><a href="#包装类型的缓存机制了解么？" class="headerlink" title="包装类型的缓存机制了解么？"></a><a href="##%E5%8C%85%E8%A3%85%E7%B1%BB%E5%9E%8B%E7%9A%84%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6%E4%BA%86%E8%A7%A3%E4%B9%88">包装类型的缓存机制了解么？</a></h2><p>Java 基本数据类型的包装类型的大部分都用到了缓存机制来提升性能。</p>
+<p><code>Byte</code>,<code>Short</code>,<code>Integer</code>,<code>Long</code> 这 4 种包装类默认创建了数值 <strong>[-128，127]</strong> 的相应类型的缓存数据，<code>Character</code> 创建了数值在 <strong>[0,127]</strong> 范围的缓存数据，<code>Boolean</code> 直接返回 <code>True</code> or <code>False</code>。</p>
+<h2 id="自动装箱与拆箱了解吗？原理是什么？"><a href="#自动装箱与拆箱了解吗？原理是什么？" class="headerlink" title="自动装箱与拆箱了解吗？原理是什么？"></a><a target="_blank" rel="noopener" href="https://javaguide.cn/java/basis/java-basic-questions-01.html##%E8%87%AA%E5%8A%A8%E8%A3%85%E7%AE%B1%E4%B8%8E%E6%8B%86%E7%AE%B1%E4%BA%86%E8%A7%A3%E5%90%97-%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88">自动装箱与拆箱了解吗？原理是什么？</a></h2><p><strong>什么是自动拆装箱？</strong></p>
+<ul>
+<li><strong>装箱</strong>：将基本类型用它们对应的引用类型包装起来；</li>
+<li><strong>拆箱</strong>：将包装类型转换为基本数据类型；</li>
+</ul>
+<p>从字节码中，我们发现装箱其实就是调用了 包装类的 <code>valueOf()</code> 方法，拆箱其实就是调用了 <code>xxxValue()</code> 方法。</p>
+<h2 id="深拷贝和浅拷贝区别了解吗？什么是引用拷贝？"><a href="#深拷贝和浅拷贝区别了解吗？什么是引用拷贝？" class="headerlink" title="深拷贝和浅拷贝区别了解吗？什么是引用拷贝？"></a><a href="##%E6%B7%B1%E6%8B%B7%E8%B4%9D%E5%92%8C%E6%B5%85%E6%8B%B7%E8%B4%9D%E5%8C%BA%E5%88%AB%E4%BA%86%E8%A7%A3%E5%90%97-%E4%BB%80%E4%B9%88%E6%98%AF%E5%BC%95%E7%94%A8%E6%8B%B7%E8%B4%9D">深拷贝和浅拷贝区别了解吗？什么是引用拷贝？</a></h2><p>关于深拷贝和浅拷贝区别，我这里先给结论：</p>
+<ul>
+<li><strong>浅拷贝</strong>：浅拷贝会在堆上创建一个新的对象（区别于引用拷贝的一点），不过，如果原对象内部的属性是引用类型的话，浅拷贝会直接复制内部对象的引用地址，也就是说拷贝对象和原对象共用同一个内部对象。</li>
+<li><strong>深拷贝</strong>：深拷贝会完全复制整个对象，包括这个对象所包含的内部对象。</li>
+</ul>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404290906829.png" alt="image-20240429090617778"></p>
+<h2 id="HashCode-有什么用？"><a href="#HashCode-有什么用？" class="headerlink" title="HashCode () 有什么用？"></a><a target="_blank" rel="noopener" href="https://javaguide.cn/java/basis/java-basic-questions-02.html##hashcode-%E6%9C%89%E4%BB%80%E4%B9%88%E7%94%A8">HashCode () 有什么用？</a></h2><p><code>hashCode()</code> 的作用是获取哈希码（<code>int</code> 整数），也称为散列码。这个哈希码的作用是确定该对象在哈希表中的索引位置。</p>
+<p>散列表存储的是键值对 (key-value)，它的特点是：<strong>能根据 “键” 快速的检索出对应的 “值”。这其中就利用到了散列码！（可以快速找到所需要的对象）</strong></p>
+<blockquote>
+<p>当你把对象加入 <code>HashSet</code> 时，<code>HashSet</code> 会先计算对象的 <code>hashCode</code> 值来判断对象加入的位置，同时也会与其他已经加入的对象的 <code>hashCode</code> 值作比较，如果没有相符的 <code>hashCode</code>，<code>HashSet</code> 会假设对象没有重复出现。但是如果发现有相同 <code>hashCode</code> 值的对象，这时会调用 <code>equals()</code> 方法来检查 <code>hashCode</code> 相等的对象是否真的相同。如果两者相同，<code>HashSet</code> 就不会让其加入操作成功。如果不同的话，就会重新散列到其他位置。这样我们就大大减少了 <code>equals</code> 的次数，相应就大大提高了执行速度。</p>
+</blockquote>
+<h2 id="String-StringBuffer-and-StringBuilder"><a href="#String-StringBuffer-and-StringBuilder" class="headerlink" title="String, StringBuffer and StringBuilder"></a>String, StringBuffer and StringBuilder</h2><p><strong>1. 可变性</strong></p>
+<ul>
+<li>String 不可变</li>
+<li>StringBuffer 和 StringBuilder 可变</li>
+</ul>
+<p><strong>2. 线程安全</strong></p>
+<ul>
+<li>String 不可变，因此是线程安全的</li>
+<li>StringBuilder 不是线程安全的</li>
+<li>StringBuffer 是线程安全的，内部使用 synchronized 进行同步</li>
+</ul>
+<h2 id="String-intern"><a href="#String-intern" class="headerlink" title="String.intern()"></a>String.intern()</h2><p>使用 String.intern () 可以保证相同内容的字符串变量引用同一的内存对象。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">s1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;aaa&quot;</span>);</span><br><span class="line"><span class="type">String</span> <span class="variable">s2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;aaa&quot;</span>);</span><br><span class="line">System.out.println(s1 == s2);           <span class="comment">// false</span></span><br><span class="line"><span class="type">String</span> <span class="variable">s3</span> <span class="operator">=</span> s1.intern();</span><br><span class="line">System.out.println(s1.intern() == s3);  <span class="comment">// true</span></span><br><span class="line"><span class="comment">//如果是&quot;&quot;创建的, 会自动放入pool</span></span><br><span class="line"><span class="type">String</span> <span class="variable">s4</span> <span class="operator">=</span> <span class="string">&quot;bbb&quot;</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">s5</span> <span class="operator">=</span> <span class="string">&quot;bbb&quot;</span>;</span><br><span class="line">System.out.println(s4 == s5);  <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>存在继承的情况下，初始化顺序为:</p>
+<ul>
+<li>父类 (静态变量、静态语句块)</li>
+<li>子类 (静态变量、静态语句块)</li>
+<li>父类 (实例变量、普通语句块)</li>
+<li>父类 (构造函数)</li>
+<li>子类 (实例变量、普通语句块)</li>
+<li>子类 (构造函数)</li>
+</ul>
+<h2 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h2><p>每个类都有一个 <strong>Class</strong> 对象，包含了与类有关的信息。当编译一个新类时，会产生一个同名的 .class 文件，该文件内容保存着 Class 对象。</p>
+<p>类加载相当于 Class 对象的加载。类在第一次使用时才动态加载到 JVM 中，可以使用 <code>Class.forName(&quot;com.mysql.jdbc.Driver&quot;)</code> 这种方式来控制类的加载，该方法会返回一个 Class 对象。</p>
+<p>反射可以提供运行时的类信息，并且这个类可以在运行时才加载进来，甚至在编译时期该类的 .class 不存在也可以加载进来。</p>
+<p>Class 和 java.lang.reflect 一起对反射提供了支持，java.lang.reflect 类库主要包含了以下三个类:</p>
+<ul>
+<li><strong>Field</strong> : 可以使用 get () 和 set () 方法读取和修改 Field 对象关联的字段；</li>
+<li><strong>Method</strong> : 可以使用 invoke () 方法调用与 Method 对象关联的方法；</li>
+<li><strong>Constructor</strong> : 可以用 Constructor 创建新的对象。</li>
+</ul>
+<h3 id="反射基础"><a href="#反射基础" class="headerlink" title="反射基础"></a>反射基础</h3><p>这里我们首先需要理解 Class 类，以及类的加载机制； 然后基于此我们如何通过反射获取 Class 类以及类中的成员变量、方法、构造方法等。</p>
+<h4 id="Class类"><a href="#Class类" class="headerlink" title="Class类"></a>Class类</h4><p>Class 类，Class 类也是一个实实在在的类，存在于 JDK 的 java.lang 包中。Class 类的实例表示 java 应用运行时的类 (class ans enum) 或接口 (interface and annotation), 每个 java 类运行时都在 JVM 里表现为一个 class 对象，可通过类名.class、类型.getClass ()、Class.forName (“类名”) 等方法获取 class 对象。</p>
+<h4 id="类加载"><a href="#类加载" class="headerlink" title="类加载"></a>类加载</h4><ol>
+<li>类加载机制流程</li>
+</ol>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202405071531107.png" alt="image-20240507153112055"></p>
+<ol start="2">
+<li>类的加载</li>
+</ol>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202405071531918.png" alt="image-20240507153126858"></p>
+<h3 id="反射使用"><a href="#反射使用" class="headerlink" title="反射使用"></a>反射使用</h3><p>在 Java 中，Class 类与 java.lang.reflect 类库一起对反射技术进行了全力的支持。在反射包中，我们常用的类主要有 Constructor 类表示的是 Class 对象所表示的类的构造方法，利用它可以在运行时动态创建对象、Field 表示 Class 对象所表示的类的成员变量，通过它可以在运行时动态修改成员变量的属性值 (包含 private)、Method 表示 Class 对象所表示的类的成员方法，通过它可以动态调用对象的方法 (包含 private)，下面将对这几个重要类进行分别说明。</p>
+<h4 id="class类对象的获取"><a href="#class类对象的获取" class="headerlink" title="class类对象的获取"></a>class类对象的获取</h4><p>在类加载的时候，jvm 会创建一个 class 对象</p>
+<p>class 对象是可以说是反射中最常用的，获取 class 对象的方式的主要有三种</p>
+<ul>
+<li>根据类名：类名.class</li>
+<li>根据对象：对象.getClass ()</li>
+<li>根据全限定类名：Class.forName (全限定类名)</li>
+</ul>
+<p><strong>class类的方法</strong></p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>forName()</td>
+<td>(1) 获取 Class 对象的一个引用，但该类的第一个对象没有生成就加载了这个类。</td>
+</tr>
+<tr>
+<td></td>
+<td>(2) 为了产生 Class 引用，forName () 立即就进行了初始化</td>
+</tr>
+<tr>
+<td>getName()</td>
+<td>取全限定的类名 (包括包名)，即类的完整名字。</td>
+</tr>
+<tr>
+<td>isInterface()</td>
+<td>判断 Class 对象是否是表示一个接口</td>
+</tr>
+<tr>
+<td>getInterfaces()</td>
+<td>返回 Class 对象数组，表示 Class 对象所引用的类所实现的所有接口。</td>
+</tr>
+<tr>
+<td>newInstance()</td>
+<td>返回一个 Oject 对象，是实现 “虚拟构造器” 的一种途径。使用该方法创建的类，必须带有无参的构造器。</td>
+</tr>
+<tr>
+<td>getFields()</td>
+<td>获得某个类的所有的公共（public）的字段，包括继承自父类的所有公共字段。 类似的还有 getMethods 和 getConstructors。</td>
+</tr>
+<tr>
+<td>getDeclaredFields</td>
+<td>获得某个类的自己声明的字段，即包括 public、private 和 proteced，默认但是不包括父类声明的任何字段。类似的还有 getDeclaredMethods 和 getDeclaredConstructors。</td>
+</tr>
+</tbody></table>
+<h4 id="Constructor类及其用法"><a href="#Constructor类及其用法" class="headerlink" title="Constructor类及其用法"></a>Constructor类及其用法</h4><p>获取 Constructor 对象是通过 Class 类中的方法获取的，Class 类与 Constructor 相关的主要方法如下：</p>
+<table>
+<thead>
+<tr>
+<th>方法返回值</th>
+<th>方法名称</th>
+<th>方法说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>static Class&lt;?&gt;</td>
+<td>forName(String className)</td>
+<td>返回与带有给定字符串名的类或接口相关联的 Class 对象。</td>
+</tr>
+<tr>
+<td>Constructor</td>
+<td>getConstructor(Class&lt;?&gt;… parameterTypes)</td>
+<td>返回指定参数类型、具有 public 访问权限的构造函数对象</td>
+</tr>
+<tr>
+<td>Constructor&lt;?&gt;[]</td>
+<td>getConstructors()</td>
+<td>返回所有具有 public 访问权限的构造函数的 Constructor 对象数组</td>
+</tr>
+<tr>
+<td>Constructor</td>
+<td>getDeclaredConstructor(Class&lt;?&gt;… parameterTypes)</td>
+<td>返回指定参数类型、所有声明的（包括 private）构造函数对象</td>
+</tr>
+<tr>
+<td>Constructor&lt;?&gt;[]</td>
+<td>getDeclaredConstructors()</td>
+<td>返回所有声明的（包括 private）构造函数对象</td>
+</tr>
+<tr>
+<td>T</td>
+<td>newInstance()</td>
+<td>调用无参构造器创建此 Class 对象所表示的类的一个新实例。</td>
+</tr>
+</tbody></table>
+<h4 id="Field类及其用法"><a href="#Field类及其用法" class="headerlink" title="Field类及其用法"></a>Field类及其用法</h4><p>Field 提供有关类或接口的单个字段的信息，以及对它的动态访问权限。反射的字段可能是一个类（静态）字段或实例字段</p>
+<p>Class类与Field对象相关的方法如下:</p>
+<table>
+<thead>
+<tr>
+<th>方法返回值</th>
+<th>方法名称</th>
+<th>方法说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Field</td>
+<td>getDeclaredField(String name)</td>
+<td>获取指定 name 名称的 (包含 private 修饰的) 字段，不包括继承的字段</td>
+</tr>
+<tr>
+<td>Field[]</td>
+<td>getDeclaredFields()</td>
+<td>获取 Class 对象所表示的类或接口的所有 (包含 private 修饰的) 字段，不包括继承的字段</td>
+</tr>
+<tr>
+<td>Field</td>
+<td>getField(String name)</td>
+<td>获取指定 name 名称、具有 public 修饰的字段，包含继承字段</td>
+</tr>
+<tr>
+<td>Field[]</td>
+<td>getFields()</td>
+<td>获取修饰符为 public 的字段，包含继承字段</td>
+</tr>
+</tbody></table>
+<h4 id="Method类及其用法"><a href="#Method类及其用法" class="headerlink" title="Method类及其用法"></a>Method类及其用法</h4><table>
+<thead>
+<tr>
+<th>方法返回值</th>
+<th>方法名称</th>
+<th>方法说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Method</td>
+<td>getDeclaredMethod(String name, Class&lt;?&gt;… parameterTypes)</td>
+<td>返回一个指定参数的 Method 对象，该对象反映此 Class 对象所表示的类或接口的指定已声明方法。</td>
+</tr>
+<tr>
+<td>Method[]</td>
+<td>getDeclaredMethods()</td>
+<td>返回 Method 对象的一个数组，这些对象反映此 Class 对象表示的类或接口声明的所有方法，包括公共、保护、默认（包）访问和私有方法，但不包括继承的方法。</td>
+</tr>
+<tr>
+<td>Method</td>
+<td>getMethod(String name, Class&lt;?&gt;… parameterTypes)</td>
+<td>返回一个 Method 对象，它反映此 Class 对象所表示的类或接口的指定公共成员方法。</td>
+</tr>
+<tr>
+<td>Method[]</td>
+<td>getMethods()</td>
+<td>返回一个包含某些 Method 对象的数组，这些对象反映此 Class 对象所表示的类或接口的公共 member 方法。</td>
+</tr>
+</tbody></table>
+<h3 id="反射机制执行的流程"><a href="#反射机制执行的流程" class="headerlink" title="反射机制执行的流程"></a>反射机制执行的流程</h3><p>Java中的反射机制允许在运行时检查类、对象和方法，并在运行时操作类的属性、方法和构造函数。反射机制执行的一般流程如下：</p>
+<ol>
+<li><p><strong>获取Class对象</strong>：首先需要获取要操作的类的Class对象。可以通过以下方式之一获取Class对象：</p>
+<ul>
+<li>调用对象的getClass()方法。</li>
+<li>使用.class语法获取类字面常量的Class对象。</li>
+<li>使用Class类的静态方法forName()根据类的全限定名获取Class对象。</li>
+</ul>
+</li>
+<li><p><strong>创建对象</strong>（可选）：如果需要实例化该类的对象，则可以通过反射机制调用Class对象的newInstance()方法来创建对象。这个方法会调用类的无参构造函数来创建对象。</p>
+</li>
+<li><p><strong>获取类的属性、方法、构造函数等信息</strong>：通过Class对象可以获取类的属性、方法、构造函数等信息。常见的方法包括：</p>
+<ul>
+<li>getFields()：获取类的公共字段。</li>
+<li>getDeclaredFields()：获取类的所有字段，包括私有字段。</li>
+<li>getMethods()：获取类的公共方法。</li>
+<li>getDeclaredMethods()：获取类的所有方法，包括私有方法。</li>
+<li>getConstructors()：获取类的公共构造函数。</li>
+<li>getDeclaredConstructors()：获取类的所有构造函数，包括私有构造函数。</li>
+</ul>
+</li>
+<li><p><strong>操作属性、方法、构造函数</strong>：获取了类的属性、方法、构造函数等信息后，可以通过反射机制来动态地操作它们。例如：</p>
+<ul>
+<li>设置或获取对象的属性值。</li>
+<li>调用对象的方法。</li>
+<li>创建对象的实例。</li>
+<li>调用对象的构造函数。</li>
+</ul>
+</li>
+<li><p><strong>异常处理</strong>：在使用反射机制时，需要注意处理可能抛出的异常，如ClassNotFoundException、NoSuchMethodException、IllegalAccessException等。</p>
+</li>
+<li><p><strong>性能考虑</strong>：由于反射机制会在运行时进行类型检查和方法调用，因此可能会导致性能损失。在需要高性能的场景下，应谨慎使用反射机制。</p>
+</li>
+</ol>
+<p>总的来说，反射机制允许在运行时动态地获取类的信息并操作类的属性和方法，为程序提供了更大的灵活性和扩展性。但同时也需要注意异常处理和性能问题。</p>
+<h2 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h2><p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404290924003.png" alt="image-20240429092435960"></p>
+<h3 id="异常申明"><a href="#异常申明" class="headerlink" title="异常申明"></a>异常申明</h3><p>当前执行的语句必属于某个方法，Java 解释器调用 main 方法执行开始执行程序。若方法中存在检查异常，如果不对其捕获，那必须在方法头中显式声明该异常，以便于告知方法调用者此方法有异常，需要进行处理。 在方法中声明一个异常，方法头中使用关键字 throws，后面接上要声明的异常。若声明多个异常，则使用逗号分割。</p>
+<p>注意：若是父类的方法没有声明异常，则子类继承方法后，也不能声明异常。</p>
+<p><strong>Throws</strong>抛出异常的规则：</p>
+<ul>
+<li>如果是不可查异常（unchecked exception），即 Error、RuntimeException 或它们的子类，那么可以不使用 throws 关键字来声明要抛出的异常，编译仍能顺利通过，但在运行时会被系统抛出。</li>
+<li>必须声明任何可查异常（checked exception）。要么用 try-catch 语句捕获，要么用 throws 子句声明将它抛出，否则会导致编译错误</li>
+<li>当抛出了异常当方法的调用者无力处理该异常的时候，应该继续抛出，而不是囫囵吞枣。</li>
+</ul>
+<h3 id="异常抛出"><a href="#异常抛出" class="headerlink" title="异常抛出"></a>异常抛出</h3><p>如果代码可能会引发某种错误，可以创建一个合适的异常类实例并抛出它，这就是抛出异常。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">double</span> <span class="title function_">method</span><span class="params">(<span class="type">int</span> value)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span>(value == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">ArithmeticException</span>(<span class="string">&quot;参数不能为0&quot;</span>); <span class="comment">//抛出一个运行时异常</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">5.0</span> / value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>有时我们会从 catch 中抛出一个异常，目的是为了改变异常的类型。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">readFile</span><span class="params">(String filePath)</span> <span class="keyword">throws</span> MyException &#123;    </span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// code</span></span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        <span class="type">MyException</span> <span class="variable">ex</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MyException</span>(<span class="string">&quot;read file failed.&quot;</span>);</span><br><span class="line">        ex.initCause(e);</span><br><span class="line">        <span class="keyword">throw</span> ex;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="自定义异常"><a href="#自定义异常" class="headerlink" title="自定义异常"></a>自定义异常</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyException</span> <span class="keyword">extends</span> <span class="title class_">Exception</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MyException</span><span class="params">()</span>&#123; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MyException</span><span class="params">(String msg)</span>&#123;</span><br><span class="line">        <span class="built_in">super</span>(msg);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="执行顺序"><a href="#执行顺序" class="headerlink" title="执行顺序"></a>执行顺序</h3><p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404291024140.png" alt="image-20240429102434065"></p>
+<h2 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h2><blockquote>
+<p> Java 在语法上支持泛型，但是在编译阶段会进行所谓的 “<strong>类型擦除</strong>”（Type Erasure），将所有的泛型表示（尖括号中的内容）都替换为具体的类型（其对应的原生态类型），就像完全没有泛型一样。</p>
+</blockquote>
+<h3 id="为什么要有泛型"><a href="#为什么要有泛型" class="headerlink" title="为什么要有泛型"></a>为什么要有泛型</h3><blockquote>
+<p>泛型的本质是为了参数化类型（在不创建新的类型的情况下，通过泛型指定的不同类型来控制形参具体限制的类型）。</p>
+<p>也就是说在泛型使用过程中，操作的数据类型被指定为一个参数，这种参数类型可以用在类、接口和方法中，分别被称为泛型类、泛型接口、泛型方法。</p>
+</blockquote>
+<p>引入泛型的意义在于：</p>
+<ul>
+<li><p><strong>适用于多种数据类型执行相同的代码</strong>（代码复用）</p>
+</li>
+<li><p>泛型中的类型在使用时指定，不需要强制类型转换（<strong>类型安全</strong>，编译器会<strong>检查类型</strong>）</p>
+</li>
+</ul>
+<h3 id="泛型类"><a href="#泛型类" class="headerlink" title="泛型类"></a>泛型类</h3><ul>
+<li>属性类型</li>
+<li>参数类型</li>
+<li>返回值类型</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Point</span>&lt;T&gt;&#123;         <span class="comment">// 此处可以随便写标识符号，T是type的简称  </span></span><br><span class="line">    <span class="keyword">private</span> T <span class="keyword">var</span> ;     <span class="comment">// var的类型由T指定，即：由外部指定  </span></span><br><span class="line">    <span class="keyword">public</span> T <span class="title function_">getVar</span><span class="params">()</span>&#123;  <span class="comment">// 返回值的类型由外部决定  </span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">var</span> ;  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setVar</span><span class="params">(T <span class="keyword">var</span>)</span>&#123;  <span class="comment">// 设置的类型也由外部决定  </span></span><br><span class="line">        <span class="built_in">this</span>.<span class="keyword">var</span> = <span class="keyword">var</span> ;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<h3 id="泛型接口"><a href="#泛型接口" class="headerlink" title="泛型接口"></a>泛型接口</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">Info</span>&lt;T&gt;&#123;        <span class="comment">// 在接口上定义泛型  </span></span><br><span class="line">    <span class="keyword">public</span> T <span class="title function_">getVar</span><span class="params">()</span> ; <span class="comment">// 定义抽象方法，抽象方法的返回值就是泛型类型  </span></span><br><span class="line">&#125;  </span><br><span class="line"><span class="keyword">class</span> <span class="title class_">InfoImpl</span>&lt;T&gt; <span class="keyword">implements</span> <span class="title class_">Info</span>&lt;T&gt;&#123;   <span class="comment">// 定义泛型接口的子类  </span></span><br><span class="line">    <span class="keyword">private</span> T <span class="keyword">var</span> ;             <span class="comment">// 定义属性  </span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">InfoImpl</span><span class="params">(T <span class="keyword">var</span>)</span>&#123;     <span class="comment">// 通过构造方法设置属性内容  </span></span><br><span class="line">        <span class="built_in">this</span>.setVar(<span class="keyword">var</span>) ;    </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setVar</span><span class="params">(T <span class="keyword">var</span>)</span>&#123;  </span><br><span class="line">        <span class="built_in">this</span>.<span class="keyword">var</span> = <span class="keyword">var</span> ;  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">public</span> T <span class="title function_">getVar</span><span class="params">()</span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.<span class="keyword">var</span> ;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<h3 id="泛型方法"><a href="#泛型方法" class="headerlink" title="泛型方法"></a>泛型方法</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt; E &gt; <span class="keyword">void</span> <span class="title function_">printArray</span><span class="params">( E[] inputArray )</span></span><br><span class="line">&#123;</span><br><span class="line">      <span class="keyword">for</span> ( E element : inputArray )&#123;</span><br><span class="line">         System.out.printf( <span class="string">&quot;%s &quot;</span>, element );</span><br><span class="line">      &#125;</span><br><span class="line">      System.out.println();</span><br><span class="line"> &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>注意: <code>public static &lt; E &gt; void printArray( E[] inputArray )</code> 一般被称为静态泛型方法；</p>
+<p>在 java 中泛型只是一个占位符，必须在传递类型后才能使用。类在实例化时才能真正的传递类型参数，由于静态方法的加载先于类的实例化，所以静态泛型方法是没有办法使用class类上声明的泛型的。只能使用自己声明的 <code>&lt;E&gt;</code></p>
+<h2 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h2><p>注解是 JDK1.5 版本开始引入的一个特性，用于对代码进行说明，可以对包、类、接口、字段、方法参数、局部变量等进行注解。它主要的作用有以下四方面：</p>
+<ul>
+<li>生成文档，通过代码里标识的元数据生成 javadoc 文档。</li>
+<li>编译检查，通过代码里标识的元数据让编译器在编译期间进行检查验证。</li>
+<li>编译时动态处理，编译时通过代码里标识的元数据动态处理，例如动态生成代码。</li>
+<li>运行时动态处理，运行时通过代码里标识的元数据动态处理，例如使用反射注入实例。</li>
+</ul>
+<p>这么来说是比较抽象的，我们具体看下注解的常见分类：</p>
+<ul>
+<li><strong>Java 自带的标准注解</strong>，包括 <code>@Override</code>、<code>@Deprecated</code> 和 <code>@SuppressWarnings</code>，分别用于标明重写某个方法、标明某个类或方法过时、标明要忽略的警告，用这些注解标明后编译器就会进行检查。</li>
+<li><strong>元注解</strong>，元注解是用于定义注解的注解，<code>@Retention</code> 用于标明注解被保留的阶段，<code>@Target</code> 用于标明注解使用的范围，<code>@Inherited</code> 用于标明注解可继承，<code>@Documented</code> 用于标明是否生成 javadoc 文档。</li>
+<li><strong>自定义注解</strong>，可以根据自己的需求定义注解，并可用元注解对自定义注解进行注解。</li>
+</ul>
+<h2 id="SPI机制"><a href="#SPI机制" class="headerlink" title="SPI机制"></a>SPI机制</h2><p>SPI（Service Provider Interface），是 JDK 内置的一种 服务提供发现机制，可以用来启用框架扩展和替换组件，主要是被框架的开发人员使用，比如 java.sql.Driver 接口，其他不同厂商可以针对同一接口做出不同的实现，MySQL 和 PostgreSQL 都有不同的实现提供给用户，而 Java 的 SPI 机制可以为某个接口寻找服务实现。</p>
+<p>Java 中 SPI 机制主要思想是将装配的控制权移到程序之外，在模块化设计中这个机制尤其重要，其核心思想就是 <strong>解耦</strong>。 </p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404291115718.png" alt="image-20240429111553669"></p>
+<p>当服务的提供者提供了一种接口的实现之后，需要在 classpath 下的 <code>META-INF/services/</code> 目录里创建一个以服务接口命名的文件，这个文件里的内容就是这个接口的具体的实现类。</p>
+<p>当其他的程序需要这个服务的时候，就可以通过查找这个 jar 包（一般都是以 jar 包做依赖）的 <code>META-INF/services/</code> 中的配置文件，配置文件中有接口的具体实现类名，可以根据这个类名进行加载实例化，就可以使用该服务了。JDK 中查找服务的实现的工具类是：<code>java.util.ServiceLoader</code></p>
+<ol>
+<li>定义一个接口</li>
+<li>几个类实现</li>
+<li>在文件目录下加载</li>
+<li>ServiceLoader.load加载遍历</li>
+</ol>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404291123388.png" alt="image-20240429112323315"></p>
+<h2 id="SPI-和-API-的区别是什么"><a href="#SPI-和-API-的区别是什么" class="headerlink" title="SPI 和 API 的区别是什么"></a>SPI 和 API 的区别是什么</h2><blockquote>
+<p>这里实际包含两个问题，第一个 SPI 和 API 的区别？第二个什么时候用 API，什么时候用 SPI？</p>
+</blockquote>
+<blockquote>
+<p>SPI - “接口” 位于 “调用方” 所在的 “包” 中</p>
+</blockquote>
+<ul>
+<li>概念上更依赖调用方。</li>
+<li>组织上位于调用方所在的包中。</li>
+<li>实现位于独立的包中。</li>
+<li>常见的例子是：插件模式的插件。</li>
+</ul>
+<blockquote>
+<p>API - “接口” 位于 “实现方” 所在的 “包” 中</p>
+</blockquote>
+<ul>
+<li>概念上更接近实现方。</li>
+<li>组织上位于实现方所在的包中。</li>
+<li>实现和接口在一个包中。</li>
+</ul>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404291124219.png" alt="image-20240429112425136"></p>
+<h2 id="SPI-机制的缺陷"><a href="#SPI-机制的缺陷" class="headerlink" title="SPI 机制的缺陷"></a>SPI 机制的缺陷</h2><p>通过上面的解析，可以发现，我们使用 SPI 机制的缺陷：</p>
+<ul>
+<li>不能按需加载，需要遍历所有的实现，并实例化，然后在循环中才能找到我们需要的实现。如果不想用某些实现类，或者某些类实例化很耗时，它也被载入并实例化了，这就造成了浪费。</li>
+<li>获取某个实现类的方式不够灵活，只能通过 Iterator 形式获取，不能根据某个参数来获取对应的实现类。</li>
+<li>多个并发多线程使用 ServiceLoader 类的实例是不安全</li>
+</ul>
+<h1 id="Java集合框架"><a href="#Java集合框架" class="headerlink" title="Java集合框架"></a>Java集合框架</h1><p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404291126141.png" alt="image-20240429112602060"></p>
+<p><code>List</code>(对付顺序的好帮手): 存储的元素是有序的、可重复的。</p>
+<p><code>Set</code>(注重独一无二的性质): 存储的元素不可重复的。</p>
+<p><code>Queue</code>(实现排队功能的叫号机): 按特定的排队规则来确定先后顺序，存储的元素是有序的、可重复的。</p>
+<p><code>Map</code>(用 key 来搜索的专家): 使用键值对（key-value）存储，类似于数学上的函数 y&#x3D;f (x)，”x” 代表 key，”y” 代表 value，key 是无序的、不可重复的，value 是无序的、可重复的，每个键最多映射到一个值。</p>
+<h2 id="ArrayList源码分析"><a href="#ArrayList源码分析" class="headerlink" title="ArrayList源码分析"></a>ArrayList源码分析</h2><p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404291133884.png" alt="image-20240429113336814"></p>
+<p><em>ArrayList</em> 实现了 <em>List</em> 接口，是顺序容器，即元素存放的数据与放进去的顺序相同，允许放入 <code>null</code> 元素，底层通过<strong>数组实现</strong>。</p>
+<h3 id="自动扩容"><a href="#自动扩容" class="headerlink" title="自动扩容"></a>自动扩容</h3><p>默认为, 第一次添加后为10.</p>
+<p>数组进行扩容时，会将老数组中的元素重新拷贝(Arrays.copyOf)一份到新的数组中，每次数组容量的增长大约是其原容量的 1.5 倍。这种操作的代价是很高的，因此在实际使用时，我们应该尽量避免数组容量的扩张。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// oldCapacity为旧容量，newCapacity为新容量</span></span><br><span class="line">  <span class="type">int</span> <span class="variable">oldCapacity</span> <span class="operator">=</span> elementData.length;</span><br><span class="line">  <span class="comment">// 将oldCapacity 右移一位，其效果相当于oldCapacity /2，</span></span><br><span class="line">  <span class="comment">// 我们知道位运算的速度远远快于整除运算，整句运算式的结果就是将新容量更新为旧容量的1.5倍，</span></span><br><span class="line">  <span class="type">int</span> <span class="variable">newCapacity</span> <span class="operator">=</span> oldCapacity + (oldCapacity &gt;&gt; <span class="number">1</span>);</span><br><span class="line"> <span class="comment">// 然后检查新容量是否大于最小需要容量，若还是小于最小需要容量，那么就把最小需要容量当作数组的新容量，</span></span><br><span class="line">  <span class="keyword">if</span> (newCapacity - minCapacity &lt; <span class="number">0</span>)</span><br><span class="line">      newCapacity = minCapacity;</span><br><span class="line"> <span class="comment">// 如果新容量大于 MAX_ARRAY_SIZE,进入(执行) `hugeCapacity()` 方法来比较 minCapacity 和 MAX_ARRAY_SIZE，</span></span><br><span class="line">  <span class="comment">// 如果minCapacity大于最大容量，则新容量则为`Integer.MAX_VALUE`，否则，新容量大小则为 MAX_ARRAY_SIZE 即为 `Integer.MAX_VALUE - 8`。</span></span><br><span class="line">  <span class="keyword">if</span> (newCapacity - MAX_ARRAY_SIZE &gt; <span class="number">0</span>)</span><br><span class="line">      newCapacity = hugeCapacity(minCapacity);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// minCapacity is usually close to size, so this is a win:</span></span><br><span class="line">  elementData = Arrays.copyOf(elementData, newCapacity);</span><br></pre></td></tr></table></figure>
+
+<h2 id="HashMap源码分析"><a href="#HashMap源码分析" class="headerlink" title="HashMap源码分析"></a>HashMap源码分析</h2><p>JDK1.8 以后的 <code>HashMap</code> 在解决哈希冲突时有了较大的变化，当链表长度大于等于阈值（默认为 8）（将链表转换成红黑树前会判断，如果当前数组的长度小于 64，那么会选择先进行数组扩容，而不是转换为红黑树）时，将链表转化为红黑树，以减少搜索时间。<code>HashMap</code> 默认的初始化大小为 16。之后每次扩充，容量变为原来的 2 倍。并且， <code>HashMap</code> 总是使用 2 的幂作为哈希表的大小</p>
+<h3 id="底层结构1-7"><a href="#底层结构1-7" class="headerlink" title="底层结构1.7"></a>底层结构1.7</h3><p>HashMap 通过 key S的 hashCode 经过扰动函数处理过后得到 hash 值，然后通过 <code>(n - 1) &amp; hash</code> 判断当前元素存放的位置（这里的 n 指的是数组的长度），如果当前位置存在元素的话，就判断该元素与要存入的元素的 hash 值以及 key 是否相同，如果相同的话，直接覆盖，不相同就通过拉链法解决冲突.</p>
+<p>所谓 <strong>“拉链法”</strong> 就是：将链表和数组相结合。也就是说创建一个链表数组，数组中每一格就是一个链表。若遇到哈希冲突，则将冲突的值加到链表中即可。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404291851790.png" alt="image-20240429185138749"></p>
+<h3 id="1-8"><a href="#1-8" class="headerlink" title="1.8"></a>1.8</h3><p>相比于之前的版本，JDK1.8 以后在解决哈希冲突时有了较大的变化。</p>
+<p>当链表长度大于阈值（默认为 8）时，会首先调用 <code>treeifyBin()</code> 方法。这个方法会根据 HashMap 数组来决定是否转换为红黑树。只有当数组长度大于或者等于 64 的情况下，才会执行转换红黑树操作，以减少搜索时间。否则，就是只是执行 <code>resize()</code> 方法对数组扩容。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404291856094.png" alt="image-20240429185639036"></p>
+<ul>
+<li><strong>oadFactor 负载因子</strong></li>
+</ul>
+<p>loadFactor 负载因子是控制数组存放数据的疏密程度</p>
+<p><strong>loadFactor 太大导致查找元素效率低，太小导致数组的利用率低，存放的数据会很分散。loadFactor 的默认值为 0.75f 是官方给出的一个比较好的临界值</strong>。</p>
+<p>给定的默认容量为 16，负载因子为 0.75。Map 在使用过程中不断的往里面存放数据，当数量超过了 16 * 0.75 &#x3D; 12 就需要将当前 16 的容量进行扩容，而扩容这个过程涉及到 rehash、复制数据等操作，所以非常消耗性能。</p>
+<ul>
+<li><strong>threshold(阈值)</strong></li>
+</ul>
+<p><strong>threshold &#x3D; capacity * loadFactor</strong>， <strong>当 Size&gt;threshold</strong> 的时候，那么就要考虑对数组的扩增了，也就是说，这个的意思就是  <strong>衡量数组是否需要扩增的一个标准</strong></p>
+<h4 id="put"><a href="#put" class="headerlink" title="put"></a>put</h4><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404292000435.png" alt="image-20240429200054297" style="zoom:67%;" />
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">        * 如果既要遍历key又要value，如果先获取keySet然后再执行map.get(key)，map内部会执行两次遍历。</span></span><br><span class="line"><span class="comment">        * 一次是在获取keySet的时候，一次是在遍历所有key的时候。</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">       <span class="comment">// 而当我调用put(key,value)方法的时候，首先会把key和value封装到</span></span><br><span class="line">       <span class="comment">// Entry这个静态内部类对象中，把Entry对象再添加到数组中，所以我们想获取</span></span><br><span class="line">       <span class="comment">// map中的所有键值对，我们只要获取数组中的所有Entry对象，接下来</span></span><br><span class="line">       <span class="comment">// 调用Entry对象中的getKey()和getValue()方法就能获取键值对了</span></span><br><span class="line">       Set&lt;java.util.Map.Entry&lt;String, String&gt;&gt; entrys = map.entrySet();</span><br><span class="line">       <span class="keyword">for</span> (java.util.Map.Entry&lt;String, String&gt; entry : entrys) &#123;</span><br><span class="line">           System.out.println(entry.getKey() + <span class="string">&quot;--&quot;</span> + entry.getValue());</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="并发编程"><a href="#并发编程" class="headerlink" title="并发编程"></a>并发编程</h2><h3 id="并发三要素"><a href="#并发三要素" class="headerlink" title="并发三要素"></a>并发三要素</h3><ol>
+<li><p>可见性</p>
+<p>一个线程对共享变量的修改，另外一个线程能够立刻看到。</p>
+</li>
+<li><p>原子性: 分时复用引起</p>
+<p>一个操作或者多个操作 要么全部执行并且执行的过程不会被任何因素打断，要么就都不执行。</p>
+</li>
+<li><p>有序性</p>
+<p>程序执行的顺序按照代码的先后顺序执行。</p>
+</li>
+</ol>
+<h2 id="何为线程？"><a href="#何为线程？" class="headerlink" title="何为线程？"></a><a href="##%E4%BD%95%E4%B8%BA%E7%BA%BF%E7%A8%8B">何为线程？</a></h2><p>线程与进程相似，但线程是一个比进程更小的执行单位。</p>
+<p>一个进程在其执行的过程中可以产生多个线程。与进程不同的是同类的多个线程共享进程的<strong>堆</strong>和<strong>方法区</strong>资源，但每个线程有自己的<strong>程序计数器</strong>、<strong>虚拟机栈</strong>和<strong>本地方法栈</strong>，所以系统在产生一个线程，或是在各个线程之间做切换工作时，负担要比进程小得多，也正因为如此，线程也被称为轻量级进程。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404300909256.png" alt="image-20240430090900133"></p>
+<p><strong>总结：</strong> <strong>线程是进程划分成的更小的运行单位。</strong></p>
+<p><strong>线程和进程最大的不同在于基本上各进程是独立的，而各线程则不一定，因为同一进程中的线程极有可能会相互影响。线程执行开销小，但不利于资源的管理和保护；而进程正相反。</strong></p>
+<h2 id="并发和并行"><a href="#并发和并行" class="headerlink" title="并发和并行"></a>并发和并行</h2><ul>
+<li><strong>并发</strong>：两个及两个以上的作业在同一 <strong>时间段</strong> 内执行。</li>
+<li><strong>并行</strong>：两个及两个以上的作业在同一 <strong>时刻</strong> 执行。</li>
+</ul>
+<p>最关键的点是：是否是 <strong>同时</strong> 执行。</p>
+<h2 id="同步和异步的区别"><a href="#同步和异步的区别" class="headerlink" title="同步和异步的区别"></a><a target="_blank" rel="noopener" href="https://javaguide.cn/java/concurrent/java-concurrent-questions-01.html##%E5%90%8C%E6%AD%A5%E5%92%8C%E5%BC%82%E6%AD%A5%E7%9A%84%E5%8C%BA%E5%88%AB">同步和异步的区别</a></h2><ul>
+<li><strong>同步</strong>：发出一个调用之后，在没有得到结果之前， 该调用就不可以返回，一直等待。</li>
+<li><strong>异步</strong>：调用在发出之后，不用等待返回结果，该调用直接返回。</li>
+</ul>
+<h2 id="为什么要使用多线程？"><a href="#为什么要使用多线程？" class="headerlink" title="为什么要使用多线程？"></a><a href="##%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E5%A4%9A%E7%BA%BF%E7%A8%8B">为什么要使用多线程？</a></h2><p>先从总体上来说：</p>
+<ul>
+<li><strong>从计算机底层来说：</strong> 线程可以比作是轻量级的进程，是程序执行的最小单位，线程间的切换和调度的成本远远小于进程。另外，多核 CPU 时代意味着多个线程可以同时运行，这减少了线程上下文切换的开销。</li>
+<li><strong>从当代互联网发展趋势来说：</strong> 现在的系统动不动就要求百万级甚至千万级的并发量，而多线程并发编程正是开发高并发系统的基础，利用好多线程机制可以大大提高系统整体的并发能力以及性能。</li>
+</ul>
+<h2 id="如何理解线程安全和不安全？"><a href="#如何理解线程安全和不安全？" class="headerlink" title="如何理解线程安全和不安全？"></a>如何理解线程安全和不安全？</h2><p>线程安全和不安全是在多线程环境下对于同一份数据的访问是否能够保证其正确性和一致性的描述。</p>
+<ul>
+<li>线程安全指的是在多线程环境下，对于同一份数据，不管有多少个线程同时访问，都能保证这份数据的正确性和一致性。</li>
+<li>线程不安全则表示在多线程环境下，对于同一份数据，多个线程同时访问时可能会导致数据混乱、错误或者丢失</li>
+</ul>
+<h2 id="如何创建线程？"><a href="#如何创建线程？" class="headerlink" title="如何创建线程？"></a><a href="##%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B">如何创建线程？</a></h2><p>一般来说，创建线程有很多种方式，例如继承 <code>Thread</code> 类、实现 <code>Runnable</code> 接口、实现 <code>Callable</code> 接口、使用线程池、使用 <code>CompletableFuture</code> 类等等。</p>
+<p>不过，这些方式其实并没有真正创建出线程。准确点来说，这些都属于是在 Java 代码中使用多线程的方法。</p>
+<p>严格来说，Java 就只有一种方式可以创建线程，那就是通过 <code>new Thread().start()</code> 创建。不管是哪种方式，最终还是依赖于 <code>new Thread().start()</code>。</p>
+<h2 id="线程的生命周期和状态"><a href="#线程的生命周期和状态" class="headerlink" title="线程的生命周期和状态"></a>线程的生命周期和状态</h2><p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404300916690.png" alt="image-20240430091629588"></p>
+<ul>
+<li><p>当线程执行 <code>wait()</code> 方法之后，线程进入 <strong>WAITING（等待）</strong> 状态。进入等待状态的线程需要依靠其他线程的通知才能够返回到运行状态。</p>
+</li>
+<li><p>TIMED_WAITING (超时等待)状态相当于在等待状态的基础上增加了超时限制，比如通过 <code>sleep（long millis）</code>方法或 <code>wait（long millis）</code>方法可以将线程置于 TIMED_WAITING 状态。当超时时间结束后，线程将会返回到 RUNNABLE 状态。</p>
+</li>
+<li><p>线程进入 <code>synchronized</code> 方法 &#x2F; 块或者被 <code>notify</code>调用 <code>wait</code>重新进入 <code>synchronized</code> 方法 &#x2F; 块，但是锁被其它线程占有，这个时候线程就会进入 <strong>BLOCKED（阻塞）</strong> 状态。</p>
+</li>
+</ul>
+<h2 id="什么是线程上下文切换？"><a href="#什么是线程上下文切换？" class="headerlink" title="什么是线程上下文切换？"></a><a href="##%E4%BB%80%E4%B9%88%E6%98%AF%E7%BA%BF%E7%A8%8B%E4%B8%8A%E4%B8%8B%E6%96%87%E5%88%87%E6%8D%A2">什么是线程上下文切换？</a></h2><p>线程在执行过程中会有自己的运行条件和状态（也称上下文），比如上文所说到过的程序计数器，栈信息等。当出现如下情况的时候，线程会从占用 CPU 状态中退出。</p>
+<ul>
+<li>主动让出 CPU，比如调用了 <code>sleep()</code>, <code>wait()</code> 等。</li>
+<li>时间片用完，因为操作系统要防止一个线程或者进程长时间占用 CPU 导致其他线程或者进程饿死。</li>
+<li>调用了阻塞类型的系统中断，比如请求 IO，线程被阻塞。</li>
+<li>被终止或结束运行</li>
+</ul>
+<p>这其中前三种都会发生线程切换，线程切换意味着需要保存当前线程的上下文，留待线程下次占用 CPU 的时候恢复现场。并加载下一个将要占用 CPU 的线程上下文。这就是所谓的 <strong>上下文切换</strong></p>
+<h2 id="什么是线程死锁？如何避免死锁？"><a href="#什么是线程死锁？如何避免死锁？" class="headerlink" title="什么是线程死锁？如何避免死锁？"></a><a href="##%E4%BB%80%E4%B9%88%E6%98%AF%E7%BA%BF%E7%A8%8B%E6%AD%BB%E9%94%81-%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81">什么是线程死锁？如何避免死锁？</a></h2><h3 id="认识线程死锁"><a href="#认识线程死锁" class="headerlink" title="认识线程死锁"></a><a href="##%E8%AE%A4%E8%AF%86%E7%BA%BF%E7%A8%8B%E6%AD%BB%E9%94%81">认识线程死锁</a></h3><p>多个线程同时被阻塞，它们中的一个或者全部都在等待某个资源被释放。由于线程被无限期地阻塞，因此程序不可能正常终止。</p>
+<p>如下图所示，线程 A 持有资源 2，线程 B 持有资源 1，他们同时都想申请对方的资源，所以这两个线程就会互相等待而进入死锁状态</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404300922366.png" alt="image-20240430092208322"></p>
+<p>产生死锁的四个必要条件：</p>
+<ol>
+<li>互斥条件：该资源任意一个时刻只由一个线程占用。</li>
+<li>请求与保持条件：一个线程因请求资源而阻塞时，对已获得的资源保持不放。</li>
+<li>不剥夺条件：线程已获得的资源在未使用完之前不能被其他线程强行剥夺，只有自己使用完毕后才释放资源。</li>
+<li>循环等待条件：若干线程之间形成一种头尾相接的循环等待资源关系。</li>
+</ol>
+<h3 id="如何预防和避免线程死锁？"><a href="#如何预防和避免线程死锁？" class="headerlink" title="如何预防和避免线程死锁？"></a><a href="##%E5%A6%82%E4%BD%95%E9%A2%84%E9%98%B2%E5%92%8C%E9%81%BF%E5%85%8D%E7%BA%BF%E7%A8%8B%E6%AD%BB%E9%94%81">如何预防和避免线程死锁？</a></h3><ul>
+<li>预防</li>
+</ul>
+<p>上面234</p>
+<ul>
+<li>避免</li>
+</ul>
+<p>避免死锁就是在资源分配时，借助于算法（比如银行家算法）对资源分配进行计算评估，使其进入安全状态。</p>
+<h2 id="sleep-方法和-wait-方法对比"><a href="#sleep-方法和-wait-方法对比" class="headerlink" title="sleep () 方法和 wait () 方法对比"></a><a href="##sleep-%E6%96%B9%E6%B3%95%E5%92%8C-wait-%E6%96%B9%E6%B3%95%E5%AF%B9%E6%AF%94">sleep () 方法和 wait () 方法对比</a></h2><p><strong>共同点</strong>：两者都可以暂停线程的执行。</p>
+<p><strong>区别</strong>：</p>
+<ul>
+<li><strong><code>sleep()</code> 方法没有释放锁，而 <code>wait()</code> 方法释放了锁</strong> 。</li>
+<li><code>wait()</code> 通常被用于线程间交互 &#x2F; 通信，<code>sleep()</code> 通常被用于暂停执行。</li>
+<li><code>wait()</code> 方法被调用后，线程不会自动苏醒，需要别的线程调用同一个对象上的 <code>notify()</code> 或者 <code>notifyAll()</code> 方法。<code>sleep()</code> 方法执行完成后，线程会自动苏醒，或者也可以使用 <code>wait(long timeout)</code> 超时后线程会自动苏醒。</li>
+<li><code>sleep()</code> 是 <code>Thread</code> 类的静态本地方法，<code>wait()</code> 则是 <code>Object</code> 类的本地方法</li>
+</ul>
+<h2 id="wait-方法不定义在-Thread-中？"><a href="#wait-方法不定义在-Thread-中？" class="headerlink" title="wait () 方法不定义在 Thread 中？"></a><a href="##%E4%B8%BA%E4%BB%80%E4%B9%88-wait-%E6%96%B9%E6%B3%95%E4%B8%8D%E5%AE%9A%E4%B9%89%E5%9C%A8-thread-%E4%B8%AD">wait () 方法不定义在 Thread 中？</a></h2><p><code>wait()</code> 是让获得对象锁的线程实现等待，会自动释放当前线程占有的对象锁。而每个对象（<code>Object</code>）都拥有对象锁，自然是要操作对应的对象（<code>Object</code>）而非当前的线程（<code>Thread</code>）。</p>
+<h2 id="可以直接调用-Thread-类的-run-方法吗？"><a href="#可以直接调用-Thread-类的-run-方法吗？" class="headerlink" title="可以直接调用 Thread 类的 run 方法吗？"></a><a href="##%E5%8F%AF%E4%BB%A5%E7%9B%B4%E6%8E%A5%E8%B0%83%E7%94%A8-thread-%E7%B1%BB%E7%9A%84-run-%E6%96%B9%E6%B3%95%E5%90%97">可以直接调用 Thread 类的 run 方法吗？</a></h2><p>new 一个 <code>Thread</code>，线程进入了新建状态。调用 <code>start()</code> 方法，会启动一个线程并使线程进入了就绪状态，当分配到时间片后就可以开始运行了。 <code>start()</code> 会执行线程的相应准备工作，然后自动执行 <code>run()</code> 方法的内容，这是真正的多线程工作。 但是，直接执行 <code>run()</code> 方法，会把 <code>run()</code> 方法当成一个 main 线程下的普通方法去执行，并不会在某个线程中执行它，所以这并不是多线程工作。</p>
+<h1 id="JavaIO"><a href="#JavaIO" class="headerlink" title="JavaIO"></a>JavaIO</h1><p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404292007777.png" alt="image-20240429200707665"></p>
+<p>Java IO 流的 40 多个类都是从如下 4 个抽象类基类中派生出来的。</p>
+<ul>
+<li><code>InputStream</code>&#x2F;<code>Reader</code>: 所有的输入流的基类，前者是字节输入流，后者是字符输入流。</li>
+<li><code>OutputStream</code>&#x2F;<code>Writer</code>: 所有输出流的基类，前者是字节输出流，后者是字符输出流。</li>
+</ul>
+<h2 id="字节流"><a href="#字节流" class="headerlink" title="字节流"></a><a href="##%E5%AD%97%E8%8A%82%E6%B5%81">字节流</a></h2><h3 id="InputStream"><a href="#InputStream" class="headerlink" title="InputStream"></a>InputStream</h3><p>一般不会单独使用, 而是配合BufferedInputStream</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 新建一个 BufferedInputStream 对象</span></span><br><span class="line"><span class="type">BufferedInputStream</span> <span class="variable">bufferedInputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedInputStream</span>(<span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;input.txt&quot;</span>));</span><br><span class="line"><span class="comment">// 读取文件的内容并复制到 String 对象中</span></span><br><span class="line"><span class="type">String</span> <span class="variable">result</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(bufferedInputStream.readAllBytes());</span><br><span class="line">System.out.println(result);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//DataInputStream</span></span><br><span class="line"><span class="type">FileInputStream</span> <span class="variable">fileInputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;input.txt&quot;</span>);</span><br><span class="line"><span class="comment">//必须将fileInputStream作为构造参数才能使用</span></span><br><span class="line"><span class="type">DataInputStream</span> <span class="variable">dataInputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DataInputStream</span>(fileInputStream);</span><br><span class="line"><span class="comment">//可以读取任意具体的类型数据</span></span><br><span class="line">dataInputStream.readBoolean();</span><br><span class="line">dataInputStream.readInt();</span><br><span class="line">dataInputStream.readUTF();</span><br><span class="line"></span><br><span class="line"><span class="comment">//ObjectInputStream</span></span><br><span class="line"><span class="type">ObjectInputStream</span> <span class="variable">input</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectInputStream</span>(<span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;object.data&quot;</span>));</span><br><span class="line"><span class="type">MyClass</span> <span class="variable">object</span> <span class="operator">=</span> (MyClass) input.readObject();</span><br><span class="line">input.close();</span><br></pre></td></tr></table></figure>
+
+<h3 id="OutputStream"><a href="#OutputStream" class="headerlink" title="OutputStream"></a>OutputStream</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">FileOutputStream</span> <span class="variable">output</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;output.txt&quot;</span>);</span><br><span class="line"><span class="type">byte</span>[] array = <span class="string">&quot;JavaGuide&quot;</span>.getBytes();</span><br><span class="line">output.write(array);</span><br><span class="line"></span><br><span class="line"><span class="comment">//配合buffer</span></span><br><span class="line"><span class="type">FileOutputStream</span> <span class="variable">fileOutputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;output.txt&quot;</span>);</span><br><span class="line"><span class="type">BufferedOutputStream</span> <span class="variable">bos</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedOutputStream</span>(fileOutputStream)</span><br><span class="line">   </span><br><span class="line">    </span><br><span class="line"><span class="comment">//Data输出流, 指定写入类型</span></span><br><span class="line"><span class="type">FileOutputStream</span> <span class="variable">fileOutputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;out.txt&quot;</span>);</span><br><span class="line"><span class="type">DataOutputStream</span> <span class="variable">dataOutputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DataOutputStream</span>(fileOutputStream);</span><br><span class="line"><span class="comment">// 输出任意数据类型</span></span><br><span class="line">dataOutputStream.writeBoolean(<span class="literal">true</span>);</span><br><span class="line">dataOutputStream.writeByte(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//Object</span></span><br><span class="line"><span class="type">ObjectOutputStream</span> <span class="variable">output</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectOutputStream</span>(<span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;file.txt&quot;</span>);</span><br><span class="line"><span class="type">Person</span> <span class="variable">person</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;Guide哥&quot;</span>, <span class="string">&quot;JavaGuide作者&quot;</span>);</span><br><span class="line">output.writeObject(person);</span><br></pre></td></tr></table></figure>
+
+<h2 id="字符流"><a href="#字符流" class="headerlink" title="字符流"></a>字符流</h2><ul>
+<li>字符流是由 Java 虚拟机将字节转换得到的，这个过程还算是比较耗时。</li>
+<li>如果我们不知道编码类型就很容易出现乱码问题。</li>
+</ul>
+<h3 id="Reader"><a href="#Reader" class="headerlink" title="Reader"></a>Reader</h3><p><code>InputStreamReader</code> 是字节流转换为字符流的桥梁，其子类 <code>FileReader</code> 是基于该基础上的封装，可以直接操作字符文件。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 字节流转换为字符流的桥梁</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">InputStreamReader</span> <span class="keyword">extends</span> <span class="title class_">Reader</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 用于读取字符文件</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FileReader</span> <span class="keyword">extends</span> <span class="title class_">InputStreamReader</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">FileReader</span> <span class="variable">fileReader</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileReader</span>(<span class="string">&quot;input.txt&quot;</span>);</span><br><span class="line"><span class="type">int</span> content;</span><br><span class="line"><span class="type">long</span> <span class="variable">skip</span> <span class="operator">=</span> fileReader.skip(<span class="number">3</span>);</span><br><span class="line">System.out.println(<span class="string">&quot;The actual number of bytes skipped:&quot;</span> + skip);</span><br><span class="line">System.out.print(<span class="string">&quot;The content read from file:&quot;</span>);</span><br><span class="line"><span class="keyword">while</span> ((content = fileReader.read()) != -<span class="number">1</span>) &#123;</span><br><span class="line">    System.out.print((<span class="type">char</span>) content);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Writer"><a href="#Writer" class="headerlink" title="Writer"></a>Writer</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OutputStreamWriter</span> <span class="keyword">extends</span> <span class="title class_">Writer</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 用于写入字符到文件</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FileWriter</span> <span class="keyword">extends</span> <span class="title class_">OutputStreamWriter</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">Writer</span> <span class="variable">output</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileWriter</span>(<span class="string">&quot;output.txt&quot;</span>);</span><br><span class="line">output.write(<span class="string">&quot;你好，我是Guide。&quot;</span>);</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="字节缓冲流"><a href="#字节缓冲流" class="headerlink" title="字节缓冲流"></a>字节缓冲流</h2><p>如果是调用 <code>read(byte b[])</code> 和 <code>write(byte b[], int off, int len)</code> 这两个写入一个字节数组的方法的话，只要字节数组的大小合适，两者的性能差距其实不大，基本可以忽略。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">copy_pdf_to_another_pdf_with_byte_array_buffer_stream</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// 记录开始时间</span></span><br><span class="line">    <span class="type">long</span> <span class="variable">start</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">    <span class="keyword">try</span> (<span class="type">BufferedInputStream</span> <span class="variable">bis</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedInputStream</span>(<span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;深入理解计算机操作系统.pdf&quot;</span>));</span><br><span class="line">         <span class="type">BufferedOutputStream</span> <span class="variable">bos</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedOutputStream</span>(<span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;深入理解计算机操作系统-副本.pdf&quot;</span>))) &#123;</span><br><span class="line">        <span class="type">int</span> len;</span><br><span class="line">        <span class="type">byte</span>[] bytes = <span class="keyword">new</span> <span class="title class_">byte</span>[<span class="number">4</span> * <span class="number">1024</span>];</span><br><span class="line">        <span class="keyword">while</span> ((len = bis.read(bytes)) != -<span class="number">1</span>) &#123;</span><br><span class="line">            bos.write(bytes, <span class="number">0</span>, len);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 记录结束时间</span></span><br><span class="line">    <span class="type">long</span> <span class="variable">end</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">    System.out.println(<span class="string">&quot;使用缓冲流复制PDF文件总耗时:&quot;</span> + (end - start) + <span class="string">&quot; 毫秒&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">copy_pdf_to_another_pdf_with_byte_array_stream</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// 记录开始时间</span></span><br><span class="line">    <span class="type">long</span> <span class="variable">start</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">    <span class="keyword">try</span> (<span class="type">FileInputStream</span> <span class="variable">fis</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;深入理解计算机操作系统.pdf&quot;</span>);</span><br><span class="line">         <span class="type">FileOutputStream</span> <span class="variable">fos</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;深入理解计算机操作系统-副本.pdf&quot;</span>)) &#123;</span><br><span class="line">        <span class="type">int</span> len;</span><br><span class="line">        <span class="type">byte</span>[] bytes = <span class="keyword">new</span> <span class="title class_">byte</span>[<span class="number">4</span> * <span class="number">1024</span>];</span><br><span class="line">        <span class="keyword">while</span> ((len = fis.read(bytes)) != -<span class="number">1</span>) &#123;</span><br><span class="line">            fos.write(bytes, <span class="number">0</span>, len);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 记录结束时间</span></span><br><span class="line">    <span class="type">long</span> <span class="variable">end</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">    System.out.println(<span class="string">&quot;使用普通流复制PDF文件总耗时:&quot;</span> + (end - start) + <span class="string">&quot; 毫秒&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="打印流"><a href="#打印流" class="headerlink" title="打印流"></a>打印流</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">System.out.print(<span class="string">&quot;Hello！&quot;</span>);</span><br><span class="line">System.out.println(<span class="string">&quot;Hello！&quot;</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><code>system.out</code> 实际是用于获取一个 <code>PrintStream</code> 对象，<code>print</code> 方法实际调用的是 <code>PrintStream</code> 对象的 <code>write</code> 方法。</p>
+<p><code>PrintStream</code> 属于字节打印流，与之对应的是 <code>PrintWriter</code> （字符打印流）。<code>PrintStream</code> 是 <code>OutputStream</code> 的子类，<code>PrintWriter</code> 是 <code>Writer</code> 的子类。</p>
+<h2 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h2><h3 id="装饰器模式"><a href="#装饰器模式" class="headerlink" title="装饰器模式"></a>装饰器模式</h3><p><strong>装饰器（Decorator）模式</strong> 可以在不改变原有对象的情况下拓展其功能。</p>
+<p>装饰器模式通过<strong>组合替代继承</strong>来扩展原始类的功能，在一些继承关系比较复杂的场景（IO 这一场景各种类的继承关系就比较复杂）更加实用。</p>
+<p>对于字节流来说， <code>FilterInputStream</code> （对应输入流）和 <code>FilterOutputStream</code>（对应输出流）是装饰器模式的核心，分别用于增强 <code>InputStream</code> 和 <code>OutputStream</code> 子类对象的功能。</p>
+<p>我们常见的 <code>BufferedInputStream</code>(字节缓冲输入流)、<code>DataInputStream</code> 等等都是 <code>FilterInputStream</code> 的子类</p>
+<p><code>BufferedInputStream</code> 的构造函数其中的一个参数就是 <code>InputStream</code></p>
+<p>例子:</p>
+<ol>
+<li>创建一个接口 <code>Shape</code>，定义了原始对象和装饰器对象的公共接口或抽象类。</li>
+<li>创建实现接口的实体类，例如 <code>Rectangle</code> 和 <code>Circle</code>。</li>
+<li>创建一个抽象装饰类 <code>ShapeDecorator</code>，它继承自 <code>Shape</code> 接口，并包含了一个抽象组件对象（即原始形状对象）。</li>
+<li>创建扩展了 <code>ShapeDecorator</code> 类的具体装饰类，例如 <code>RedShapeDecorator</code>，它实现了抽象装饰器的接口，并在原始形状的基础上添加了新的功能（例如设置红色边框）。</li>
+<li>使用具体装饰器来装饰原始形状对象，从而动态地增加新的功能。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 步骤 1：创建一个接口 Shape</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Shape</span> &#123;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">draw</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 步骤 2：创建实现接口的实体类 Rectangle 和 Circle</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 步骤 3：创建抽象装饰类 ShapeDecorator</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">ShapeDecorator</span> <span class="keyword">implements</span> <span class="title class_">Shape</span> &#123;</span><br><span class="line">    <span class="keyword">protected</span> Shape decoratedShape;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">ShapeDecorator</span><span class="params">(Shape decoratedShape)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.decoratedShape = decoratedShape;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">draw</span><span class="params">()</span> &#123;</span><br><span class="line">        decoratedShape.draw();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 步骤 4：创建具体装饰类 RedShapeDecorator</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RedShapeDecorator</span> <span class="keyword">extends</span> <span class="title class_">ShapeDecorator</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">RedShapeDecorator</span><span class="params">(Shape decoratedShape)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>(decoratedShape);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">draw</span><span class="params">()</span> &#123;</span><br><span class="line">        decoratedShape.draw();</span><br><span class="line">        setRedBorder(decoratedShape);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">setRedBorder</span><span class="params">(Shape decoratedShape)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Border Color: Red&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 步骤 5：使用 RedShapeDecorator 来装饰 Shape 对象</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DecoratorPatternDemo</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Shape</span> <span class="variable">circle</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Circle</span>();</span><br><span class="line">        <span class="type">ShapeDecorator</span> <span class="variable">redCircle</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">RedShapeDecorator</span>(<span class="keyword">new</span> <span class="title class_">Circle</span>());</span><br><span class="line">        <span class="type">ShapeDecorator</span> <span class="variable">redRectangle</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">RedShapeDecorator</span>(<span class="keyword">new</span> <span class="title class_">Rectangle</span>());</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;Circle with normal border&quot;</span>);</span><br><span class="line">        circle.draw();</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;\nCircle of red border&quot;</span>);</span><br><span class="line">        redCircle.draw();</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;\nRectangle of red border&quot;</span>);</span><br><span class="line">        redRectangle.draw();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h3><ul>
+<li>抽象工厂模式</li>
+</ul>
+<blockquote>
+<p>提供一个接口，用于创建相关或依赖对象的家族，而不需要明确指定对应的具体类。</p>
+</blockquote>
+<p>例如，汽车可以分为轿车、SUV、MPV 等，也分为奔驰、宝马等。我们可以将奔驰的所有车看作是一个产品族，而将宝马的所有车看作是另一个产品族。分别对应两个工厂，一个是奔驰的工厂，另一个是宝马的工厂。与工厂方法不同，奔驰的工厂不只是生产具体的某一个产品，而是一族产品（奔驰轿车、奔驰 SUV、奔驰 MPV）。</p>
+<p>“抽象工厂” 的 “抽象” 指的是就是这个意思。 即相比于工厂方法，抽象工厂定义了一系列的产品，而不是一个产品。</p>
+<p>上边的工厂方法模式是一种极端情况的抽象工厂模式（即只生产一种产品的抽象工厂模式），而抽象工厂模式可以看成是工厂方法模式的一种推广。</p>
+<p><strong>图示</strong></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404292128656.png" alt="image-20240429212828539"></p>
+<h3 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h3><blockquote>
+<p>观察者模式是一种行为型设计模式，它定义了一种多种的依赖关系，当一个对象的状态发生改变时，其所有依赖者都会收到通知并自动更新。</p>
+<p>当对象间存在一对多关系时，则使用观察者模式（Observer Pattern）。比如，当一个对象被修改时，底座自动通知依赖它的对象。观察者模式属于行为类型模式。</p>
+</blockquote>
+<p>NIO 中的文件目录监听服务基于 <code>WatchService</code> 接口和 <code>Watchable</code> 接口。<code>WatchService</code> 属于观察者，<code>Watchable</code> 属于被观察者。</p>
+<p>监听文件创建, 删除, 修改  </p>
+<p><strong>观察者模式包含以下几个核心角色：</strong></p>
+<ul>
+<li>被观察者（Subject）:它是具有状态的对象，并着一个观察者列表。维护主题提供了添加、删除和通知观察者的方法。</li>
+<li>观察者（Observer）：观察者是接收主题通知的对象。观察者需要实现一个更新方法，当收到主题的通知时，调用该方法进行更新操作。</li>
+<li>具体被观察者（Concrete subject）：具体主题是主题的具体实现类。它着眼于观察者列表，并在状态发生改变时维护通知观察者。</li>
+<li>具体观察者（Concrete Observer）：具体观察者是观察者的具体实现类。它实现了更新方法，定义了在收到主题通知时需要执行的具体操作。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 步骤 1：创建 Subject 类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Subject</span> &#123;</span><br><span class="line">    <span class="comment">//装观察者</span></span><br><span class="line">    <span class="keyword">private</span> List&lt;Observer&gt; observers = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> state;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">setState</span><span class="params">(<span class="type">int</span> state)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.state = state;</span><br><span class="line">		notifyAllObservers();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">attach</span><span class="params">(Observer observer)</span> &#123;</span><br><span class="line">        observers.add(observer);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">notifyAllObservers</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (Observer observer : observers) &#123;</span><br><span class="line">            observer.update();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 步骤 2：创建 Observer 类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">Observer</span> &#123;</span><br><span class="line">    <span class="keyword">protected</span> Subject subject;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">update</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 步骤 3：创建实体观察者类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BinaryObserver</span> <span class="keyword">extends</span> <span class="title class_">Observer</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">BinaryObserver</span><span class="params">(Subject subject)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.subject = subject;</span><br><span class="line">        <span class="built_in">this</span>.subject.attach(<span class="built_in">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">update</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Binary String: &quot;</span> + Integer.toBinaryString(subject.getState()));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 类似地，创建 OctalObserver 和 HexaObserver 类</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 步骤 4：使用 Subject 和实体观察者对象</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ObserverPatternDemo</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Subject</span> <span class="variable">subject</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Subject</span>();</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">BinaryObserver</span>(subject);</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">OctalObserver</span>(subject);</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">HexaObserver</span>(subject);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;First state change: 15&quot;</span>);</span><br><span class="line">        subject.setState(<span class="number">15</span>);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;Second state change: 10&quot;</span>);</span><br><span class="line">        subject.setState(<span class="number">10</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="适配器模式"><a href="#适配器模式" class="headerlink" title="适配器模式"></a><a target="_blank" rel="noopener" href="https://javaguide.cn/java/io/io-design-patterns.html##%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F">适配器模式</a></h3><p><strong>适配器（Adapter Pattern）模式</strong> 主要用于接口互不兼容的类的协调工作，你可以将其联想到我们日常经常使用的电源适配器。</p>
+<p>适配器模式中存在被适配的对象或者类称为 <strong>适配者 (Adaptee)</strong> ，作用于适配者的对象或者类称为<strong>适配器 (Adapter)</strong> 。适配器分为对象适配器和类适配器。类适配器使用继承关系来实现，对象适配器使用组合关系来实现。</p>
+<p>IO 流中的字符流和字节流的接口不同，它们之间可以协调工作就是基于适配器模式来做的，更准确点来说是对象适配器。通过适配器，我们可以将字节流对象适配成一个字符流对象，这样我们可以直接通过字节流对象来读取或者写入字符数据。</p>
+<p><code>InputStreamReader</code> 和 <code>OutputStreamWriter</code> 就是两个适配器 (Adapter)， 同时，它们两个也是字节流和字符流之间的桥梁。<code>InputStreamReader</code> 使用 <code>StreamDecoder</code> （流解码器）对字节进行解码，<strong>实现字节流到字符流的转换，</strong> <code>OutputStreamWriter</code> 使用 <code>StreamEncoder</code>（流编码器）对字符进行编码，实现字符流到字节流的转换。</p>
+<p><code>InputStream</code> 和 <code>OutputStream</code> 的子类是被适配者， <code>InputStreamReader</code> 和 <code>OutputStreamWriter</code> 是适配器。</p>
+<p><strong>适配器模式和装饰器模式有什么区别呢？</strong></p>
+<p><strong>装饰器模式</strong> 更侧重于动态地增强原始类的功能，装饰器类需要跟原始类继承相同的抽象类或者实现相同的接口。并且，装饰器模式支持对原始类嵌套使用多个装饰器。</p>
+<p><strong>适配器模式</strong> 更侧重于让接口不兼容而不能交互的类可以一起工作，当我们调用适配器对应的方法时，适配器内部会调用适配者类或者和适配类相关的类的方法，这个过程透明的。就比如说 <code>StreamDecoder</code> （流解码器）和 <code>StreamEncoder</code>（流编码器）就是分别基于 <code>InputStream</code> 和 <code>OutputStream</code> 来获取 <code>FileChannel</code> 对象并调用对应的 <code>read</code> 方法和 <code>write</code> 方法进行字节数据的读取和写入。</p>
+<h2 id="IO-模型"><a href="#IO-模型" class="headerlink" title="IO 模型"></a>IO 模型</h2><h3 id="BIO"><a href="#BIO" class="headerlink" title="BIO"></a>BIO</h3><p><strong>同步阻塞模型</strong></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404292156399.png" alt="image-20240429215612282"></p>
+<h3 id="NIO"><a href="#NIO" class="headerlink" title="NIO"></a>NIO</h3><p><strong>同步非阻塞</strong></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404292156949.png" alt="image-20240429215650819"></p>
+<p>同步非阻塞 IO 模型中，应用程序会一直发起 read 调用，等待数据从内核空间拷贝到用户空间的这段时间里，线程依然是阻塞的，直到在内核把数据拷贝到用户空间。</p>
+<p>这种 IO 模型同样存在问题：<strong>应用程序不断进行 I&#x2F;O 系统调用轮询数据是否已经准备好的过程是十分消耗 CPU 资源的。</strong></p>
+<p>这个时候，<strong>I&#x2F;O 多路复用模型</strong> 就上场了。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404292157785.png" alt="image-20240429215747656"></p>
+<p>线程首先发起 select 调用，询问内核数据是否准备就绪，等内核把数据准备好了，用户线程再发起 read 调用。read 调用的过程（数据从内核空间 -&gt; 用户空间）还是阻塞的。</p>
+<p>通过<strong>selector</strong>, 只需要一个线程便可以管理多个客户端连接。当客户端数据到了之后，才会为其服务。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404292158090.png" alt="image-20240429215848005"></p>
+<h3 id="AIO"><a href="#AIO" class="headerlink" title="AIO"></a>AIO</h3><p>异步 IO 是基于事件和回调机制实现的，也就是应用操作之后会直接返回，不会堵塞在那里，当后台处理完成，操作系统会通知相应的线程进行后续的操作。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404292200726.png" alt="image-20240429220013610"></p>
+<h2 id="NIO-1"><a href="#NIO-1" class="headerlink" title="NIO"></a>NIO</h2><p>NIO 主要包括以下三个核心组件：</p>
+<ul>
+<li><strong>Buffer（缓冲区）</strong>：NIO 读写数据都是通过缓冲区进行操作的。读操作的时候将 Channel 中的数据填充到 Buffer 中，而写操作时将 Buffer 中的数据写入到 Channel 中。</li>
+<li><strong>Channel（通道）</strong>：Channel 是一个双向的、可读可写的数据传输通道，NIO 通过 Channel 来实现数据的输入输出。通道是一个抽象的概念，它可以代表文件、套接字或者其他数据源之间的连接。</li>
+<li><strong>Selector（选择器）</strong>：允许一个线程处理多个 Channel，基于事件驱动的 I&#x2F;O 多路复用模型。所有的 Channel 都可以注册到 Selector 上，由 Selector 来分配线程来处理事件。</li>
+</ul>
+<p>Buffer 有读模式和写模式这两种模式，分别用于从 Buffer 中读取数据或者向 Buffer 中写入数据。Buffer 被创建之后默认是写模式，调用 <code>flip()</code> 可以切换到读模式。如果要再次切换回写模式，可以调用 <code>clear()</code> 或者 <code>compact()</code> 方法。</p>
+<h4 id="BUffer"><a href="#BUffer" class="headerlink" title="BUffer"></a>BUffer</h4><p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404300846850.png" alt="image-20240430084600758"></p>
+<p>Buffer的各种状态</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404300847363.png" alt="image-20240430084741241"></p>
+<h4 id="Channel"><a href="#Channel" class="headerlink" title="Channel"></a>Channel</h4><p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202404300848143.png" alt="image-20240430084826056"></p>
+<p>最常用的是以下几种类型的通道：</p>
+<ul>
+<li><code>FileChannel</code>：文件访问通道；</li>
+<li><code>SocketChannel</code>、<code>ServerSocketChannel</code>：TCP 通信通道；</li>
+<li><code>DatagramChannel</code>：UDP 通信通道；</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//写文件</span></span><br><span class="line"><span class="type">RandomAccessFile</span> <span class="variable">reader</span> <span class="operator">=</span> <span class="keyword">new</span> </span><br><span class="line"><span class="title class_">RandomAccessFile</span>(<span class="string">&quot;/Users/guide/Documents/test_read.in&quot;</span>, <span class="string">&quot;r&quot;</span>))</span><br><span class="line"><span class="type">FileChannel</span> <span class="variable">channel</span> <span class="operator">=</span> reader.getChannel();</span><br><span class="line"><span class="type">ByteBuffer</span> <span class="variable">buffer</span> <span class="operator">=</span> ByteBuffer.allocate(<span class="number">1024</span>);</span><br><span class="line">channel.read(buffer);</span><br></pre></td></tr></table></figure>
+
+<h3 id="Selector"><a href="#Selector" class="headerlink" title="Selector"></a>Selector</h3><p>Selector 是基于事件驱动的 I&#x2F;O 多路复用模型，主要运作原理是：通过 Selector 注册通道的事件，Selector 会不断地轮询注册在其上的 Channel。</p>
+<h3 id="NIO零拷贝"><a href="#NIO零拷贝" class="headerlink" title="NIO零拷贝"></a>NIO零拷贝</h3><p>指计算机执行 IO 操作时，CPU 不需要将数据从一个存储区域复制到另一个存储区域，从而可以减少上下文切换以及 CPU 的拷贝时间。也就是说，零拷贝主主要解决操作系统在处理 I&#x2F;O 操作时频繁复制数据的问题。</p>
+<h1 id="JVM-1"><a href="#JVM-1" class="headerlink" title="JVM"></a>JVM</h1><p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202405060915869.png" alt="jvm-overview"></p>
+<p><strong>逻辑关系</strong></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202405060916543.png" alt="image-20240506091613423"></p>
+<h2 id="JVM基础-类字节码"><a href="#JVM基础-类字节码" class="headerlink" title="JVM基础-类字节码"></a>JVM基础-类字节码</h2><h3 id="多种语言编译为字节码在JVM运行"><a href="#多种语言编译为字节码在JVM运行" class="headerlink" title="多种语言编译为字节码在JVM运行"></a>多种语言编译为字节码在JVM运行</h3><p>Java 代码间接翻译成字节码，储存字节码的文件再交由运行于不同平台上的 JVM 虚拟机去读取执行，从而实现一次编写，到处运行的目的。</p>
+<p>JVM 也不再只支持 Java，由此衍生出了许多基于 JVM 的编程语言，如 Groovy, Scala, Koltin 等等。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202405060919300.png" alt="image-20240506091935207"></p>
+<h3 id="Java字节码文件"><a href="#Java字节码文件" class="headerlink" title="Java字节码文件"></a>Java字节码文件</h3><h4 id="class文件结构属性"><a href="#class文件结构属性" class="headerlink" title="class文件结构属性"></a>class文件结构属性</h4><p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202405060920981.png" alt="image-20240506092013817"></p>
+<h2 id="类加载机制"><a href="#类加载机制" class="headerlink" title="类加载机制"></a>类加载机制</h2><h3 id="类的生命周期"><a href="#类的生命周期" class="headerlink" title="类的生命周期"></a>类的生命周期</h3><p>其中类加载的过程包括了<code>加载</code>、<code>验证</code>、<code>准备</code>、<code>解析</code>、<code>初始化</code>五个阶段。在这五个阶段中，<code>加载</code>、<code>验证</code>、<code>准备</code>和<code>初始化</code>这四个阶段发生的顺序是确定的，*而<code>解析</code>阶段则不一定，它在某些情况下可以在初始化阶段之后开始，这是为了支持 Java 语言的运行时绑定 (也成为动态绑定或晚期绑定)*。另外注意这里的几个阶段是按顺序开始，而不是按顺序进行或完成，因为这些阶段通常都是互相交叉地混合进行的，通常在一个阶段执行的过程中调用或激活另一个阶段。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202405060922577.png" alt="image-20240506092230502"></p>
+<ol>
+<li><p>加载 </p>
+<p>查找并加载类的二进制数据</p>
+</li>
+<li><p>验证</p>
+<p>确保被加载的类的正确性</p>
+</li>
+<li><p>准备</p>
+<p>为类的静态变量分配内存, 并将其初始化</p>
+</li>
+<li><p>解析</p>
+<p>把类中的符号引用转化为直接引用(直接指向目标的指针)</p>
+</li>
+<li><p>初始化</p>
+<p>为类变量指定初始值</p>
+<p>使用静态代码块为类变量指定初始值</p>
+</li>
+</ol>
+<h3 id="加载机制"><a href="#加载机制" class="headerlink" title="加载机制"></a>加载机制</h3><ul>
+<li><p><code>全盘负责</code>，当一个类加载器负责加载某个 Class 时，该 Class 所依赖的和引用的其他 Class 也将由该类加载器负责载入，除非显示使用另外一个类加载器来载入</p>
+</li>
+<li><p><code>父类委托</code>，先让父类加载器试图加载该类，只有在父类加载器无法加载该类时才尝试从自己的类路径中加载该类</p>
+</li>
+<li><p><code>缓存机制</code>，缓存机制将会保证所有加载过的 Class 都会被缓存，当程序中需要使用某个 Class 时，类加载器先从缓存区寻找该 Class，只有缓存区不存在，系统才会读取该类对应的二进制数据，并将其转换成 Class 对象，存入缓存区。</p>
+</li>
+<li><p><code>双亲委派机制</code> , 如果一个类加载器收到了类加载的请求，它首先不会自己去尝试加载这个类，而是把请求委托给父加载器去完成，依次向上</p>
+</li>
+</ul>
+<h3 id="自定义加载器"><a href="#自定义加载器" class="headerlink" title="自定义加载器"></a>自定义加载器</h3><p>通常情况下，我们都是直接使用系统类加载器。但是，有的时候，我们也需要自定义类加载器。比如应用是通过网络来传输 Java 类的字节码，为保证安全性，这些字节码经过了加密处理，这时系统类加载器就无法对其进行加载，这样则需要自定义类加载器来实现。自定义类加载器一般都是继承自 ClassLoader 类</p>
+<h2 id="JVM内存结构"><a href="#JVM内存结构" class="headerlink" title="JVM内存结构"></a>JVM内存结构</h2><p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202405060933641.png" alt="image-20240506093303529"><strong>运行时数据区</strong></p>
+<p>jvm的整体架构, 中间为Java虚拟机定义的各种运行时数据区域</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202405060934998.png" alt="image-20240506093406865"></p>
+<h3 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h3><p>程序计数寄存器（<strong>Program Counter Register</strong>），Register 的命名源于 CPU 的寄存器，寄存器存储指令相关的线程信息，CPU 只有把数据装载到寄存器才能够运行。</p>
+<p>这里，并非是广义上所指的物理寄存器，<strong>JVM 中的 PC 寄存器是对物理 PC 寄存器的一种抽象模拟</strong>。</p>
+<p>程序计数器是一块较小的内存空间，可以看作是当前线程所执行的字节码的<strong>行号指示器</strong>。</p>
+<h4 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h4><p>寄存器用来存储指向下一条指令的地址，即将要执行的指令代码。由执行引擎读取下一条指令。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202405060938943.png" alt="image-20240506093852854"></p>
+<h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><ul>
+<li><p>在 JVM 规范中，每个线程都有它自己的程序计数器，是线程私有的，生命周期与线程的生命周期一致</p>
+</li>
+<li><p>任何时间一个线程都只有一个方法在执行，也就是所谓的<strong>当前方法</strong>。如果当前线程正在执行的是 Java 方法，程序计数器记录的是 JVM 字节码指令地址，如果是执行 native 方法，则是未指定值（undefined）</p>
+</li>
+<li><p>它是程序控制流的指示器，分支、循环、跳转、异常处理、线程恢复等基础功能都需要依赖这个计数器来完成</p>
+</li>
+<li><p>字节码解释器工作时就是通过改变这个计数器的值来选取下一条需要执行的字节码指令</p>
+</li>
+<li><p>设为私有, 保证每个线程独立计算, 不相互影响</p>
+</li>
+</ul>
+<h3 id="虚拟机栈"><a href="#虚拟机栈" class="headerlink" title="虚拟机栈"></a>虚拟机栈</h3><p>主管 Java 程序的运行，它保存方法的局部变量、部分结果，并参与方法的调用和返回。</p>
+<h4 id="存储单位"><a href="#存储单位" class="headerlink" title="存储单位"></a>存储单位</h4><ul>
+<li>每个线程都有自己的栈，栈中的数据都是以<strong>栈帧（Stack Frame）的格式存在</strong></li>
+<li>在这个线程上正在执行的每个方法都各自有对应的一个栈帧</li>
+<li>栈帧是一个内存区块，是一个数据集，维系着方法执行过程中的各种数据信息</li>
+</ul>
+<h4 id="运行原理"><a href="#运行原理" class="headerlink" title="运行原理"></a>运行原理</h4><ul>
+<li><p>JVM 直接对 Java 栈的操作只有两个，对栈帧的<strong>压栈</strong>和<strong>出栈</strong>，遵循 “先进后出 &#x2F; 后进先出” 原则</p>
+</li>
+<li><p>在一条活动线程中，一个时间点上，只会有一个活动的栈帧。即只有当前正在执行的方法的栈帧（<strong>栈顶栈帧</strong>）是有效的，这个栈帧被称为<strong>当前栈帧</strong>（Current Frame），与当前栈帧对应的方法就是<strong>当前方法</strong>（Current Method），定义这个方法的类就是<strong>当前类</strong>（Current Class）</p>
+</li>
+<li><p>如果在该方法中调用了其他方法，对应的新的栈帧会被创建出来，放在栈的顶端，称为新的当前栈帧</p>
+</li>
+<li><p>不同线程中所包含的栈帧是不允许存在相互引用的，即不可能在一个栈帧中引用另外一个线程的栈帧</p>
+</li>
+<li><p>如果当前方法调用了其他方法在方法返回之际，当前栈帧会传回此方法的执行结果给前一个栈帧，接着，虚拟机会丢弃当前栈帧，使得前一个栈帧重新成为当前栈帧</p>
+</li>
+<li><p>Java 方法有两种返回函数的方式，<strong>一种是正常的函数返回，使用 return 指令，另一种是抛出异常，不管用哪种方式，都会导致栈帧被弹出</strong></p>
+</li>
+</ul>
+<img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202405061032749.png" alt="image-20240506103210665" style="zoom:50%;" />
+
+<h4 id="栈内"><a href="#栈内" class="headerlink" title="栈内"></a>栈内</h4><ul>
+<li><p><strong>局部变量表</strong> 主要存放了编译期可知的各种数据类型（boolean、byte、char、short、int、float、long、double）、对象引用</p>
+</li>
+<li><p><strong>操作数栈</strong> 主要作为方法调用的中转站使用，用于存放方法执行过程中产生的中间计算结果。另外，计算过程中产生的临时变量也会放在操作数栈中。</p>
+</li>
+<li><p><strong>动态链接</strong> 主要服务一个方法需要调用其他方法的场景</p>
+</li>
+<li><p><strong>方法返回地址</strong> 来存放调用该方法的 PC 寄存器的值。</p>
+</li>
+</ul>
+<h3 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h3><p>和虚拟机栈所发挥的作用非常相似，区别是：<strong>虚拟机栈为虚拟机执行 Java 方法 （也就是字节码）服务，而本地方法栈则为虚拟机使用到的 Native 方法服务。</strong> 在 HotSpot 虚拟机中和 Java 虚拟机栈合二为一。</p>
+<p>本地方法被执行的时候，在本地方法栈也会创建一个栈帧，用于存放该本地方法的局部变量表、操作数栈、动态链接、出口信息。</p>
+<h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><p>Java 堆是所有线程共享的一块内存区域，在虚拟机启动时创建。<strong>此内存区域的唯一目的就是存放对象实例，几乎所有的对象实例以及数组都在这里分配内存。</strong></p>
+<p>Java 堆是垃圾收集器管理的主要区域，因此也被称作 <strong>GC 堆（Garbage Collected Heap）</strong>。</p>
+<p>为了进行高效的垃圾回收，虚拟机把堆内存<strong>逻辑上</strong>划分成三块区域（分代的唯一理由就是优化 GC 性能）：</p>
+<ul>
+<li>新生带（年轻代）：新对象和没达到一定年龄的对象都在新生代</li>
+<li>老年代（养老区）：被长时间使用的对象，老年代的内存空间应该要比年轻代更大</li>
+<li>元空间（JDK1.8 之前叫永久代）：像一些方法中的操作临时对像</li>
+</ul>
+<h3 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h3><p>方法区属于是 JVM 运行时数据区域的一块逻辑区域，是各个线程共享的内存区域。</p>
+<p>当虚拟机要使用一个类时，它需要读取并解析 Class 文件获取相关信息，再将信息存入到方法区。方法区会存储已被虚拟机加载的 <strong>类信息、字段信息、方法信息、常量、即时编译器编译后的代码缓存等数据</strong>。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202405061041998.png" alt="image-20240506104110911"></p>
+<h4 id="运行时常量池"><a href="#运行时常量池" class="headerlink" title="运行时常量池"></a>运行时常量池</h4><p>Class 文件中除了有类的版本、字段、方法、接口等描述信息外，还有用于存放编译期生成的各种字面量（Literal）和符号引用（Symbolic Reference）的 <strong>常量池表 (Constant Pool Table)</strong> 。</p>
+<h4 id="字符串常量池"><a href="#字符串常量池" class="headerlink" title="字符串常量池"></a>字符串常量池</h4><p><strong>字符串常量池</strong> 是 JVM 为了提升性能和减少内存消耗针对字符串（String 类）专门开辟的一块区域，主要目的是为了避免字符串的重复创建。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 在堆中创建字符串对象”ab“</span></span><br><span class="line"><span class="comment">// 将字符串对象”ab“的引用保存在字符串常量池中</span></span><br><span class="line"><span class="type">String</span> <span class="variable">aa</span> <span class="operator">=</span> <span class="string">&quot;ab&quot;</span>;</span><br><span class="line"><span class="comment">// 直接返回字符串常量池中字符串对象”ab“的引用</span></span><br><span class="line"><span class="type">String</span> <span class="variable">bb</span> <span class="operator">=</span> <span class="string">&quot;ab&quot;</span>;</span><br><span class="line">System.out.println(aa==bb);<span class="comment">// true</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202405061045682.png" alt="image-20240506104530588"></p>
+<h2 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h2><h3 id="堆空间的基本结构"><a href="#堆空间的基本结构" class="headerlink" title="堆空间的基本结构"></a>堆空间的基本结构</h3><p>Java 的自动内存管理主要是针对对象内存的回收和对象内存的分配。同时，Java 自动内存管理最核心的功能是 <strong>堆</strong> 内存中对象的分配与回收。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/../../AppData/Roaming/Typora/typora-user-images/image-20240506110747068.png" alt="image-20240506110747068"></p>
+<p><strong>JDK 8 版本之后 PermGen (永久) 已被 Metaspace (元空间) 取代，元空间使用的是直接内存</strong> </p>
+<h3 id="内存分配和回收原则"><a href="#内存分配和回收原则" class="headerlink" title="内存分配和回收原则"></a>内存分配和回收原则</h3><p>对象优先在eden区分配, 当 Eden 区没有足够空间进行分配时，虚拟机将发起一次 Minor GC。</p>
+<h4 id="大对象直接进入老年代"><a href="#大对象直接进入老年代" class="headerlink" title="大对象直接进入老年代"></a>大对象直接进入老年代</h4><p>大对象就是需要大量连续内存空间的对象（比如：字符串、数组）。</p>
+<p>大对象直接进入老年代的行为是由虚拟机动态决定的，它与具体使用的垃圾回收器和相关参数有关。大对象直接进入老年代是一种优化策略，旨在避免将大对象放入新生代，从而减少新生代的垃圾回收频率和成本。</p>
+<h4 id="长期存活的对象直接进入老年代"><a href="#长期存活的对象直接进入老年代" class="headerlink" title="长期存活的对象直接进入老年代"></a>长期存活的对象直接进入老年代</h4><p>既然虚拟机采用了分代收集的思想来管理内存，那么内存回收时就必须能识别哪些对象应放在新生代，哪些对象应放在老年代中。为了做到这一点，虚拟机给每个对象一个对象年龄（Age）计数器</p>
+<p>如果对象在 Eden 出生并经过第一次 Minor GC 后仍然能够存活，并且能被 Survivor 容纳的话，将被移动到 Survivor 空间（s0 或者 s1）中，并将对象年龄设为 1 </p>
+<p>对象在 Survivor 中每熬过一次 MinorGC, 年龄就增加 1 岁，当它的年龄增加到一定程度（默认为 15 岁），就会被晋升到老年代中。</p>
+<p><strong>总结：</strong></p>
+<p>针对 HotSpot VM 的实现，它里面的 GC 其实准确分类只有两大种：</p>
+<p>部分收集 (Partial GC)：</p>
+<ul>
+<li>新生代收集（Minor GC &#x2F; Young GC）：只对新生代进行垃圾收集；</li>
+<li>老年代收集（Major GC &#x2F; Old GC）：只对老年代进行垃圾收集。需要注意的是 Major GC 在有的语境中也用于指代整堆收集；</li>
+<li>混合收集（Mixed GC）：对整个新生代和部分老年代进行垃圾收集。</li>
+</ul>
+<h4 id="空间分配担保"><a href="#空间分配担保" class="headerlink" title="空间分配担保"></a>空间分配担保</h4><p>空间分配担保是为了确保在 Minor GC 之前老年代本身还有容纳新生代所有对象的剩余空间。</p>
+<h3 id="对象死亡判断方法"><a href="#对象死亡判断方法" class="headerlink" title="对象死亡判断方法"></a>对象死亡判断方法</h3><h4 id="引用计数器"><a href="#引用计数器" class="headerlink" title="引用计数器"></a>引用计数器</h4><p>给对象中添加一个引用计数器：</p>
+<ul>
+<li>每当有一个地方引用它，计数器就加 1；</li>
+<li>当引用失效，计数器就减 1；</li>
+<li>任何时候计数器为 0 的对象就是不可能再被使用的。</li>
+</ul>
+<p><strong>这个方法实现简单，效率高，但是目前主流的虚拟机中并没有选择这个算法来管理内存，其最主要的原因是它很难解决对象之间循环引用的问题。</strong>除了对象 <code>objA</code> 和 <code>objB</code> 相互引用着对方之外，这两个对象之间再无任何引用</p>
+<h4 id="可达性分析算法"><a href="#可达性分析算法" class="headerlink" title="可达性分析算法"></a>可达性分析算法</h4><p>这个算法的基本思想就是通过一系列的称为 <strong>“GC Roots”</strong> 的对象作为起点，从这些节点开始向下搜索，节点所走过的路径称为引用链，当一个对象到 GC Roots 没有任何引用链相连的话，则证明此对象是不可用的，需要被回收。</p>
+<p>下图中的 <code>Object 6 ~ Object 10</code> 之间虽有引用关系，但它们到 GC Roots 不可达，因此为需要被回收的对象</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202405061125519.png" alt="image-20240506112529412"></p>
+<h4 id="引用类型总结"><a href="#引用类型总结" class="headerlink" title="引用类型总结"></a>引用类型总结</h4><p>无论是通过引用计数法判断对象引用数量，还是通过可达性分析法判断对象的引用链是否可达，判定对象的存活都与 “引用” 有关。</p>
+<ol>
+<li>强引用</li>
+</ol>
+<p>前我们使用的大部分引用实际上都是强引用，这是使用最普遍的引用。如果一个对象具有强引用，那就类似于<strong>必不可少的生活用品</strong>，垃圾回收器绝不会回收它。当内存空间不足，Java 虚拟机宁愿抛出 OutOfMemoryError 错误，使程序异常终止，也不会靠随意回收具有强引用的对象来解决内存不足问题</p>
+<ol start="2">
+<li>软引用</li>
+</ol>
+<p>如果一个对象只具有软引用，那就类似于<strong>可有可无的生活用品</strong>。如果内存空间足够，垃圾回收器就不会回收它，如果内存空间不足了，就会回收这些对象的内存</p>
+<ol start="3">
+<li>弱引用</li>
+</ol>
+<p>如果一个对象只具有弱引用，那就类似于<strong>可有可无的生活用品</strong>。弱引用与软引用的区别在于：只具有弱引用的对象拥有更短暂的生命周期。在垃圾回收器线程扫描它所管辖的内存区域的过程中，一旦发现了只具有弱引用的对象，不管当前内存空间足够与否，都会回收它的内存</p>
+<ol start="4">
+<li>虚引用</li>
+</ol>
+<p>“虚引用” 顾名思义，就是形同虚设，与其他几种引用都不同，虚引用并不会决定对象的生命周期。如果一个对象仅持有虚引用，那么它就和没有任何引用一样，在任何时候都可能被垃圾回收。<strong>虚引用主要用来跟踪对象被垃圾回收的活动</strong>。</p>
+<p>在程序设计中一般很少使用弱引用与虚引用，使用软引用的情况较多，这是因为<strong>软引用可以加速 JVM 对垃圾内存的回收速度，可以维护系统的运行安全，防止内存溢出（OutOfMemory）等问题的产生</strong>。</p>
+<h3 id="如何判断一个常量时废弃常量"><a href="#如何判断一个常量时废弃常量" class="headerlink" title="如何判断一个常量时废弃常量 ?"></a>如何判断一个常量时废弃常量 ?</h3><p> <strong>JDK1.7 字符串常量池被从方法区拿到了堆中，这里没有提到运行时常量池，也就是说字符串常量池被单独拿到堆，运行时常量池剩下的东西还在方法区，也就是 hotspot 中的永久代</strong> 。</p>
+<p>假如在字符串常量池中存在字符串 “abc”，如果当前没有任何 String 对象引用该字符串常量的话，就说明常量 “abc” 就是废弃常量，如果这时发生内存回收的话而且有必要的话，”abc” 就会被系统清理出常量池了。</p>
+<h3 id="如何判断一个类是无用的类"><a href="#如何判断一个类是无用的类" class="headerlink" title="如何判断一个类是无用的类 ?"></a>如何判断一个类是无用的类 ?</h3><ul>
+<li><p>该类所有的实例都已经被回收，也就是 Java 堆中不存在该类的任何实例。</p>
+</li>
+<li><p>加载该类的 <code>ClassLoader</code> 已经被回收。</p>
+</li>
+<li><p>该类对应的 <code>java.lang.Class</code> 对象没有在任何地方被引用，无法在任何地方通过反射访问该类的方法。</p>
+</li>
+</ul>
+<h2 id="垃圾收集算法"><a href="#垃圾收集算法" class="headerlink" title="垃圾收集算法"></a>垃圾收集算法</h2><h3 id="标记-清除算法"><a href="#标记-清除算法" class="headerlink" title="标记-清除算法"></a>标记-清除算法</h3><p>标记 - 清除（Mark-and-Sweep）算法分为 “标记（Mark）” 和 “清除（Sweep）” 阶段：首先标记出所有不需要回收的对象，在标记完成后统一回收掉所有没有被标记的对象。</p>
+<p>它是最基础的收集算法，后续的算法都是对其不足进行改进得到。这种垃圾收集算法会带来两个明显的问题：</p>
+<ol>
+<li><strong>效率问题</strong>：标记和清除两个过程效率都不高。</li>
+<li><strong>空间问题</strong>：标记清除后会产生大量不连续的内存碎片。</li>
+</ol>
+<img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202405061138828.png" alt="image-20240506113804764" style="zoom:50%;" />
+
+<h3 id="复制算法"><a href="#复制算法" class="headerlink" title="复制算法"></a>复制算法</h3><p>它可以将内存分为大小相同的两块，每次使用其中的一块。当这一块的内存使用完后，就将还存活的对象复制到另一块去，然后再把使用的空间一次清理掉。这样就使每次的内存回收都是对内存区间的一半进行回收。</p>
+<p>虽然改进了标记 - 清除算法，但依然存在下面这些问题：</p>
+<ul>
+<li><strong>可用内存变小</strong>：可用内存缩小为原来的一半。</li>
+<li><strong>不适合老年代</strong>：如果存活对象数量比较大，复制性能会变得很差</li>
+</ul>
+<h3 id="标记-整理算法"><a href="#标记-整理算法" class="headerlink" title="标记-整理算法"></a>标记-整理算法</h3><p>根据老年代的特点提出的一种标记算法，标记过程仍然与 “标记 - 清除” 算法一样，但后续步骤不是直接对可回收对象回收，而是让所有存活的对象向一端移动，然后直接清理掉端边界以外的内存。</p>
+<img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="../../AppData/Roaming/Typora/typora-user-images/image-20240506141935009.png" alt="image-20240506141935009" style="zoom:50%;" />
+
+<p>由于多了整理这一步，因此效率也不高，适合老年代这种垃圾回收频率不是很高的场景</p>
+<h3 id="分代收集算法"><a href="#分代收集算法" class="headerlink" title="分代收集算法"></a>分代收集算法</h3><p>当前虚拟机的垃圾收集都采用分代收集算法，这种算法没有什么新的思想，只是根据对象存活周期的不同将内存分为几块。一般将 Java 堆分为新生代和老年代，这样我们就可以根据各个年代的特点选择合适的垃圾收集算法。</p>
+<h2 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h2><p><strong>如果说收集算法是内存回收的方法论，那么垃圾收集器就是内存回收的具体实现。</strong></p>
+<p>直到现在为止还没有最好的垃圾收集器出现，更加没有万能的垃圾收集器，<strong>我们能做的就是根据具体应用场景选择适合自己的垃圾收集器</strong></p>
+<h1 id="Java8新特性"><a href="#Java8新特性" class="headerlink" title="Java8新特性"></a>Java8新特性</h1>
+<div class="article-footer fs14">
+    <section id="license">
+      <div class="header"><span>License</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    </div>
+</article>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">Newer</div><a href="/2024/06/04/Hexo-%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B%E8%AE%B0%E5%BD%95/">Hexo 搭建过程记录</a></div><div class="item" id="next"><div class="note">Older</div><a href="/2024/02/07/Servlet-JSP/">Servlet & JSP</a></div></section></div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">QyingliBoost</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.28.1">Stellar 1.28.1</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">On This Page</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Java%E5%9F%BA%E7%A1%80"><span class="toc-text">Java基础</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Java-SE-vs-Java-EE"><span class="toc-text">Java SE vs Java EE</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JVM-vs-JDK-vs-JRE"><span class="toc-text">JVM vs JDK vs JRE</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#JVM"><span class="toc-text">JVM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JDK-%E5%92%8C-JRE"><span class="toc-text">JDK 和 JRE</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%AF%B4-Java-%E8%AF%AD%E8%A8%80-%E2%80%9C%E7%BC%96%E8%AF%91%E4%B8%8E%E8%A7%A3%E9%87%8A%E5%B9%B6%E5%AD%98%E2%80%9D%EF%BC%9F"><span class="toc-text">为什么说 Java 语言 “编译与解释并存”？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8C%85%E8%A3%85%E7%B1%BB%E5%9E%8B%E7%9A%84%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6%E4%BA%86%E8%A7%A3%E4%B9%88%EF%BC%9F"><span class="toc-text">包装类型的缓存机制了解么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E8%A3%85%E7%AE%B1%E4%B8%8E%E6%8B%86%E7%AE%B1%E4%BA%86%E8%A7%A3%E5%90%97%EF%BC%9F%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">自动装箱与拆箱了解吗？原理是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%B1%E6%8B%B7%E8%B4%9D%E5%92%8C%E6%B5%85%E6%8B%B7%E8%B4%9D%E5%8C%BA%E5%88%AB%E4%BA%86%E8%A7%A3%E5%90%97%EF%BC%9F%E4%BB%80%E4%B9%88%E6%98%AF%E5%BC%95%E7%94%A8%E6%8B%B7%E8%B4%9D%EF%BC%9F"><span class="toc-text">深拷贝和浅拷贝区别了解吗？什么是引用拷贝？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HashCode-%E6%9C%89%E4%BB%80%E4%B9%88%E7%94%A8%EF%BC%9F"><span class="toc-text">HashCode () 有什么用？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#String-StringBuffer-and-StringBuilder"><span class="toc-text">String, StringBuffer and StringBuilder</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#String-intern"><span class="toc-text">String.intern()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8D%E5%B0%84"><span class="toc-text">反射</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E5%B0%84%E5%9F%BA%E7%A1%80"><span class="toc-text">反射基础</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Class%E7%B1%BB"><span class="toc-text">Class类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B1%BB%E5%8A%A0%E8%BD%BD"><span class="toc-text">类加载</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E5%B0%84%E4%BD%BF%E7%94%A8"><span class="toc-text">反射使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#class%E7%B1%BB%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%8E%B7%E5%8F%96"><span class="toc-text">class类对象的获取</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Constructor%E7%B1%BB%E5%8F%8A%E5%85%B6%E7%94%A8%E6%B3%95"><span class="toc-text">Constructor类及其用法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Field%E7%B1%BB%E5%8F%8A%E5%85%B6%E7%94%A8%E6%B3%95"><span class="toc-text">Field类及其用法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Method%E7%B1%BB%E5%8F%8A%E5%85%B6%E7%94%A8%E6%B3%95"><span class="toc-text">Method类及其用法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6%E6%89%A7%E8%A1%8C%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="toc-text">反射机制执行的流程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%82%E5%B8%B8"><span class="toc-text">异常</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%82%E5%B8%B8%E7%94%B3%E6%98%8E"><span class="toc-text">异常申明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%82%E5%B8%B8%E6%8A%9B%E5%87%BA"><span class="toc-text">异常抛出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8"><span class="toc-text">自定义异常</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F"><span class="toc-text">执行顺序</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%9B%E5%9E%8B"><span class="toc-text">泛型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%9C%89%E6%B3%9B%E5%9E%8B"><span class="toc-text">为什么要有泛型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%9B%E5%9E%8B%E7%B1%BB"><span class="toc-text">泛型类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%9B%E5%9E%8B%E6%8E%A5%E5%8F%A3"><span class="toc-text">泛型接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%9B%E5%9E%8B%E6%96%B9%E6%B3%95"><span class="toc-text">泛型方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E8%A7%A3"><span class="toc-text">注解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SPI%E6%9C%BA%E5%88%B6"><span class="toc-text">SPI机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SPI-%E5%92%8C-API-%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-text">SPI 和 API 的区别是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SPI-%E6%9C%BA%E5%88%B6%E7%9A%84%E7%BC%BA%E9%99%B7"><span class="toc-text">SPI 机制的缺陷</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6"><span class="toc-text">Java集合框架</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ArrayList%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90"><span class="toc-text">ArrayList源码分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E6%89%A9%E5%AE%B9"><span class="toc-text">自动扩容</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HashMap%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90"><span class="toc-text">HashMap源码分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%95%E5%B1%82%E7%BB%93%E6%9E%841-7"><span class="toc-text">底层结构1.7</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-8"><span class="toc-text">1.8</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#put"><span class="toc-text">put</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B"><span class="toc-text">并发编程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%B6%E5%8F%91%E4%B8%89%E8%A6%81%E7%B4%A0"><span class="toc-text">并发三要素</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%95%E4%B8%BA%E7%BA%BF%E7%A8%8B%EF%BC%9F"><span class="toc-text">何为线程？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%B6%E5%8F%91%E5%92%8C%E5%B9%B6%E8%A1%8C"><span class="toc-text">并发和并行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8C%E6%AD%A5%E5%92%8C%E5%BC%82%E6%AD%A5%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">同步和异步的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E5%A4%9A%E7%BA%BF%E7%A8%8B%EF%BC%9F"><span class="toc-text">为什么要使用多线程？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E5%92%8C%E4%B8%8D%E5%AE%89%E5%85%A8%EF%BC%9F"><span class="toc-text">如何理解线程安全和不安全？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%EF%BC%9F"><span class="toc-text">如何创建线程？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%92%8C%E7%8A%B6%E6%80%81"><span class="toc-text">线程的生命周期和状态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%BA%BF%E7%A8%8B%E4%B8%8A%E4%B8%8B%E6%96%87%E5%88%87%E6%8D%A2%EF%BC%9F"><span class="toc-text">什么是线程上下文切换？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%BA%BF%E7%A8%8B%E6%AD%BB%E9%94%81%EF%BC%9F%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81%EF%BC%9F"><span class="toc-text">什么是线程死锁？如何避免死锁？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A4%E8%AF%86%E7%BA%BF%E7%A8%8B%E6%AD%BB%E9%94%81"><span class="toc-text">认识线程死锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E9%A2%84%E9%98%B2%E5%92%8C%E9%81%BF%E5%85%8D%E7%BA%BF%E7%A8%8B%E6%AD%BB%E9%94%81%EF%BC%9F"><span class="toc-text">如何预防和避免线程死锁？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sleep-%E6%96%B9%E6%B3%95%E5%92%8C-wait-%E6%96%B9%E6%B3%95%E5%AF%B9%E6%AF%94"><span class="toc-text">sleep () 方法和 wait () 方法对比</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#wait-%E6%96%B9%E6%B3%95%E4%B8%8D%E5%AE%9A%E4%B9%89%E5%9C%A8-Thread-%E4%B8%AD%EF%BC%9F"><span class="toc-text">wait () 方法不定义在 Thread 中？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E4%BB%A5%E7%9B%B4%E6%8E%A5%E8%B0%83%E7%94%A8-Thread-%E7%B1%BB%E7%9A%84-run-%E6%96%B9%E6%B3%95%E5%90%97%EF%BC%9F"><span class="toc-text">可以直接调用 Thread 类的 run 方法吗？</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JavaIO"><span class="toc-text">JavaIO</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E8%8A%82%E6%B5%81"><span class="toc-text">字节流</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#InputStream"><span class="toc-text">InputStream</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#OutputStream"><span class="toc-text">OutputStream</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E6%B5%81"><span class="toc-text">字符流</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Reader"><span class="toc-text">Reader</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Writer"><span class="toc-text">Writer</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E8%8A%82%E7%BC%93%E5%86%B2%E6%B5%81"><span class="toc-text">字节缓冲流</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%93%E5%8D%B0%E6%B5%81"><span class="toc-text">打印流</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="toc-text">设计模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F"><span class="toc-text">装饰器模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F"><span class="toc-text">工厂模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F"><span class="toc-text">观察者模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F"><span class="toc-text">适配器模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IO-%E6%A8%A1%E5%9E%8B"><span class="toc-text">IO 模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#BIO"><span class="toc-text">BIO</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NIO"><span class="toc-text">NIO</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AIO"><span class="toc-text">AIO</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NIO-1"><span class="toc-text">NIO</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#BUffer"><span class="toc-text">BUffer</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Channel"><span class="toc-text">Channel</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Selector"><span class="toc-text">Selector</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NIO%E9%9B%B6%E6%8B%B7%E8%B4%9D"><span class="toc-text">NIO零拷贝</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JVM-1"><span class="toc-text">JVM</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#JVM%E5%9F%BA%E7%A1%80-%E7%B1%BB%E5%AD%97%E8%8A%82%E7%A0%81"><span class="toc-text">JVM基础-类字节码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E7%A7%8D%E8%AF%AD%E8%A8%80%E7%BC%96%E8%AF%91%E4%B8%BA%E5%AD%97%E8%8A%82%E7%A0%81%E5%9C%A8JVM%E8%BF%90%E8%A1%8C"><span class="toc-text">多种语言编译为字节码在JVM运行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Java%E5%AD%97%E8%8A%82%E7%A0%81%E6%96%87%E4%BB%B6"><span class="toc-text">Java字节码文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#class%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84%E5%B1%9E%E6%80%A7"><span class="toc-text">class文件结构属性</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6"><span class="toc-text">类加载机制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-text">类的生命周期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6"><span class="toc-text">加载机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8A%A0%E8%BD%BD%E5%99%A8"><span class="toc-text">自定义加载器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JVM%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84"><span class="toc-text">JVM内存结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E8%AE%A1%E6%95%B0%E5%99%A8"><span class="toc-text">程序计数器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%9C%E7%94%A8"><span class="toc-text">作用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-text">概述</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%A0%88"><span class="toc-text">虚拟机栈</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E5%8D%95%E4%BD%8D"><span class="toc-text">存储单位</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86"><span class="toc-text">运行原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%88%E5%86%85"><span class="toc-text">栈内</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E6%96%B9%E6%B3%95%E6%A0%88"><span class="toc-text">本地方法栈</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A0%86"><span class="toc-text">堆</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E5%8C%BA"><span class="toc-text">方法区</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E6%97%B6%E5%B8%B8%E9%87%8F%E6%B1%A0"><span class="toc-text">运行时常量池</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%B8%B8%E9%87%8F%E6%B1%A0"><span class="toc-text">字符串常量池</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6"><span class="toc-text">垃圾回收</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A0%86%E7%A9%BA%E9%97%B4%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="toc-text">堆空间的基本结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E5%92%8C%E5%9B%9E%E6%94%B6%E5%8E%9F%E5%88%99"><span class="toc-text">内存分配和回收原则</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%A7%E5%AF%B9%E8%B1%A1%E7%9B%B4%E6%8E%A5%E8%BF%9B%E5%85%A5%E8%80%81%E5%B9%B4%E4%BB%A3"><span class="toc-text">大对象直接进入老年代</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%95%BF%E6%9C%9F%E5%AD%98%E6%B4%BB%E7%9A%84%E5%AF%B9%E8%B1%A1%E7%9B%B4%E6%8E%A5%E8%BF%9B%E5%85%A5%E8%80%81%E5%B9%B4%E4%BB%A3"><span class="toc-text">长期存活的对象直接进入老年代</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A9%BA%E9%97%B4%E5%88%86%E9%85%8D%E6%8B%85%E4%BF%9D"><span class="toc-text">空间分配担保</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E8%B1%A1%E6%AD%BB%E4%BA%A1%E5%88%A4%E6%96%AD%E6%96%B9%E6%B3%95"><span class="toc-text">对象死亡判断方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0%E5%99%A8"><span class="toc-text">引用计数器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%AF%E8%BE%BE%E6%80%A7%E5%88%86%E6%9E%90%E7%AE%97%E6%B3%95"><span class="toc-text">可达性分析算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%E6%80%BB%E7%BB%93"><span class="toc-text">引用类型总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E5%B8%B8%E9%87%8F%E6%97%B6%E5%BA%9F%E5%BC%83%E5%B8%B8%E9%87%8F"><span class="toc-text">如何判断一个常量时废弃常量 ?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E7%B1%BB%E6%98%AF%E6%97%A0%E7%94%A8%E7%9A%84%E7%B1%BB"><span class="toc-text">如何判断一个类是无用的类 ?</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95"><span class="toc-text">垃圾收集算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%87%E8%AE%B0-%E6%B8%85%E9%99%A4%E7%AE%97%E6%B3%95"><span class="toc-text">标记-清除算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E5%88%B6%E7%AE%97%E6%B3%95"><span class="toc-text">复制算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%87%E8%AE%B0-%E6%95%B4%E7%90%86%E7%AE%97%E6%B3%95"><span class="toc-text">标记-整理算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E4%BB%A3%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95"><span class="toc-text">分代收集算法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8"><span class="toc-text">垃圾收集器</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Java8%E6%96%B0%E7%89%B9%E6%80%A7"><span class="toc-text">Java8新特性</span></a></li></ol></div><div class="widget-footer">
+
+<a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12c0-4.714 0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12Z"/><path stroke-linecap="round" stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/></g></svg><span>Scroll to Top</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M10.46 1.25h3.08c1.603 0 2.86 0 3.864.095c1.023.098 1.861.3 2.6.752a5.75 5.75 0 0 1 1.899 1.899c.452.738.654 1.577.752 2.6c.095 1.004.095 2.261.095 3.865v1.067c0 1.141 0 2.036-.05 2.759c-.05.735-.153 1.347-.388 1.913a5.75 5.75 0 0 1-3.112 3.112c-.805.334-1.721.408-2.977.43a10.81 10.81 0 0 0-.929.036c-.198.022-.275.054-.32.08c-.047.028-.112.078-.224.232c-.121.166-.258.396-.476.764l-.542.916c-.773 1.307-2.69 1.307-3.464 0l-.542-.916a10.605 10.605 0 0 0-.476-.764c-.112-.154-.177-.204-.224-.232c-.045-.026-.122-.058-.32-.08c-.212-.023-.49-.03-.93-.037c-1.255-.021-2.171-.095-2.976-.429A5.75 5.75 0 0 1 1.688 16.2c-.235-.566-.338-1.178-.389-1.913c-.049-.723-.049-1.618-.049-2.76v-1.066c0-1.604 0-2.86.095-3.865c.098-1.023.3-1.862.752-2.6a5.75 5.75 0 0 1 1.899-1.899c.738-.452 1.577-.654 2.6-.752C7.6 1.25 8.857 1.25 10.461 1.25M6.739 2.839c-.914.087-1.495.253-1.959.537A4.25 4.25 0 0 0 3.376 4.78c-.284.464-.45 1.045-.537 1.96c-.088.924-.089 2.11-.089 3.761v1c0 1.175 0 2.019.046 2.685c.045.659.131 1.089.278 1.441a4.25 4.25 0 0 0 2.3 2.3c.515.214 1.173.294 2.429.316h.031c.398.007.747.013 1.037.045c.311.035.616.104.909.274c.29.17.5.395.682.645c.169.232.342.525.538.856l.559.944a.52.52 0 0 0 .882 0l.559-.944c.196-.331.37-.624.538-.856c.182-.25.392-.476.682-.645c.293-.17.598-.24.909-.274c.29-.032.639-.038 1.037-.045h.032c1.255-.022 1.913-.102 2.428-.316a4.25 4.25 0 0 0 2.3-2.3c.147-.352.233-.782.278-1.441c.046-.666.046-1.51.046-2.685v-1c0-1.651 0-2.837-.089-3.762c-.087-.914-.253-1.495-.537-1.959a4.25 4.25 0 0 0-1.403-1.403c-.464-.284-1.045-.45-1.96-.537c-.924-.088-2.11-.089-3.761-.089h-3c-1.651 0-2.837 0-3.762.089" clip-rule="evenodd"/><path fill="currentColor" d="M9 11a1 1 0 1 1-2 0a1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0a1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0a1 1 0 0 1 2 0"/></svg><span>Join Discussion</span></a></div></widget>
+</div></aside><div class='float-panel blur'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+<script type="text/javascript">
+  const ctx = {
+    date_suffix: {
+      just: `Just`,
+      min: `minutes ago`,
+      hour: `hours ago`,
+      day: `days ago`,
+    },
+    root : `/`,
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+  };
+  const deps = {
+    jquery: `https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.min.js`,
+    marked: `https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js`
+  }
+  
+
+</script>
+
+<script type="text/javascript">
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+    
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      let retryTimes = 3;
+      utils.onLoading(el);
+      function req() {
+        return new Promise((resolve, reject) => {
+          let status = 0; // 0 等待 1 完成 2 超时
+          let timer = setTimeout(() => {
+            if (status === 0) {
+              status = 2;
+              timer = null;
+              reject('请求超时');
+              if (retryTimes == 0) {
+                onFailure();
+              }
+            }
+          }, 5000);
+          fetch(url).then(function(response) {
+            if (status !== 2) {
+              clearTimeout(timer);
+              resolve(response);
+              timer = null;
+              status = 1;
+            }
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error('Network response was not ok.');
+          }).then(function(data) {
+            retryTimes = 0;
+            utils.onLoadSuccess(el);
+            callback(data);
+          }).catch(function(error) {
+            if (retryTimes > 0) {
+              retryTimes -= 1;
+              setTimeout(() => {
+                req();
+              }, 5000);
+            } else {
+              utils.onLoadFailure(el);
+              onFailure();
+            }
+          });
+        });
+      }
+      req();
+    },
+  };
+</script>
+
+<script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+
+<!-- required -->
+<script src="/js/main.js?v=1.28.1" async></script>
+
+<!-- optional -->
+
+
+
+<script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+  });
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://cdn.bootcdn.net/ajax/libs/flying-pages/2.1.2/flying-pages.min.js"></script><script defer src="https://cdn.bootcdn.net/ajax/libs/vanilla-lazyload/17.8.4/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+</script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://cdn.bootcdn.net/ajax/libs/fancyapps-ui/5.0.22/fancybox/fancybox.min.css`,
+    js: `https://cdn.bootcdn.net/ajax/libs/fancyapps-ui/5.0.22/fancybox/fancybox.umd.min.js`
+  };
+  var selector = '[data-fancybox]:not(.error)';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const els = document.getElementsByClassName('ds-memos');
+    if (els != undefined && els.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null
+        }
+      });
+    })
+  }
+</script>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3.1/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3.1/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          rewind: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
+
+
+<!-- inject -->
+
+</div></body></html>
