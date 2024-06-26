@@ -1,0 +1,1020 @@
+
+<!DOCTYPE html><html lang="zh-Hans">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.28.1" theme-name="Stellar" theme-version="1.28.1">
+  
+  <meta name="generator" content="Hexo 7.2.0">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f9fafb">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  
+  <title>Redis学习 - BlueofWarmth</title>
+
+  
+    <meta name="description" content="Remote dictionary server简介Redis 简介Redis（Remote Dictionary Server）是一个开源的、内存中的数据结构存储系统，可以用作数据库、缓存和消息中间件。它支持多种数据结构，  **五种基本数据类型: **  字符串（strings）、散列（hashes）、列表（lists）、集合（sets）、有序集合（sorted sets）  **五种高级数据">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis学习">
+<meta property="og:url" content="http://blueofwarmth.github.io/2024/06/26/Redis%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="BlueofWarmth">
+<meta property="og:description" content="Remote dictionary server简介Redis 简介Redis（Remote Dictionary Server）是一个开源的、内存中的数据结构存储系统，可以用作数据库、缓存和消息中间件。它支持多种数据结构，  **五种基本数据类型: **  字符串（strings）、散列（hashes）、列表（lists）、集合（sets）、有序集合（sorted sets）  **五种高级数据">
+<meta property="og:locale">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202406252300766.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202406252334850.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202406252335732.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202406252342731.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202406252350163.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202406252352388.png">
+<meta property="og:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202406260928585.png">
+<meta property="article:published_time" content="2024-06-26T09:22:31.000Z">
+<meta property="article:modified_time" content="2024-06-26T05:02:24.909Z">
+<meta property="article:author" content="QyingliBoost">
+<meta property="article:tag" content="redis">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202406252300766.png">
+  
+  
+  
+  <meta name="keywords" content="redis">
+
+  <!-- feed -->
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.28.1">
+
+  
+
+  
+
+  
+</head>
+<body>
+
+<div class="l_body s:aa content tech" id="start" layout="post" ><aside class="l_left"><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="/img/photo.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">Qyingli</div><div class="sub cap">十号荣耀, 谁不曾不想.</div></a></div></header>
+
+<div class="nav-area">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="Search"></form><div id="search-result"></div><div class="search-no-result">No Results!</div></div>
+
+
+<nav class="menu dis-select"><a class="nav-item" title="博客" href="/" style="color:#1BCDFC"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5.879 2.879C5 3.757 5 5.172 5 8v8c0 2.828 0 4.243.879 5.121C6.757 22 8.172 22 11 22h2c2.828 0 4.243 0 5.121-.879C19 20.243 19 18.828 19 16V8c0-2.828 0-4.243-.879-5.121C17.243 2 15.828 2 13 2h-2c-2.828 0-4.243 0-5.121.879M8.25 17a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75M9 12.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 9A.75.75 0 0 1 9 8.25h6a.75.75 0 0 1 0 1.5H9A.75.75 0 0 1 8.25 9" clip-rule="evenodd"/><path fill="currentColor" d="M5.235 4.058C5 4.941 5 6.177 5 8v8c0 1.823 0 3.058.235 3.942L5 19.924c-.975-.096-1.631-.313-2.121-.803C2 18.243 2 16.828 2 14v-4c0-2.829 0-4.243.879-5.121c.49-.49 1.146-.707 2.121-.803zm13.53 15.884C19 19.058 19 17.822 19 16V8c0-1.823 0-3.059-.235-3.942l.235.018c.975.096 1.631.313 2.121.803C22 5.757 22 7.17 22 9.999v4c0 2.83 0 4.243-.879 5.122c-.49.49-1.146.707-2.121.803z" opacity=".5"/></svg></a><a class="nav-item active" title="文档" href="/wiki/" style="color:#3DC550"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M14.25 4.48v3.057c0 .111 0 .27.02.406a.936.936 0 0 0 .445.683a.96.96 0 0 0 .783.072c.13-.04.272-.108.378-.159L17 8.005l1.124.534c.106.05.248.119.378.16a.958.958 0 0 0 .783-.073a.936.936 0 0 0 .444-.683c.021-.136.021-.295.021-.406V3.031c.113-.005.224-.01.332-.013C21.154 2.98 22 3.86 22 4.933v11.21c0 1.112-.906 2.01-2.015 2.08c-.97.06-2.108.179-2.985.41c-1.082.286-1.99 1.068-3.373 1.436c-.626.167-1.324.257-1.627.323V5.174c.32-.079 1.382-.203 1.674-.371c.184-.107.377-.216.576-.323m5.478 8.338a.75.75 0 0 1-.546.91l-4 1a.75.75 0 0 1-.364-1.456l4-1a.75.75 0 0 1 .91.546" clip-rule="evenodd"/><path fill="currentColor" d="M18.25 3.151c-.62.073-1.23.18-1.75.336a8.2 8.2 0 0 0-.75.27v3.182l.75-.356l.008-.005a1.13 1.13 0 0 1 .492-.13c.047 0 .094.004.138.01c.175.029.315.1.354.12l.009.005l.749.356V3.647z"/><path fill="currentColor" d="M12 5.214c-.334-.064-1.057-.161-1.718-.339C8.938 4.515 8.05 3.765 7 3.487c-.887-.234-2.041-.352-3.018-.412C2.886 3.007 2 3.9 2 4.998v11.146c0 1.11.906 2.01 2.015 2.079c.97.06 2.108.179 2.985.41c.486.129 1.216.431 1.873.726c1.005.451 2.052.797 3.127 1.034z" opacity=".5"/><path fill="currentColor" d="M4.273 12.818a.75.75 0 0 1 .91-.545l4 1a.75.75 0 1 1-.365 1.455l-4-1a.75.75 0 0 1-.545-.91m.909-4.545a.75.75 0 1 0-.364 1.455l4 1a.75.75 0 0 0 .364-1.455z"/></svg></a><a class="nav-item" title="社交" href="/friends/" style="color:#F44336"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="m13.629 20.472l-.542.916c-.483.816-1.69.816-2.174 0l-.542-.916c-.42-.71-.63-1.066-.968-1.262c-.338-.197-.763-.204-1.613-.219c-1.256-.021-2.043-.098-2.703-.372a5 5 0 0 1-2.706-2.706C2 14.995 2 13.83 2 11.5v-1c0-3.273 0-4.91.737-6.112a5 5 0 0 1 1.65-1.651C5.59 2 7.228 2 10.5 2h3c3.273 0 4.91 0 6.113.737a5 5 0 0 1 1.65 1.65C22 5.59 22 7.228 22 10.5v1c0 2.33 0 3.495-.38 4.413a5 5 0 0 1-2.707 2.706c-.66.274-1.447.35-2.703.372c-.85.015-1.275.022-1.613.219c-.338.196-.548.551-.968 1.262" opacity=".5"/><path fill="currentColor" d="M10.99 14.308c-1.327-.978-3.49-2.84-3.49-4.593c0-2.677 2.475-3.677 4.5-1.609c2.025-2.068 4.5-1.068 4.5 1.609c0 1.752-2.163 3.615-3.49 4.593c-.454.335-.681.502-1.01.502c-.329 0-.556-.167-1.01-.502"/></svg></a></nav>
+</div>
+<div class="widgets">
+
+
+<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">Recent Update</span></div><div class="widget-body fs14"></div></widget>
+</div>
+
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">Home</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">Blog</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">Posted on: <time datetime="2024-06-26T09:22:31.000Z">2024-06-26</time></span><span class="sep updated"></span><span class="text updated">Updated on: <time datetime="2024-06-26T05:02:24.909Z">2024-06-26</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>Redis学习</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><h2 id="Remote-dictionary-server简介"><a href="#Remote-dictionary-server简介" class="headerlink" title="Remote dictionary server简介"></a>Remote dictionary server简介</h2><h3 id="Redis-简介"><a href="#Redis-简介" class="headerlink" title="Redis 简介"></a>Redis 简介</h3><p>Redis（Remote Dictionary Server）是一个开源的、内存中的数据结构存储系统，可以用作数据库、缓存和消息中间件。它支持多种数据结构，</p>
+<ul>
+<li>**五种基本数据类型: **</li>
+</ul>
+<p>字符串（strings）、散列（hashes）、列表（lists）、集合（sets）、有序集合（sorted sets）</p>
+<ul>
+<li><p>**五种高级数据类型: **</p>
+<p>消息队列(Stream)、地址空间(Geospatial)、Hyper log log、位图(Bitmap)、位域(Bitfield)</p>
+</li>
+</ul>
+<h3 id="主要特性"><a href="#主要特性" class="headerlink" title="主要特性"></a>主要特性</h3><ol>
+<li><strong>内存存储</strong>：Redis所有的数据都存储在内存中，具有极高的读写性能。它通过定期将数据异步保存到磁盘上，以确保数据的持久性。</li>
+<li><strong>丰富的数据结构</strong>：Redis支持多种复杂的数据结构，不仅仅是简单的键值对。这使得Redis在处理复杂场景时更加灵活和高效。</li>
+<li><strong>持久化</strong>：Redis提供了多种持久化机制，如RDB快照和AOF（Append Only File）日志。RDB在指定的时间间隔将内存数据快照保存到磁盘，而AOF则记录每个写操作，并在服务器重启时重新执行这些操作来恢复数据。</li>
+<li><strong>主从复制</strong>：Redis支持数据的主从复制（replication），可以将数据从一个Redis实例复制到多个从实</li>
+<li><strong>高可用和分片</strong>：通过Redis Sentinel和Redis Cluster，Redis实现了高可用性和自动故障转移，支持数据分片来处理更大的数据量和更高的吞吐量。</li>
+<li><strong>事务</strong>：Redis支持简单的事务机制，通过MULTI、EXEC、DISCARD和WATCH命令实现基本的事务控制。</li>
+<li><strong>发布&#x2F;订阅</strong>：Redis支持发布&#x2F;订阅模式，可以用作消息代理，实现实时消息通信。</li>
+</ol>
+<h3 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h3><h4 id="CLI-Command-Line-Interface"><a href="#CLI-Command-Line-Interface" class="headerlink" title="CLI (Command Line Interface)"></a>CLI (Command Line Interface)</h4><p>通过命令行工具</p>
+<h4 id="API-Application-Programming-Interface"><a href="#API-Application-Programming-Interface" class="headerlink" title="API (Application Programming Interface)"></a>API (Application Programming Interface)</h4><p>使用Java这类高级语言在编程中使用</p>
+<h3 id="GUI-Graphical-User-Interface"><a href="#GUI-Graphical-User-Interface" class="headerlink" title="GUI (Graphical User Interface)"></a>GUI (Graphical User Interface)</h3><p>图形化界面工具</p>
+<h3 id="常见应用场景"><a href="#常见应用场景" class="headerlink" title="常见应用场景"></a>常见应用场景</h3><ol>
+<li><p><strong>缓存</strong>：由于其高速读写特性，Redis常用于缓存热点数据，减少数据库的负载，提升系统性能。</p>
+</li>
+<li><p><strong>会话存储</strong>：在分布式系统中，可以使用Redis存储会话信息，实现快速访问和高可用性。</p>
+</li>
+<li><p><strong>排行榜&#x2F;计数器</strong>：利用Redis的有序集合，可以轻松实现排行榜和计数器等功能。</p>
+</li>
+<li><p><strong>消息队列</strong>：Redis的列表和发布&#x2F;订阅功能可以用来实现消息队列，支持异步任务处理。</p>
+</li>
+<li><p><strong>分布式锁</strong>：通过Redis的原子操作，可以实现简单高效的分布式锁机制，保证在分布式环境下的资源互斥访问。</p>
+</li>
+</ol>
+<h3 id="基本使用示例"><a href="#基本使用示例" class="headerlink" title="基本使用示例"></a>基本使用示例</h3><p>以下是一些基本的Redis命令示例：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 启动Redis服务器</span></span><br><span class="line">redis-server</span><br><span class="line"></span><br><span class="line"><span class="comment"># 连接到Redis服务器</span></span><br><span class="line">redis-cli</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置一个键值对</span></span><br><span class="line">SET key <span class="string">&quot;Hello, Redis!&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取一个键的值</span></span><br><span class="line">GET key</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置一个带有过期时间的键值对（单位：秒）</span></span><br><span class="line">SETEX anotherKey 10 <span class="string">&quot;This will expire in 10 seconds&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 增加一个哈希</span></span><br><span class="line">HSET user:1000 name <span class="string">&quot;Alice&quot;</span></span><br><span class="line">HSET user:1000 age 30</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取哈希中的一个字段</span></span><br><span class="line">HGET user:1000 name</span><br><span class="line"></span><br><span class="line"><span class="comment"># 列表操作</span></span><br><span class="line">LPUSH mylist <span class="string">&quot;item1&quot;</span></span><br><span class="line">LPUSH mylist <span class="string">&quot;item2&quot;</span></span><br><span class="line">LRANGE mylist 0 -1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 集合操作</span></span><br><span class="line">SADD myset <span class="string">&quot;member1&quot;</span></span><br><span class="line">SADD myset <span class="string">&quot;member2&quot;</span></span><br><span class="line">SMEMBERS myset</span><br><span class="line"></span><br><span class="line"><span class="comment"># 有序集合操作</span></span><br><span class="line">ZADD myzset 1 <span class="string">&quot;one&quot;</span></span><br><span class="line">ZADD myzset 2 <span class="string">&quot;two&quot;</span></span><br><span class="line">ZRANGE myzset 0 -1 WITHSCORES</span><br><span class="line"></span><br><span class="line"><span class="comment"># 发布/订阅</span></span><br><span class="line">SUBSCRIBE mychannel</span><br><span class="line">PUBLISH mychannel <span class="string">&quot;Hello, subscribers!&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>Redis作为一个高性能的内存数据存储系统，提供了丰富的数据结构和强大的功能特性，广泛应用于缓存、会话存储、实时分析等各种场景。其高可用性、可扩展性和易用性使其成为现代应用程序中不可或缺的组件之一。</p>
+<p>以下是一些 Redis 的常用命令：</p>
+<h3 id="通用命令"><a href="#通用命令" class="headerlink" title="通用命令"></a>通用命令</h3><ul>
+<li><code>ping</code>：检查服务器是否正常工作。返回 <code>PONG</code>。</li>
+<li><code>echo &lt;message&gt;</code>：返回输入的消息，用于测试和调试。</li>
+<li><code>select &lt;index&gt;</code>：选择数据库（默认是 0）。</li>
+<li><code>dbsize</code>：返回当前数据库的键数。</li>
+<li><code>info</code>：获取服务器的信息和统计数据。</li>
+</ul>
+<h3 id="键（Keys）相关命令"><a href="#键（Keys）相关命令" class="headerlink" title="键（Keys）相关命令"></a>键（Keys）相关命令</h3><ul>
+<li><code>set &lt;key&gt; &lt;value&gt;</code>：设置键的值。</li>
+<li><code>setnx &lt;key&gt; &lt;value&gt; </code>: 只有键不存在时才设置值</li>
+<li><code>get &lt;key&gt;</code>：获取键的值。</li>
+<li><code>del &lt;key&gt;</code>：删除键。</li>
+<li><code>exists &lt;key&gt;</code>：检查键是否存在。</li>
+<li><code>expire &lt;key&gt; &lt;seconds&gt;</code>：为键设置过期时间（秒）。</li>
+<li><code>setex &lt;key&gt; &lt;seconds&gt; &lt;value&gt;</code>: 设置一个带过期时间的键值对</li>
+<li><code>ttl &lt;key&gt;</code>：获取键的剩余过期时间。</li>
+<li><code>keys &lt;pattern&gt;</code>：查找符合给定模式的所有键。</li>
+</ul>
+<h3 id="事务（Transactions）相关命令"><a href="#事务（Transactions）相关命令" class="headerlink" title="事务（Transactions）相关命令"></a>事务（Transactions）相关命令</h3><ul>
+<li><code>multi</code>：开启一个事务块。</li>
+<li><code>exec</code>：执行所有事务块中的命令。</li>
+<li><code>discard</code>：取消事务块。</li>
+<li><code>watch &lt;key&gt;</code>：监视一个或多个键，如果在事务执行之前这些键发生变化，事务将被中止。</li>
+<li><code>unwatch</code>：取消对所有键的监视。</li>
+</ul>
+<h2 id="String-字符串"><a href="#String-字符串" class="headerlink" title="String 字符串"></a>String 字符串</h2><h3 id="字符串（Strings）相关命令"><a href="#字符串（Strings）相关命令" class="headerlink" title="字符串（Strings）相关命令"></a>字符串（Strings）相关命令</h3><ul>
+<li><code>set &lt;key&gt; &lt;value&gt;</code>：设置键的字符串值。</li>
+<li><code>get &lt;key&gt;</code>：获取键的字符串值。</li>
+<li><code>mget &lt;key1&gt; &lt;key2&gt; ...</code>：获取多个键的值。</li>
+<li><code>append &lt;key&gt; &lt;value&gt;</code>：将值追加到键的末尾。</li>
+<li><code>incr &lt;key&gt;</code>：将键的值加1。</li>
+<li><code>incrby &lt;key&gt; &lt;increment&gt;</code>：将键的值加上指定的增量。</li>
+<li><code>decr &lt;key&gt;</code>：将键的值减1。</li>
+<li><code>decrby &lt;key&gt; &lt;decrement&gt;</code>：将键的值减去指定的减量。</li>
+</ul>
+<h3 id="使用中文"><a href="#使用中文" class="headerlink" title="使用中文"></a>使用中文</h3><p><code>redis-cli --raw</code></p>
+<p>以原始数据格式显示</p>
+<h2 id="List-列表"><a href="#List-列表" class="headerlink" title="List 列表"></a>List 列表</h2><h3 id="列表（Lists）相关命令"><a href="#列表（Lists）相关命令" class="headerlink" title="列表（Lists）相关命令"></a>列表（Lists）相关命令</h3><ul>
+<li><code>lpush &lt;key&gt; &lt;value&gt;</code>：将值推入列表的左端。</li>
+<li><code>rpush &lt;key&gt; &lt;value&gt;</code>：将值推入列表的右端。</li>
+<li><code>lpop &lt;key&gt;</code>：从左端删除列表的一个值。</li>
+<li><code>rpop &lt;key&gt;</code>：从右端删除列表的一个值。</li>
+<li><code>lrange &lt;key&gt; &lt;start&gt; &lt;stop&gt;</code>：获取列表的指定范围的值。</li>
+<li><code>llen &lt;key&gt;</code>：获取列表的长度。</li>
+</ul>
+<ul>
+<li><code>ltrim &lt;key&gt; start stop</code>: 删除范围之外的元素</li>
+</ul>
+<h2 id="Set-集合"><a href="#Set-集合" class="headerlink" title="Set 集合"></a>Set 集合</h2><h3 id="集合（Set）相关命令"><a href="#集合（Set）相关命令" class="headerlink" title="集合（Set）相关命令"></a>集合（Set）相关命令</h3><ul>
+<li><code>sadd &lt;key&gt; &lt;member&gt;</code>：向集合添加一个成员。</li>
+<li><code>srem &lt;key&gt; &lt;member&gt;</code>：从集合移除一个成员。</li>
+<li><code>smembers &lt;key&gt;</code>：获取集合的所有成员。</li>
+<li><code>sismember &lt;key&gt; &lt;member&gt;</code>：判断元素是否是集合的成员。</li>
+<li><code>scard &lt;key&gt;</code>：获取集合的成员数。</li>
+<li><code>srandmember &lt;key&gt; [count]</code>：随机返回集合中的一个或多个成员。</li>
+</ul>
+<h2 id="有序集合-Sorted-Set"><a href="#有序集合-Sorted-Set" class="headerlink" title="有序集合 Sorted Set"></a>有序集合 Sorted Set</h2><p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202406252300766.png" alt="image-20240625230001694"></p>
+<p>每个元素都会关联一个浮点类型的分数, 然后按照这个分数从小到大排序</p>
+<h3 id="有序集合（Sorted-Set）相关命令"><a href="#有序集合（Sorted-Set）相关命令" class="headerlink" title="有序集合（Sorted Set）相关命令"></a>有序集合（Sorted Set）相关命令</h3><ul>
+<li><code>zadd &lt;key&gt; &lt;score&gt; &lt;member&gt;</code>：向有序集合添加一个成员，并设置其分数。</li>
+<li><code>zrem &lt;key&gt; &lt;member&gt;</code>：从有序集合移除一个成员。</li>
+<li><code>zrange &lt;key&gt; &lt;start&gt; &lt;stop&gt; [withscores]</code>：返回有序集合在指定区间内的成员。</li>
+<li><code>zscore &lt;key&gt; &lt;member&gt;</code>：获取有序集合中成员的分数。</li>
+<li><code>zcard &lt;key&gt;</code>：获取有序集合的成员数。</li>
+<li><code>zcount &lt;key&gt; &lt;min&gt; &lt;max&gt;</code>：计算有序集合中指定分数范围的成员数。</li>
+</ul>
+<h2 id="Hash-哈希"><a href="#Hash-哈希" class="headerlink" title="Hash 哈希"></a>Hash 哈希</h2><p>一个键值对的集合</p>
+<h3 id="哈希（Hashes）相关命令"><a href="#哈希（Hashes）相关命令" class="headerlink" title="哈希（Hashes）相关命令"></a>哈希（Hashes）相关命令</h3><ul>
+<li><code>hset &lt;key&gt; &lt;field&gt; &lt;value&gt;</code>：设置哈希表键的字段值。  名字-键-值</li>
+<li><code>hget &lt;key&gt; &lt;field&gt;</code>：获取哈希表键的字段值。</li>
+<li><code>hdel &lt;key&gt; &lt;field&gt;</code>：删除哈希表键的字段。</li>
+<li><code>hexists &lt;key&gt; &lt;field&gt;</code>：检查哈希表键的字段是否存在。</li>
+<li><code>hgetall &lt;key&gt;</code>：获取哈希表键的所有字段和值。</li>
+<li><code>hkeys &lt;key&gt;</code>：获取哈希表键的所有字段。</li>
+<li><code>hvals &lt;key&gt;</code>：获取哈希表键的所有值。</li>
+</ul>
+<h2 id="发布消息订阅模式"><a href="#发布消息订阅模式" class="headerlink" title="发布消息订阅模式"></a>发布消息订阅模式</h2><p>通过<code>publish</code>命令, 将消息发送到指定频道, 然后通过<code>subscribe</code>命令订阅这个频道.  </p>
+<p>Redis 提供了发布&#x2F;订阅（Publish&#x2F;Subscribe，简称 Pub&#x2F;Sub）功能，用于消息订阅和发布。这是一种消息通信模式，发送者（发布者）不会将消息直接发送给具体的接收者（订阅者），而是将消息发布到某个频道（channel），所有订阅这个频道的客户端都会接收到消息。</p>
+<h3 id="发布-订阅模式的常用命令"><a href="#发布-订阅模式的常用命令" class="headerlink" title="发布&#x2F;订阅模式的常用命令"></a>发布&#x2F;订阅模式的常用命令</h3><h4 id="发布消息"><a href="#发布消息" class="headerlink" title="发布消息"></a>发布消息</h4><ul>
+<li><code>PUBLISH &lt;channel&gt; &lt;message&gt;</code>：将消息发布到指定频道。</li>
+</ul>
+<h4 id="订阅消息"><a href="#订阅消息" class="headerlink" title="订阅消息"></a>订阅消息</h4><ul>
+<li><code>SUBSCRIBE &lt;channel&gt; [channel ...]</code>：订阅一个或多个频道。</li>
+<li><code>PSUBSCRIBE &lt;pattern&gt; [pattern ...]</code>：订阅一个或多个符合给定模式的频道。</li>
+</ul>
+<h4 id="取消订阅"><a href="#取消订阅" class="headerlink" title="取消订阅"></a>取消订阅</h4><ul>
+<li><code>UNSUBSCRIBE [channel ...]</code>：退订一个或多个频道。如果没有指定频道，则退订所有频道。</li>
+<li><code>PUNSUBSCRIBE [pattern ...]</code>：退订一个或多个符合给定模式的频道。如果没有指定模式，则退订所有模式。</li>
+</ul>
+<h4 id="查看订阅信息"><a href="#查看订阅信息" class="headerlink" title="查看订阅信息"></a>查看订阅信息</h4><ul>
+<li><code>PUBSUB CHANNELS [pattern]</code>：列出当前活跃的频道。如果提供了模式参数，则只列出匹配该模式的频道。</li>
+<li><code>PUBSUB NUMSUB [channel ...]</code>：返回指定频道的订阅者数量。</li>
+<li><code>PUBSUB NUMPAT</code>：返回订阅模式的数量。</li>
+</ul>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><h4 id="发布者"><a href="#发布者" class="headerlink" title="发布者"></a>发布者</h4><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">PUBLISH news <span class="string">&quot;Breaking News: Redis 6.0 released!&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="订阅者"><a href="#订阅者" class="headerlink" title="订阅者"></a>订阅者</h4><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">SUBSCRIBE news</span><br></pre></td></tr></table></figure>
+
+<p>在订阅者订阅 <code>news</code> 频道后，一旦有消息发布到 <code>news</code> 频道，订阅者将收到如下消息：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1) &quot;message&quot;</span><br><span class="line">2) &quot;news&quot;</span><br><span class="line">3) &quot;Breaking News: Redis 6.0 released!&quot;</span><br></pre></td></tr></table></figure>
+
+<h4 id="模式订阅"><a href="#模式订阅" class="headerlink" title="模式订阅"></a>模式订阅</h4><p>使用模式订阅可以匹配多个频道：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">PSUBSCRIBE news.*</span><br></pre></td></tr></table></figure>
+
+<p>发布消息到匹配的频道：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">PUBLISH news.sports <span class="string">&quot;Sports News: Local team wins championship!&quot;</span></span><br><span class="line">PUBLISH news.weather <span class="string">&quot;Weather Update: Sunny all week!&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>模式订阅者将收到以下消息：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1) &quot;pmessage&quot;</span><br><span class="line">2) &quot;news.*&quot;</span><br><span class="line">3) &quot;news.sports&quot;</span><br><span class="line">4) &quot;Sports News: Local team wins championship!&quot;</span><br><span class="line">1) &quot;pmessage&quot;</span><br><span class="line">2) &quot;news.*&quot;</span><br><span class="line">3) &quot;news.weather&quot;</span><br><span class="line">4) &quot;Weather Update: Sunny all week!&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><ul>
+<li><strong>实时消息推送</strong>：比如聊天室、实时通知系统。</li>
+<li><strong>事件驱动系统</strong>：比如事件总线、消息中间件。</li>
+<li><strong>日志系统</strong>：实时日志监控和分析。</li>
+</ul>
+<p>Redis 的发布&#x2F;订阅模式是实现实时消息推送的一种简单高效的方法，但需要注意的是，它不保证消息的持久性（即如果没有订阅者，消息将丢失），也不保证消息的顺序。对于需要持久化和高级功能的消息队列系统，可以考虑使用 Redis Streams 或其他消息队列系统如 Kafka、RabbitMQ 等。</p>
+<h2 id="消息队列-Stream"><a href="#消息队列-Stream" class="headerlink" title="消息队列 Stream"></a>消息队列 Stream</h2><p>Redis Streams 是 Redis 5.0 引入的新数据类型，专为处理消息流和日志而设计。它提供了更强大的功能，如持久化、消息ID、消费者组等，适用于实时数据处理和日志系统。</p>
+<h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><ul>
+<li><strong>Stream</strong>：一个按消息ID有序排列的消息列表。</li>
+<li><strong>Message</strong>：每条消息包含一个消息ID和一个键值对的字段。</li>
+<li><strong>Consumer Group</strong>：允许多个消费者读取和处理同一个Stream的不同部分，从而实现负载均衡和可靠性。</li>
+</ul>
+<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><h4 id="添加消息"><a href="#添加消息" class="headerlink" title="添加消息"></a>添加消息</h4><ul>
+<li><code>XADD &lt;key&gt; &lt;ID or *&gt; [field value] [field value] ...</code>：向Stream添加消息。如果ID为 <code>*</code>，Redis会自动生成唯一ID。</li>
+</ul>
+<h4 id="读取消息"><a href="#读取消息" class="headerlink" title="读取消息"></a>读取消息</h4><ul>
+<li><code>XRANGE &lt;key&gt; &lt;start&gt; &lt;end&gt; [COUNT &lt;count&gt;]</code>：获取指定范围内的消息。</li>
+<li><code>XREVRANGE &lt;key&gt; &lt;end&gt; &lt;start&gt; [COUNT &lt;count&gt;]</code>：按逆序获取指定范围内的消息。<code>- +</code>表示所有消息</li>
+<li><code>XREAD [COUNT &lt;count&gt;] [BLOCK &lt;milliseconds&gt;] STREAMS &lt;key&gt; &lt;ID&gt; ...</code>：从一个或多个Stream中从<ID>开始读取<count>条消息, 如果没有消息, 则阻塞<milliseconds>。</li>
+<li><code>XREADGROUP GROUP &lt;group&gt; &lt;consumer&gt; [COUNT &lt;count&gt;] [BLOCK &lt;milliseconds&gt;] STREAMS &lt;key&gt; &lt;ID&gt; ...</code>：从消费者组中读取消息。</li>
+</ul>
+<h4 id="消费者组"><a href="#消费者组" class="headerlink" title="消费者组"></a>消费者组</h4><ul>
+<li><code>XGROUP CREATE &lt;key&gt; &lt;group&gt; &lt;ID or $&gt;</code>：创建消费者组。消息名称-组名称-id</li>
+<li><code>XGROUP CREATECONSUMER &lt;key&gt; &lt;group&gt; &lt;sonsumer&gt;</code>: 创建一个消费者</li>
+<li><code>XGROUP DESTROY &lt;key&gt; &lt;group&gt;</code>：删除消费者组。</li>
+<li><code>XGROUP SETID &lt;key&gt; &lt;group&gt; &lt;ID&gt;</code>：设置消费者组的最后消息ID。</li>
+<li><code>XACK &lt;key&gt; &lt;group&gt; &lt;ID&gt; ...</code>：确认一个或多个消息已被处理。</li>
+<li><code>XCLAIM &lt;key&gt; &lt;group&gt; &lt;consumer&gt; &lt;min-idle-time&gt; &lt;ID&gt; [ID ...]</code>：将消息的所有权转移给另一个消费者。</li>
+<li><code>XPENDING &lt;key&gt; &lt;group&gt; [&lt;start&gt; &lt;end&gt; &lt;count&gt; [&lt;consumer&gt;]]</code>：获取待处理消息的摘要信息。</li>
+</ul>
+<h4 id="管理"><a href="#管理" class="headerlink" title="管理"></a>管理</h4><ul>
+<li><code>XLEN &lt;key&gt;</code>：获取Stream的长度。</li>
+<li><code>XDEL &lt;key&gt; &lt;ID&gt; ...</code>：删除指定的消息。</li>
+<li><code>XTRIM &lt;key&gt; MAXLEN [~] &lt;count&gt;</code>：修剪Stream，使其不超过指定长度。</li>
+</ul>
+<h3 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h3><h4 id="添加消息-1"><a href="#添加消息-1" class="headerlink" title="添加消息"></a>添加消息</h4><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">XADD mystream * field1 value1 field2 value2</span><br></pre></td></tr></table></figure>
+
+<h4 id="读取消息-1"><a href="#读取消息-1" class="headerlink" title="读取消息"></a>读取消息</h4><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">XRANGE mystream - +</span><br></pre></td></tr></table></figure>
+
+<h4 id="创建消费者组"><a href="#创建消费者组" class="headerlink" title="创建消费者组"></a>创建消费者组</h4><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">XGROUP CREATE mystream mygroup $</span><br></pre></td></tr></table></figure>
+
+<h4 id="从消费者组读取消息"><a href="#从消费者组读取消息" class="headerlink" title="从消费者组读取消息"></a>从消费者组读取消息</h4><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">XREADGROUP GROUP mygroup consumer1 STREAMS mystream &gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="确认消息"><a href="#确认消息" class="headerlink" title="确认消息"></a>确认消息</h4><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">XACK mystream mygroup 1526569495631-0</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用场景-1"><a href="#使用场景-1" class="headerlink" title="使用场景"></a>使用场景</h3><ul>
+<li><strong>实时数据流处理</strong>：如点击流分析、实时监控和报警。</li>
+<li><strong>事件驱动架构</strong>：在微服务和事件驱动系统中传递事件。</li>
+<li><strong>日志系统</strong>：收集和处理日志数据。</li>
+<li><strong>任务队列</strong>：管理和分配任务给多个消费者。</li>
+</ul>
+<p>Redis Streams 提供了丰富的功能，使其能够满足复杂的消息处理需求，同时保持了Redis一贯的高性能和简单易用的特点。</p>
+<h2 id="地理空间-Geospatial"><a href="#地理空间-Geospatial" class="headerlink" title="地理空间 Geospatial"></a>地理空间 Geospatial</h2><p>Redis 提供了地理空间（Geospatial）功能，可以存储和操作地理位置的数据。这对于需要处理地理位置信息的应用非常有用，比如地理定位、距离计算、附近搜索等。</p>
+<h3 id="常用命令-1"><a href="#常用命令-1" class="headerlink" title="常用命令"></a>常用命令</h3><h4 id="添加地理位置"><a href="#添加地理位置" class="headerlink" title="添加地理位置"></a>添加地理位置</h4><ul>
+<li><code>GEOADD &lt;key&gt; &lt;longitude&gt; &lt;latitude&gt; &lt;member&gt; [&lt;longitude&gt; &lt;latitude&gt; &lt;member&gt; ...]</code>：将地理位置（经度、纬度、成员）添加到指定的键中。</li>
+</ul>
+<h4 id="获取地理位置"><a href="#获取地理位置" class="headerlink" title="获取地理位置"></a>获取地理位置</h4><ul>
+<li><code>GEOPOS &lt;key&gt; &lt;member&gt; [&lt;member&gt; ...]</code>：返回指定成员的经纬度。</li>
+</ul>
+<h4 id="计算距离"><a href="#计算距离" class="headerlink" title="计算距离"></a>计算距离</h4><ul>
+<li><code>GEODIST &lt;key&gt; &lt;member1&gt; &lt;member2&gt; [unit]</code>：计算两个成员之间的距离。单位可以是 <code>m</code>（米），<code>km</code>（千米），<code>mi</code>（英里），<code>ft</code>（英尺）。</li>
+</ul>
+<h4 id="查找附近成员"><a href="#查找附近成员" class="headerlink" title="查找附近成员"></a>查找附近成员</h4><ul>
+<li><code>GEOSEARCH &lt;key&gt; FROMMEMBER &lt;member&gt; BYRADIUS RADIUS &lt;unit&gt;</code> : 搜索距离key半径unit单位的城市</li>
+</ul>
+<ul>
+<li><code>GEORADIUS &lt;key&gt; &lt;longitude&gt; &lt;latitude&gt; &lt;radius&gt; &lt;unit&gt; [WITHCOORD] [WITHDIST] [WITHHASH] [COUNT &lt;count&gt;] [ASC|DESC]</code>：以给定的经纬度为中心，查找指定半径内的成员。可以选择返回距离、坐标和排序。</li>
+<li><code>GEORADIUSBYMEMBER &lt;key&gt; &lt;member&gt; &lt;radius&gt; &lt;unit&gt; [WITHCOORD] [WITHDIST] [WITHHASH] [COUNT &lt;count&gt;] [ASC|DESC]</code>：以给定成员为中心，查找指定半径内的其他成员。可以选择返回距离、坐标和排序。</li>
+</ul>
+<h4 id="获取地理位置的哈希值"><a href="#获取地理位置的哈希值" class="headerlink" title="获取地理位置的哈希值"></a>获取地理位置的哈希值</h4><ul>
+<li><code>GEOHASH &lt;key&gt; &lt;member&gt; [&lt;member&gt; ...]</code>：返回一个或多个成员的 Geohash 表示。</li>
+</ul>
+<h3 id="示例-2"><a href="#示例-2" class="headerlink" title="示例"></a>示例</h3><h4 id="添加地理位置-1"><a href="#添加地理位置-1" class="headerlink" title="添加地理位置"></a>添加地理位置</h4><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">GEOADD cities 13.361389 38.115556 <span class="string">&quot;Palermo&quot;</span></span><br><span class="line">GEOADD cities 15.087269 37.502669 <span class="string">&quot;Catania&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="获取地理位置-1"><a href="#获取地理位置-1" class="headerlink" title="获取地理位置"></a>获取地理位置</h4><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">GEOPOS cities <span class="string">&quot;Palermo&quot;</span> <span class="string">&quot;Catania&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="计算距离-1"><a href="#计算距离-1" class="headerlink" title="计算距离"></a>计算距离</h4><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">GEODIST cities <span class="string">&quot;Palermo&quot;</span> <span class="string">&quot;Catania&quot;</span> km</span><br></pre></td></tr></table></figure>
+
+<h4 id="查找附近成员-1"><a href="#查找附近成员-1" class="headerlink" title="查找附近成员"></a>查找附近成员</h4><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">GEORADIUS cities 15 37 200 km WITHDIST WITHCOORD</span><br></pre></td></tr></table></figure>
+
+<h4 id="查找附近成员（以成员为中心）"><a href="#查找附近成员（以成员为中心）" class="headerlink" title="查找附近成员（以成员为中心）"></a>查找附近成员（以成员为中心）</h4><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">GEORADIUSBYMEMBER cities <span class="string">&quot;Palermo&quot;</span> 100 km WITHDIST</span><br></pre></td></tr></table></figure>
+
+<h4 id="获取地理位置的哈希值-1"><a href="#获取地理位置的哈希值-1" class="headerlink" title="获取地理位置的哈希值"></a>获取地理位置的哈希值</h4><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">GEOHASH cities <span class="string">&quot;Palermo&quot;</span> <span class="string">&quot;Catania&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="使用场景-2"><a href="#使用场景-2" class="headerlink" title="使用场景"></a>使用场景</h3><ul>
+<li><strong>定位服务</strong>：如打车软件、地图应用中的位置查找和导航。</li>
+<li><strong>附近搜索</strong>：查找附近的商店、餐馆、服务点等。</li>
+<li><strong>距离计算</strong>：计算两个地理位置之间的距离，用于物流和配送等场景。</li>
+<li><strong>地理围栏</strong>：确定某个位置是否在指定区域内。</li>
+</ul>
+<p>Redis 的地理空间功能提供了高效的地理位置存储和计算，能够满足各种需要处理地理数据的应用需求。</p>
+<h2 id="HyperLogLog"><a href="#HyperLogLog" class="headerlink" title="HyperLogLog"></a>HyperLogLog</h2><p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202406252334850.png" alt="image-20240625233405779"></p>
+<p>HyperLogLog 是一种概率数据结构，用于基数估计，即在内存占用较小的情况下估计一个集合中的唯一元素的数量。Redis 中的 HyperLogLog 提供了近似计算大规模数据集的基数（去重后的元素个数）的功能，并且在计算过程中占用的内存固定且很小。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202406252335732.png" alt="image-20240625233532674"></p>
+<h3 id="HyperLogLog-的常用命令"><a href="#HyperLogLog-的常用命令" class="headerlink" title="HyperLogLog 的常用命令"></a>HyperLogLog 的常用命令</h3><h4 id="添加元素"><a href="#添加元素" class="headerlink" title="添加元素"></a>添加元素</h4><ul>
+<li><code>PFADD &lt;key&gt; &lt;element&gt; [element ...]</code>：将一个或多个元素添加到 HyperLogLog 中。如果 HyperLogLog 结构不存在，将自动创建。</li>
+</ul>
+<h4 id="估计基数"><a href="#估计基数" class="headerlink" title="估计基数"></a>估计基数</h4><ul>
+<li><code>PFCOUNT &lt;key&gt; [key ...]</code>：返回 HyperLogLog 的基数估计值。如果指定多个 HyperLogLog，将返回它们的并集的基数估计值。</li>
+</ul>
+<h4 id="合并-HyperLogLog"><a href="#合并-HyperLogLog" class="headerlink" title="合并 HyperLogLog"></a>合并 HyperLogLog</h4><ul>
+<li><code>PFMERGE &lt;destkey&gt; &lt;sourcekey&gt; [sourcekey ...]</code>：将多个 HyperLogLog 合并为一个 HyperLogLog，并存储到目标键中。</li>
+</ul>
+<h3 id="示例-3"><a href="#示例-3" class="headerlink" title="示例"></a>示例</h3><h4 id="添加元素-1"><a href="#添加元素-1" class="headerlink" title="添加元素"></a>添加元素</h4><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">PFADD myhll a b c d</span><br></pre></td></tr></table></figure>
+
+<h4 id="估计基数-1"><a href="#估计基数-1" class="headerlink" title="估计基数"></a>估计基数</h4><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">PFCOUNT myhll</span><br></pre></td></tr></table></figure>
+
+<h4 id="合并-HyperLogLog-1"><a href="#合并-HyperLogLog-1" class="headerlink" title="合并 HyperLogLog"></a>合并 HyperLogLog</h4><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">PFADD hll1 foo bar</span><br><span class="line">PFADD hll2 bar baz</span><br><span class="line">PFMERGE combined_hll hll1 hll2</span><br><span class="line">PFCOUNT combined_hll</span><br></pre></td></tr></table></figure>
+
+<p>在这个示例中，<code>PFADD</code> 命令将元素 <code>a</code>, <code>b</code>, <code>c</code>, <code>d</code> 添加到 <code>myhll</code>，然后使用 <code>PFCOUNT</code> 命令来估计 <code>myhll</code> 中唯一元素的数量。接着，将 <code>hll1</code> 和 <code>hll2</code> 合并为 <code>combined_hll</code>，并估计合并后集合的基数。</p>
+<h3 id="使用场景-3"><a href="#使用场景-3" class="headerlink" title="使用场景"></a>使用场景</h3><ul>
+<li><strong>网站分析</strong>：统计独立访客数量。</li>
+<li><strong>去重计数</strong>：在大数据处理中快速估计唯一元素数量。</li>
+<li><strong>流量分析</strong>：实时估计独立IP地址或用户ID的数量。</li>
+</ul>
+<h3 id="HyperLogLog-的优缺点"><a href="#HyperLogLog-的优缺点" class="headerlink" title="HyperLogLog 的优缺点"></a>HyperLogLog 的优缺点</h3><p><strong>优点：</strong></p>
+<ul>
+<li><strong>内存效率高</strong>：无论添加多少元素，HyperLogLog 的内存占用始终是固定的 12 KB。</li>
+<li><strong>速度快</strong>：基数估计操作非常高效。</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li><strong>近似计算</strong>：结果是近似值，有一定的误差（标准误差约为 0.81%）。</li>
+<li><strong>只支持基数估计</strong>：不能获取实际的元素内容或顺序。</li>
+</ul>
+<p>Redis 中的 HyperLogLog 是一种非常实用的工具，适用于需要在内存占用和性能之间取得平衡的基数估计算法。 </p>
+<h2 id="位域-BitField"><a href="#位域-BitField" class="headerlink" title="位域 BitField"></a>位域 BitField</h2><p>能能够很多小的整数存储到一个较大的位图中, 高效使用内存 </p>
+<p>Redis 的位域（Bitfield）操作允许你将值存储在字符串值的特定位范围内，并对这些位进行操作。这对于需要在较小的空间内存储多个值的应用非常有用，比如存储标志位、状态位等。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202406252342731.png" alt="image-20240625234248658"></p>
+<h3 id="常用命令-2"><a href="#常用命令-2" class="headerlink" title="常用命令"></a>常用命令</h3><h4 id="设置和获取位域"><a href="#设置和获取位域" class="headerlink" title="设置和获取位域"></a>设置和获取位域</h4><ul>
+<li><code>BITFIELD &lt;key&gt; [GET type offset] [SET type offset value] [INCRBY type offset increment] [OVERFLOW WRAP|SAT|FAIL]</code>：对位域进行操作。</li>
+</ul>
+<h4 id="命令说明"><a href="#命令说明" class="headerlink" title="命令说明"></a>命令说明</h4><ul>
+<li><code>GET type offset</code>：获取位域中指定类型和偏移量的值。</li>
+<li><code>SET type offset value</code>：设置位域中指定类型和偏移量的值。</li>
+<li><code>INCRBY type offset increment</code>：将位域中指定类型和偏移量的值增加指定的增量。</li>
+<li><code>OVERFLOW WRAP|SAT|FAIL</code>：设置溢出处理模式。WRAP（回绕），SAT（饱和），FAIL（失败）。</li>
+</ul>
+<h4 id="位域类型"><a href="#位域类型" class="headerlink" title="位域类型"></a>位域类型</h4><ul>
+<li><code>type</code> 指定位域的类型和大小，例如 <code>i8</code> 表示有符号8位整数，<code>u4</code> 表示无符号4位整数等。</li>
+</ul>
+<h3 id="示例-4"><a href="#示例-4" class="headerlink" title="示例"></a>示例</h3><h4 id="设置和获取位域值"><a href="#设置和获取位域值" class="headerlink" title="设置和获取位域值"></a>设置和获取位域值</h4><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 设置键 mykey 的第 0 位到第 7 位为有符号8位整数值 100</span></span><br><span class="line">BITFIELD mykey SET i8 0 100</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取键 mykey 的第 0 位到第 7 位的有符号8位整数值</span></span><br><span class="line">BITFIELD mykey GET i8 0</span><br></pre></td></tr></table></figure>
+
+<h4 id="增加位域值"><a href="#增加位域值" class="headerlink" title="增加位域值"></a>增加位域值</h4><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 将键 mykey 的第 8 位到第 15 位的有符号8位整数值增加 50</span></span><br><span class="line">BITFIELD mykey INCRBY i8 8 50</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取键 mykey 的第 8 位到第 15 位的有符号8位整数值</span></span><br><span class="line">BITFIELD mykey GET i8 8</span><br></pre></td></tr></table></figure>
+
+<h4 id="溢出处理"><a href="#溢出处理" class="headerlink" title="溢出处理"></a>溢出处理</h4><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 设置键 mykey 的第 16 位到第 19 位为无符号4位整数值 15</span></span><br><span class="line">BITFIELD mykey SET u4 16 15</span><br><span class="line"></span><br><span class="line"><span class="comment"># 增加键 mykey 的第 16 位到第 19 位的无符号4位整数值 1，并使用 WRAP 模式处理溢出</span></span><br><span class="line">BITFIELD mykey OVERFLOW WRAP INCRBY u4 16 1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取键 mykey 的第 16 位到第 19 位的无符号4位整数值</span></span><br><span class="line">BITFIELD mykey GET u4 16</span><br></pre></td></tr></table></figure>
+
+<p>在这个示例中，首先我们设置和获取了一个有符号8位整数的值。接着，我们增加了另一个有符号8位整数的值，并获取其结果。最后，我们设置了一个无符号4位整数的值，增加它并处理溢出。</p>
+<h3 id="使用场景-4"><a href="#使用场景-4" class="headerlink" title="使用场景"></a>使用场景</h3><ul>
+<li><strong>标志位和状态位</strong>：存储多个布尔值或小整数值。</li>
+<li><strong>紧凑存储</strong>：在一个字符串键中存储多个小值，节省内存。</li>
+<li><strong>计数器</strong>：使用位域作为计数器，以较小的内存开销存储和操作多个计数器。</li>
+</ul>
+<p>Redis 的位域操作功能强大，可以灵活处理各种位级别的数据操作需求。</p>
+<h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><p>Redis 提供了一组事务相关的命令，使得用户可以将多个命令打包成一个原子操作（Atomic Operation）来执行。在 Redis 中，事务的实现相对简单，没有回滚机制。事务确保了事务块中的所有命令要么全部执行，要么全部不执行。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202406252350163.png" alt="image-20240625235029106"></p>
+<h3 id="事务的常用命令"><a href="#事务的常用命令" class="headerlink" title="事务的常用命令"></a>事务的常用命令</h3><h4 id="MULTI"><a href="#MULTI" class="headerlink" title="MULTI"></a><code>MULTI</code></h4><p>开始一个事务块。</p>
+<h4 id="EXEC"><a href="#EXEC" class="headerlink" title="EXEC"></a><code>EXEC</code></h4><p>执行所有事务块中的命令。</p>
+<h4 id="DISCARD"><a href="#DISCARD" class="headerlink" title="DISCARD"></a><code>DISCARD</code></h4><p>取消事务块，放弃执行事务块中的所有命令。</p>
+<h4 id="WATCH"><a href="#WATCH" class="headerlink" title="WATCH"></a><code>WATCH</code></h4><p>监视一个或多个键，如果在事务执行之前这些键发生变化，事务将被中止。</p>
+<h4 id="UNWATCH"><a href="#UNWATCH" class="headerlink" title="UNWATCH"></a><code>UNWATCH</code></h4><p>取消对所有键的监视。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202406252352388.png" alt="image-20240625235239307"></p>
+<h3 id="使用事务的示例"><a href="#使用事务的示例" class="headerlink" title="使用事务的示例"></a>使用事务的示例</h3><h4 id="基本事务"><a href="#基本事务" class="headerlink" title="基本事务"></a>基本事务</h4><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">MULTI</span><br><span class="line">SET key1 <span class="string">&quot;value1&quot;</span></span><br><span class="line">SET key2 <span class="string">&quot;value2&quot;</span></span><br><span class="line">EXEC</span><br></pre></td></tr></table></figure>
+<p>在这个示例中，<code>MULTI</code> 开始一个事务块，接下来的 <code>SET</code> 命令会被打包在一起，最后 <code>EXEC</code> 执行这些命令。</p>
+<h4 id="取消事务"><a href="#取消事务" class="headerlink" title="取消事务"></a>取消事务</h4><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">MULTI</span><br><span class="line">SET key1 <span class="string">&quot;value1&quot;</span></span><br><span class="line">SET key2 <span class="string">&quot;value2&quot;</span></span><br><span class="line">DISCARD</span><br></pre></td></tr></table></figure>
+<p>在这个示例中，<code>DISCARD</code> 会取消事务块中所有的命令，<code>key1</code> 和 <code>key2</code> 不会被设置。</p>
+<h4 id="使用-WATCH-实现乐观锁"><a href="#使用-WATCH-实现乐观锁" class="headerlink" title="使用 WATCH 实现乐观锁"></a>使用 <code>WATCH</code> 实现乐观锁</h4><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">WATCH mykey</span><br><span class="line">val = GET mykey</span><br><span class="line">newval = val + 1</span><br><span class="line"></span><br><span class="line">MULTI</span><br><span class="line">SET mykey newval</span><br><span class="line">EXEC</span><br></pre></td></tr></table></figure>
+<p>在这个示例中，<code>WATCH</code> 命令监视 <code>mykey</code>。如果在执行 <code>EXEC</code> 之前 <code>mykey</code> 被其他客户端修改，<code>EXEC</code> 将返回 <code>nil</code>，事务中的命令不会执行。否则，<code>mykey</code> 将被设置为 <code>newval</code>。</p>
+<h4 id="使用-UNWATCH"><a href="#使用-UNWATCH" class="headerlink" title="使用 UNWATCH"></a>使用 <code>UNWATCH</code></h4><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">WATCH mykey</span><br><span class="line">UNWATCH</span><br><span class="line">SET mykey <span class="string">&quot;newvalue&quot;</span></span><br></pre></td></tr></table></figure>
+<p>在这个示例中，<code>UNWATCH</code> 取消了对 <code>mykey</code> 的监视，接下来的 <code>SET</code> 命令将独立执行，而不是作为事务的一部分。</p>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
+<li><strong>事务中的命令没有回滚机制</strong>：如果 <code>EXEC</code> 执行过程中某个命令失败，其他命令仍然会执行。Redis 不支持回滚。</li>
+<li><strong>监视键的变化</strong>：如果使用 <code>WATCH</code>，在调用 <code>EXEC</code> 之前，如果被监视的键发生变化，事务会中止，<code>EXEC</code> 返回 <code>nil</code>。</li>
+<li><strong>事务中的命令按顺序执行</strong>：事务确保命令按提交的顺序执行。</li>
+</ul>
+<h3 id="使用场景-5"><a href="#使用场景-5" class="headerlink" title="使用场景"></a>使用场景</h3><ul>
+<li><strong>保证操作的原子性</strong>：在需要同时执行多条命令时，确保操作的原子性，防止数据不一致。</li>
+<li><strong>实现简单的分布式锁</strong>：通过 <code>WATCH</code> 和事务实现乐观锁，处理并发数据修改问题。</li>
+<li><strong>批量操作</strong>：将多个命令打包成一个事务，一次性执行，减少客户端与 Redis 服务器之间的通信开销。</li>
+</ul>
+<p>Redis 事务提供了一种简单而有效的方法来确保多个命令的原子性，适用于需要同时执行多个命令且不允许中途干扰的场景。</p>
+<h2 id="持久化"><a href="#持久化" class="headerlink" title="持久化"></a>持久化</h2><p>Redis 提供了两种主要的持久化机制：RDB（Redis Database File）快照和AOF（Append-Only File）日志。通过这些机制，Redis 可以在内存中的数据意外丢失时恢复数据。</p>
+<h3 id="RDB（快照）"><a href="#RDB（快照）" class="headerlink" title="RDB（快照）"></a>RDB（快照）</h3><p>RDB 快照是指将内存中的数据在某个时间点生成快照并保存到磁盘中。它是一种紧凑的二进制文件，适合用于备份数据。</p>
+<h4 id="配置选项"><a href="#配置选项" class="headerlink" title="配置选项"></a>配置选项</h4><ul>
+<li><p><strong>save</strong>：设置在一定时间内有多少次写操作后触发快照。多个 <code>save</code> 选项可以组合使用，例如：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">save 900 1       <span class="comment"># 如果900秒（15分钟）内至少有1次写操作，则触发快照</span></span><br><span class="line">save 300 10      <span class="comment"># 如果300秒（5分钟）内至少有10次写操作，则触发快照</span></span><br><span class="line">save 60 10000    <span class="comment"># 如果60秒（1分钟）内至少有10000次写操作，则触发快照</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>dbfilename</strong>：快照文件的名字，默认是 <code>dump.rdb</code>。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">dbfilename dump.rdb</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>dir</strong>：保存快照文件的目录。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">dir</span> /var/lib/redis</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="手动创建快照"><a href="#手动创建快照" class="headerlink" title="手动创建快照"></a>手动创建快照</h4><ul>
+<li><p><strong>BGSAVE</strong>：在后台异步保存数据快照。Redis 会 fork 一个子进程来创建 RDB 文件，主进程继续处理客户端请求。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">BGSAVE</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>SAVE</strong>：同步保存数据快照，阻塞 Redis 服务器直到 RDB 文件创建完毕。通常不推荐使用。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">SAVE</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="AOF（追加日志）"><a href="#AOF（追加日志）" class="headerlink" title="AOF（追加日志）"></a>AOF（追加日志）</h3><p>AOF 记录每个写操作，然后在 Redis 重新启动时重放这些命令来重建数据集。AOF 文件通过不断追加操作日志来实现持久化。</p>
+<p>执行写命令时, 不仅将其写入到内存中, 还会将命令写到一个追加命令文件中, 也就是aof文件, 以日志形式记录每一个写操作</p>
+<h4 id="配置选项-1"><a href="#配置选项-1" class="headerlink" title="配置选项"></a>配置选项</h4><ul>
+<li><p><strong>appendonly</strong>：启用 AOF 持久化。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">appendonly <span class="built_in">yes</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>appendfilename</strong>：AOF 文件的名字，默认是 <code>appendonly.aof</code>。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">appendfilename <span class="string">&quot;appendonly.aof&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>appendfsync</strong>：设置 AOF 文件同步到磁盘的频率。</p>
+<ul>
+<li><code>appendfsync always</code>：每个写操作都同步到磁盘，最安全但最慢。</li>
+<li><code>appendfsync everysec</code>：每秒同步一次，性能和安全性的平衡，推荐设置。</li>
+<li><code>appendfsync no</code>：由操作系统决定何时同步，最快但最不安全。<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">appendfsync everysec</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><strong>no-appendfsync-on-rewrite</strong>：在 AOF 重写期间，停止 fsync，减小重写对性能的影响。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">no-appendfsync-on-rewrite <span class="built_in">yes</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="AOF-重写"><a href="#AOF-重写" class="headerlink" title="AOF 重写"></a>AOF 重写</h4><p>随着时间的推移，AOF 文件会变得越来越大。Redis 提供了 AOF 重写机制，通过创建一个新的 AOF 文件，包含相同的数据但体积更小。</p>
+<ul>
+<li><p><strong>BGREWRITEAOF</strong>：在后台异步重写 AOF 文件。Redis 会 fork 一个子进程来执行重写操作，主进程继续处理客户端请求。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">BGREWRITEAOF</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="RDB-和-AOF-的对比"><a href="#RDB-和-AOF-的对比" class="headerlink" title="RDB 和 AOF 的对比"></a>RDB 和 AOF 的对比</h3><ul>
+<li><p><strong>RDB 优点</strong>：</p>
+<ul>
+<li>文件紧凑，适合备份和恢复。</li>
+<li>重启时加载 RDB 文件比 AOF 更快。</li>
+<li>对性能影响小，因为 Redis 主要在后台执行快照操作。</li>
+</ul>
+</li>
+<li><p><strong>RDB 缺点</strong>：</p>
+<ul>
+<li>不能保证实时持久化，可能会丢失最近一次快照后的数据。</li>
+<li>快照操作可能会在大数据集上花费较长时间，影响性能。</li>
+</ul>
+</li>
+<li><p><strong>AOF 优点</strong>：</p>
+<ul>
+<li>可以通过不同的同步策略保证更实时的数据持久化。</li>
+<li>日志文件是可读的，便于修复数据。</li>
+</ul>
+</li>
+<li><p><strong>AOF 缺点</strong>：</p>
+<ul>
+<li>文件体积通常比 RDB 大。</li>
+<li>重启时加载 AOF 文件比 RDB 慢。</li>
+<li>可能会导致写操作性能下降，特别是在 fsync 策略设置为 <code>always</code> 时。</li>
+</ul>
+</li>
+</ul>
+<h3 id="使用场景-6"><a href="#使用场景-6" class="headerlink" title="使用场景"></a>使用场景</h3><ul>
+<li><strong>高频数据更新且数据丢失不可接受</strong>：使用 AOF 持久化，结合 <code>appendfsync everysec</code> 配置以获得性能和安全性的平衡。</li>
+<li><strong>需要定期备份</strong>：使用 RDB 快照，结合适当的 <code>save</code> 配置以减少数据丢失风险。</li>
+<li><strong>高可用性</strong>：可以同时启用 RDB 和 AOF，以结合两者的优点。这样可以在获得 AOF 的实时性和 RDB 的快速恢复能力的同时，提供更高的可靠性。</li>
+</ul>
+<p>Redis 提供了灵活的持久化机制，可以根据具体的使用场景和需求选择合适的持久化方案。</p>
+<h2 id="主从复制"><a href="#主从复制" class="headerlink" title="主从复制"></a>主从复制</h2><p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://myphoto-1301444197.cos.ap-chengdu.myqcloud.com/img/202406260928585.png" alt="image-20240626092842519"></p>
+<p>Redis 主从复制（Replication）是一种用来实现数据高可用性和分布式读写的机制。通过主从复制，数据可以从主节点（Master）同步到一个或多个从节点（Slave），实现数据的冗余备份和读写分离。</p>
+<h3 id="主从复制的基本原理"><a href="#主从复制的基本原理" class="headerlink" title="主从复制的基本原理"></a>主从复制的基本原理</h3><ol>
+<li><strong>主节点和从节点</strong>：主节点处理写请求，并将数据同步到从节点。从节点只处理读请求，不能处理写请求（除非被配置为支持读写）。</li>
+<li><strong>全量复制</strong>：当从节点第一次连接到主节点时，会进行全量数据同步。主节点会生成一个 RDB 快照，并将其发送给从节点。从节点接收并加载该快照，然后接收主节点发送的所有后续写命令。</li>
+<li><strong>增量复制</strong>：在全量复制之后，主节点会继续将所有写操作的命令以增量方式发送给从节点，从节点会逐条执行这些命令，以保持数据同步。</li>
+<li><strong>重新同步</strong>：当从节点连接中断并重新连接主节点时，会根据情况进行全量复制或部分复制。</li>
+</ol>
+<h3 id="配置主从复制"><a href="#配置主从复制" class="headerlink" title="配置主从复制"></a>配置主从复制</h3><h4 id="配置主节点"><a href="#配置主节点" class="headerlink" title="配置主节点"></a>配置主节点</h4><p>主节点通常不需要特殊配置，只需正常启动即可。</p>
+<h4 id="配置从节点"><a href="#配置从节点" class="headerlink" title="配置从节点"></a>配置从节点</h4><p>在 <code>redis.conf</code> 配置文件中，通过 <code>replicaof</code>（旧版本使用 <code>slaveof</code>）指令指定主节点的 IP 和端口：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">replicaof &lt;master_ip&gt; &lt;master_port&gt;</span><br><span class="line"><span class="comment"># 例如：</span></span><br><span class="line">replicaof 127.0.0.1 6379</span><br></pre></td></tr></table></figure>
+
+<p>或者在 Redis CLI 中运行以下命令：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">REPLICAOF &lt;master_ip&gt; &lt;master_port&gt;</span><br><span class="line"><span class="comment"># 或者在旧版本中：</span></span><br><span class="line">SLAVEOF &lt;master_ip&gt; &lt;master_port&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="设置认证"><a href="#设置认证" class="headerlink" title="设置认证"></a>设置认证</h4><p>如果主节点需要认证，从节点需要提供密码：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">masterauth &lt;master_password&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="管理复制"><a href="#管理复制" class="headerlink" title="管理复制"></a>管理复制</h3><h4 id="查看复制信息"><a href="#查看复制信息" class="headerlink" title="查看复制信息"></a>查看复制信息</h4><p>在主节点和从节点上可以通过 <code>INFO replication</code> 查看复制状态：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">INFO replication</span><br></pre></td></tr></table></figure>
+
+<p>在主节点上输出示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Replication</span><br><span class="line">role:master</span><br><span class="line">connected_slaves:1</span><br><span class="line">slave0:ip=127.0.0.1,port=6380,state=online,offset=3466,lag=0</span><br></pre></td></tr></table></figure>
+
+<p>在从节点上输出示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Replication</span><br><span class="line">role:slave</span><br><span class="line">master_host:127.0.0.1</span><br><span class="line">master_port:6379</span><br><span class="line">master_link_status:up</span><br></pre></td></tr></table></figure>
+
+<h4 id="断开复制"><a href="#断开复制" class="headerlink" title="断开复制"></a>断开复制</h4><p>在从节点上，可以通过以下命令断开与主节点的复制：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">REPLICAOF NO ONE</span><br><span class="line"><span class="comment"># 或者在旧版本中：</span></span><br><span class="line">SLAVEOF NO ONE</span><br></pre></td></tr></table></figure>
+
+<h3 id="主从复制的使用场景"><a href="#主从复制的使用场景" class="headerlink" title="主从复制的使用场景"></a>主从复制的使用场景</h3><ul>
+<li><strong>数据冗余</strong>：通过从节点备份主节点数据，防止数据丢失。</li>
+<li><strong>读写分离</strong>：将读请求分配到从节点，减轻主节点压力，提高读写性能。</li>
+<li><strong>高可用性</strong>：在主节点故障时，可以手动或自动切换到从节点，继续提供服务。</li>
+</ul>
+<h3 id="主从复制的注意事项"><a href="#主从复制的注意事项" class="headerlink" title="主从复制的注意事项"></a>主从复制的注意事项</h3><ul>
+<li><strong>数据一致性</strong>：主从复制为异步复制，存在一定的延迟，从节点的数据可能会比主节点滞后。</li>
+<li><strong>故障切换</strong>：Redis 主从复制本身不提供自动故障切换机制，通常需要配合 Redis Sentinel 或其他高可用性方案来实现自动故障转移和主节点选举。</li>
+<li><strong>写操作限制</strong>：从节点默认只处理读请求，写请求会被拒绝，除非配置为支持读写模式。</li>
+</ul>
+<h3 id="Redis-Sentinel"><a href="#Redis-Sentinel" class="headerlink" title="Redis Sentinel"></a>Redis Sentinel</h3><p>为了实现高可用性和自动故障转移，Redis 提供了 Sentinel 机制。Sentinel 可以监控主从节点的状态，自动进行主从切换，确保系统的高可用性。</p>
+<h4 id="Sentinel-的基本功能"><a href="#Sentinel-的基本功能" class="headerlink" title="Sentinel 的基本功能"></a>Sentinel 的基本功能</h4><ul>
+<li><strong>监控</strong>：持续检查主节点和从节点是否在线。</li>
+<li><strong>通知</strong>：当某个节点状态变化时，发送通知给管理员或其他应用。</li>
+<li><strong>自动故障转移</strong>：当主节点故障时，自动将一个从节点提升为新的主节点。</li>
+<li><strong>配置提供者</strong>：向客户端提供当前可用的 Redis 服务地址。</li>
+</ul>
+<h4 id="配置-Sentinel"><a href="#配置-Sentinel" class="headerlink" title="配置 Sentinel"></a>配置 Sentinel</h4><p>在 <code>sentinel.conf</code> 文件中进行 Sentinel 配置：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sentinel monitor mymaster 127.0.0.1 6379 2</span><br><span class="line">sentinel auth-pass mymaster &lt;master_password&gt;</span><br><span class="line">sentinel down-after-milliseconds mymaster 5000</span><br><span class="line">sentinel failover-timeout mymaster 60000</span><br><span class="line">sentinel parallel-syncs mymaster 1</span><br></pre></td></tr></table></figure>
+
+<p>启动 Sentinel：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">redis-sentinel sentinel.conf</span><br></pre></td></tr></table></figure>
+
+<p>Redis 主从复制和 Sentinel 配合使用，可以实现高可用、自动故障转移和读写分离的 Redis 集群。</p>
+<h2 id="哨兵模式-Sentinel"><a href="#哨兵模式-Sentinel" class="headerlink" title="哨兵模式 Sentinel"></a>哨兵模式 Sentinel</h2><ol>
+<li>以一个独立的模式运行在Redis集群中, 用来监控Redis集群中各个节点是否运行正常</li>
+<li>监控: 通过不断发送命令来监控Redis节点是否正常</li>
+<li>通知: 通过发布订阅模式来通知其他节点</li>
+<li>自动故障转移: 主节点不能正常工作时, 将一个从节点升级位新的主节点</li>
+</ol>
+<p>Redis Sentinel 是 Redis 的高可用性解决方案。它提供监控、通知和自动故障转移功能，确保 Redis 集群在主节点故障时可以自动切换到从节点，保持服务的高可用性。</p>
+<h3 id="Sentinel-的主要功能"><a href="#Sentinel-的主要功能" class="headerlink" title="Sentinel 的主要功能"></a>Sentinel 的主要功能</h3><ol>
+<li><strong>监控</strong>：持续检查主节点和从节点是否在线。</li>
+<li><strong>通知</strong>：当某个节点状态变化时，发送通知给管理员或其他应用。</li>
+<li><strong>自动故障转移</strong>：当主节点故障时，自动将一个从节点提升为新的主节点。</li>
+<li><strong>配置提供者</strong>：向客户端提供当前可用的 Redis 服务地址。</li>
+</ol>
+<h3 id="Sentinel-配置"><a href="#Sentinel-配置" class="headerlink" title="Sentinel 配置"></a>Sentinel 配置</h3><h4 id="配置示例"><a href="#配置示例" class="headerlink" title="配置示例"></a>配置示例</h4><p>创建一个 <code>sentinel.conf</code> 文件：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 配置哨兵监控的主节点名和地址，最后一个数字是投票同意故障转移所需的 Sentinel 数量</span></span><br><span class="line">sentinel monitor mymaster 127.0.0.1 6379 2</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果主节点设置了密码，Sentinel 也需要设置密码来访问主节点</span></span><br><span class="line">sentinel auth-pass mymaster &lt;master_password&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 主节点失联多少毫秒后认为其下线</span></span><br><span class="line">sentinel down-after-milliseconds mymaster 5000</span><br><span class="line"></span><br><span class="line"><span class="comment"># 故障转移的超时时间（毫秒）</span></span><br><span class="line">sentinel failover-timeout mymaster 60000</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在执行故障转移时，有多少个从节点可以同时与新主节点进行同步</span></span><br><span class="line">sentinel parallel-syncs mymaster 1</span><br></pre></td></tr></table></figure>
+
+<h4 id="启动-Sentinel"><a href="#启动-Sentinel" class="headerlink" title="启动 Sentinel"></a>启动 Sentinel</h4><p>使用以下命令启动 Sentinel：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">redis-sentinel /path/to/sentinel.conf</span><br></pre></td></tr></table></figure>
+
+<h3 id="Sentinel-集群"><a href="#Sentinel-集群" class="headerlink" title="Sentinel 集群"></a>Sentinel 集群</h3><p>为了确保高可用性，通常会部署多个 Sentinel 实例（通常至少 3 个）。这些 Sentinel 实例会相互通信，共同决定主节点的状态和是否进行故障转移。</p>
+<h3 id="故障转移过程"><a href="#故障转移过程" class="headerlink" title="故障转移过程"></a>故障转移过程</h3><ol>
+<li><strong>故障检测</strong>：当 Sentinel 认为主节点下线时，会向其他 Sentinel 实例确认。</li>
+<li><strong>选举领导者</strong>：通过投票选举一个领导者 Sentinel 来负责故障转移。</li>
+<li><strong>故障转移</strong>：领导者 Sentinel 从现有的从节点中选举一个提升为新的主节点。</li>
+<li><strong>重新配置</strong>：将其他从节点重新配置为从新的主节点同步数据，并更新客户端连接信息。</li>
+</ol>
+<h3 id="Sentinel-命令"><a href="#Sentinel-命令" class="headerlink" title="Sentinel 命令"></a>Sentinel 命令</h3><h4 id="检查-Sentinel-状态"><a href="#检查-Sentinel-状态" class="headerlink" title="检查 Sentinel 状态"></a>检查 Sentinel 状态</h4><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">SENTINEL masters</span><br></pre></td></tr></table></figure>
+
+<h4 id="查看某个主节点的信息"><a href="#查看某个主节点的信息" class="headerlink" title="查看某个主节点的信息"></a>查看某个主节点的信息</h4><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">SENTINEL master &lt;master-name&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="查看主节点的从节点信息"><a href="#查看主节点的从节点信息" class="headerlink" title="查看主节点的从节点信息"></a>查看主节点的从节点信息</h4><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">SENTINEL slaves &lt;master-name&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="强制故障转移"><a href="#强制故障转移" class="headerlink" title="强制故障转移"></a>强制故障转移</h4><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">SENTINEL failover &lt;master-name&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Sentinel-的优缺点"><a href="#Sentinel-的优缺点" class="headerlink" title="Sentinel 的优缺点"></a>Sentinel 的优缺点</h3><h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><ul>
+<li><strong>自动故障转移</strong>：在主节点发生故障时，能够自动切换到从节点，保持服务的高可用性。</li>
+<li><strong>监控和通知</strong>：能够持续监控 Redis 实例的状态，并在状态变化时发送通知。</li>
+<li><strong>配置提供者</strong>：能够向客户端提供当前可用的 Redis 服务地址。</li>
+</ul>
+<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><ul>
+<li><strong>一致性问题</strong>：由于是异步复制，可能会有数据丢失风险。</li>
+<li><strong>复杂性增加</strong>：需要部署和维护多个 Sentinel 实例，配置和管理较为复杂。</li>
+</ul>
+<h3 id="使用场景-7"><a href="#使用场景-7" class="headerlink" title="使用场景"></a>使用场景</h3><ul>
+<li><strong>高可用性要求高的系统</strong>：如电商、社交平台、金融系统等，确保在主节点故障时能够快速切换到从节点，保证服务的连续性。</li>
+<li><strong>读写分离</strong>：在读写负载较高的系统中，通过从节点分担读请求，减轻主节点压力，提高整体性能。</li>
+</ul>
+<p>Redis Sentinel 提供了一种高效的高可用性解决方案，能够在主节点故障时自动进行故障转移，确保 Redis 集群的高可用性和数据的安全性。</p>
+
+<div class="article-footer fs14">
+    <section id="license">
+      <div class="header"><span>License</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    
+    <section id="share">
+      <div class="header"><span>Share</span></div>
+      <div class="body">
+        <div class="link"><input class="copy-area" readonly="true" id="copy-link" value="http://blueofwarmth.github.io/2024/06/26/Redis%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" /></div>
+        <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot)"><img class="lazy"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" /></a><a class="social share-item email" href="mailto:?subject=Redis学习 - BlueofWarmth&amp;body=http://blueofwarmth.github.io/2024/06/26/Redis%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><img class="lazy"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;Copied!&quot;)"><img class="lazy"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
+        
+        <div class="qrcode" id="qrcode-wechat" style="opacity:0;height:0">
+          <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=http://blueofwarmth.github.io/2024/06/26/Redis%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+        </div>
+        
+      </div>
+    </section>
+    </div>
+</article>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">Newer</div><a href="/2024/06/26/%E5%89%8D%E7%AB%AF%E4%B8%89%E5%A4%A7%E4%BB%B6-0-1/">前端三大件项目--美食计划</a></div><div class="item" id="next"><div class="note">Older</div><a href="/2024/06/26/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/">Java类加载过程</a></div></section></div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">QyingliBoost</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.28.1">Stellar 1.28.1</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">On This Page</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Remote-dictionary-server%E7%AE%80%E4%BB%8B"><span class="toc-text">Remote dictionary server简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Redis-%E7%AE%80%E4%BB%8B"><span class="toc-text">Redis 简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E7%89%B9%E6%80%A7"><span class="toc-text">主要特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="toc-text">使用方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#CLI-Command-Line-Interface"><span class="toc-text">CLI (Command Line Interface)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#API-Application-Programming-Interface"><span class="toc-text">API (Application Programming Interface)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GUI-Graphical-User-Interface"><span class="toc-text">GUI (Graphical User Interface)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">常见应用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B"><span class="toc-text">基本使用示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-text">通用命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%AE%EF%BC%88Keys%EF%BC%89%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="toc-text">键（Keys）相关命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8B%E5%8A%A1%EF%BC%88Transactions%EF%BC%89%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="toc-text">事务（Transactions）相关命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#String-%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text">String 字符串</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%88Strings%EF%BC%89%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="toc-text">字符串（Strings）相关命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E4%B8%AD%E6%96%87"><span class="toc-text">使用中文</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#List-%E5%88%97%E8%A1%A8"><span class="toc-text">List 列表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%97%E8%A1%A8%EF%BC%88Lists%EF%BC%89%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="toc-text">列表（Lists）相关命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Set-%E9%9B%86%E5%90%88"><span class="toc-text">Set 集合</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9B%86%E5%90%88%EF%BC%88Set%EF%BC%89%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="toc-text">集合（Set）相关命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88-Sorted-Set"><span class="toc-text">有序集合 Sorted Set</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88%EF%BC%88Sorted-Set%EF%BC%89%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="toc-text">有序集合（Sorted Set）相关命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hash-%E5%93%88%E5%B8%8C"><span class="toc-text">Hash 哈希</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%93%88%E5%B8%8C%EF%BC%88Hashes%EF%BC%89%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="toc-text">哈希（Hashes）相关命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%91%E5%B8%83%E6%B6%88%E6%81%AF%E8%AE%A2%E9%98%85%E6%A8%A1%E5%BC%8F"><span class="toc-text">发布消息订阅模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%91%E5%B8%83-%E8%AE%A2%E9%98%85%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-text">发布&#x2F;订阅模式的常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%91%E5%B8%83%E6%B6%88%E6%81%AF"><span class="toc-text">发布消息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%A2%E9%98%85%E6%B6%88%E6%81%AF"><span class="toc-text">订阅消息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%96%E6%B6%88%E8%AE%A2%E9%98%85"><span class="toc-text">取消订阅</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E8%AE%A2%E9%98%85%E4%BF%A1%E6%81%AF"><span class="toc-text">查看订阅信息</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B"><span class="toc-text">示例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%91%E5%B8%83%E8%80%85"><span class="toc-text">发布者</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%A2%E9%98%85%E8%80%85"><span class="toc-text">订阅者</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%A1%E5%BC%8F%E8%AE%A2%E9%98%85"><span class="toc-text">模式订阅</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">使用场景</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97-Stream"><span class="toc-text">消息队列 Stream</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-text">基本概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-text">常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E6%B6%88%E6%81%AF"><span class="toc-text">添加消息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%BB%E5%8F%96%E6%B6%88%E6%81%AF"><span class="toc-text">读取消息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B6%88%E8%B4%B9%E8%80%85%E7%BB%84"><span class="toc-text">消费者组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%A1%E7%90%86"><span class="toc-text">管理</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B-1"><span class="toc-text">示例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E6%B6%88%E6%81%AF-1"><span class="toc-text">添加消息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%BB%E5%8F%96%E6%B6%88%E6%81%AF-1"><span class="toc-text">读取消息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%B6%88%E8%B4%B9%E8%80%85%E7%BB%84"><span class="toc-text">创建消费者组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%8E%E6%B6%88%E8%B4%B9%E8%80%85%E7%BB%84%E8%AF%BB%E5%8F%96%E6%B6%88%E6%81%AF"><span class="toc-text">从消费者组读取消息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A1%AE%E8%AE%A4%E6%B6%88%E6%81%AF"><span class="toc-text">确认消息</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF-1"><span class="toc-text">使用场景</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%B0%E7%90%86%E7%A9%BA%E9%97%B4-Geospatial"><span class="toc-text">地理空间 Geospatial</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-1"><span class="toc-text">常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E5%9C%B0%E7%90%86%E4%BD%8D%E7%BD%AE"><span class="toc-text">添加地理位置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E5%9C%B0%E7%90%86%E4%BD%8D%E7%BD%AE"><span class="toc-text">获取地理位置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E8%B7%9D%E7%A6%BB"><span class="toc-text">计算距离</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E6%89%BE%E9%99%84%E8%BF%91%E6%88%90%E5%91%98"><span class="toc-text">查找附近成员</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E5%9C%B0%E7%90%86%E4%BD%8D%E7%BD%AE%E7%9A%84%E5%93%88%E5%B8%8C%E5%80%BC"><span class="toc-text">获取地理位置的哈希值</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B-2"><span class="toc-text">示例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E5%9C%B0%E7%90%86%E4%BD%8D%E7%BD%AE-1"><span class="toc-text">添加地理位置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E5%9C%B0%E7%90%86%E4%BD%8D%E7%BD%AE-1"><span class="toc-text">获取地理位置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E8%B7%9D%E7%A6%BB-1"><span class="toc-text">计算距离</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E6%89%BE%E9%99%84%E8%BF%91%E6%88%90%E5%91%98-1"><span class="toc-text">查找附近成员</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E6%89%BE%E9%99%84%E8%BF%91%E6%88%90%E5%91%98%EF%BC%88%E4%BB%A5%E6%88%90%E5%91%98%E4%B8%BA%E4%B8%AD%E5%BF%83%EF%BC%89"><span class="toc-text">查找附近成员（以成员为中心）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E5%9C%B0%E7%90%86%E4%BD%8D%E7%BD%AE%E7%9A%84%E5%93%88%E5%B8%8C%E5%80%BC-1"><span class="toc-text">获取地理位置的哈希值</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF-2"><span class="toc-text">使用场景</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HyperLogLog"><span class="toc-text">HyperLogLog</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#HyperLogLog-%E7%9A%84%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-text">HyperLogLog 的常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E5%85%83%E7%B4%A0"><span class="toc-text">添加元素</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%B0%E8%AE%A1%E5%9F%BA%E6%95%B0"><span class="toc-text">估计基数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%88%E5%B9%B6-HyperLogLog"><span class="toc-text">合并 HyperLogLog</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B-3"><span class="toc-text">示例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E5%85%83%E7%B4%A0-1"><span class="toc-text">添加元素</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%B0%E8%AE%A1%E5%9F%BA%E6%95%B0-1"><span class="toc-text">估计基数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%88%E5%B9%B6-HyperLogLog-1"><span class="toc-text">合并 HyperLogLog</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF-3"><span class="toc-text">使用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HyperLogLog-%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="toc-text">HyperLogLog 的优缺点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%8D%E5%9F%9F-BitField"><span class="toc-text">位域 BitField</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-2"><span class="toc-text">常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E5%92%8C%E8%8E%B7%E5%8F%96%E4%BD%8D%E5%9F%9F"><span class="toc-text">设置和获取位域</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4%E8%AF%B4%E6%98%8E"><span class="toc-text">命令说明</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%8D%E5%9F%9F%E7%B1%BB%E5%9E%8B"><span class="toc-text">位域类型</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B-4"><span class="toc-text">示例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E5%92%8C%E8%8E%B7%E5%8F%96%E4%BD%8D%E5%9F%9F%E5%80%BC"><span class="toc-text">设置和获取位域值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A2%9E%E5%8A%A0%E4%BD%8D%E5%9F%9F%E5%80%BC"><span class="toc-text">增加位域值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BA%A2%E5%87%BA%E5%A4%84%E7%90%86"><span class="toc-text">溢出处理</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF-4"><span class="toc-text">使用场景</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8B%E5%8A%A1"><span class="toc-text">事务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-text">事务的常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#MULTI"><span class="toc-text">MULTI</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#EXEC"><span class="toc-text">EXEC</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DISCARD"><span class="toc-text">DISCARD</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#WATCH"><span class="toc-text">WATCH</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#UNWATCH"><span class="toc-text">UNWATCH</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E4%BA%8B%E5%8A%A1%E7%9A%84%E7%A4%BA%E4%BE%8B"><span class="toc-text">使用事务的示例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E4%BA%8B%E5%8A%A1"><span class="toc-text">基本事务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%96%E6%B6%88%E4%BA%8B%E5%8A%A1"><span class="toc-text">取消事务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-WATCH-%E5%AE%9E%E7%8E%B0%E4%B9%90%E8%A7%82%E9%94%81"><span class="toc-text">使用 WATCH 实现乐观锁</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-UNWATCH"><span class="toc-text">使用 UNWATCH</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-text">注意事项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF-5"><span class="toc-text">使用场景</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%81%E4%B9%85%E5%8C%96"><span class="toc-text">持久化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RDB%EF%BC%88%E5%BF%AB%E7%85%A7%EF%BC%89"><span class="toc-text">RDB（快照）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E9%80%89%E9%A1%B9"><span class="toc-text">配置选项</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%8B%E5%8A%A8%E5%88%9B%E5%BB%BA%E5%BF%AB%E7%85%A7"><span class="toc-text">手动创建快照</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AOF%EF%BC%88%E8%BF%BD%E5%8A%A0%E6%97%A5%E5%BF%97%EF%BC%89"><span class="toc-text">AOF（追加日志）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E9%80%89%E9%A1%B9-1"><span class="toc-text">配置选项</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AOF-%E9%87%8D%E5%86%99"><span class="toc-text">AOF 重写</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RDB-%E5%92%8C-AOF-%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="toc-text">RDB 和 AOF 的对比</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF-6"><span class="toc-text">使用场景</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6"><span class="toc-text">主从复制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="toc-text">主从复制的基本原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6"><span class="toc-text">配置主从复制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E4%B8%BB%E8%8A%82%E7%82%B9"><span class="toc-text">配置主节点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E4%BB%8E%E8%8A%82%E7%82%B9"><span class="toc-text">配置从节点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E8%AE%A4%E8%AF%81"><span class="toc-text">设置认证</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%A1%E7%90%86%E5%A4%8D%E5%88%B6"><span class="toc-text">管理复制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%A4%8D%E5%88%B6%E4%BF%A1%E6%81%AF"><span class="toc-text">查看复制信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%AD%E5%BC%80%E5%A4%8D%E5%88%B6"><span class="toc-text">断开复制</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">主从复制的使用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-text">主从复制的注意事项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Redis-Sentinel"><span class="toc-text">Redis Sentinel</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Sentinel-%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8A%9F%E8%83%BD"><span class="toc-text">Sentinel 的基本功能</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-Sentinel"><span class="toc-text">配置 Sentinel</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F-Sentinel"><span class="toc-text">哨兵模式 Sentinel</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Sentinel-%E7%9A%84%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD"><span class="toc-text">Sentinel 的主要功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sentinel-%E9%85%8D%E7%BD%AE"><span class="toc-text">Sentinel 配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E7%A4%BA%E4%BE%8B"><span class="toc-text">配置示例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8-Sentinel"><span class="toc-text">启动 Sentinel</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sentinel-%E9%9B%86%E7%BE%A4"><span class="toc-text">Sentinel 集群</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E8%BF%87%E7%A8%8B"><span class="toc-text">故障转移过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sentinel-%E5%91%BD%E4%BB%A4"><span class="toc-text">Sentinel 命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5-Sentinel-%E7%8A%B6%E6%80%81"><span class="toc-text">检查 Sentinel 状态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%9F%90%E4%B8%AA%E4%B8%BB%E8%8A%82%E7%82%B9%E7%9A%84%E4%BF%A1%E6%81%AF"><span class="toc-text">查看某个主节点的信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E4%B8%BB%E8%8A%82%E7%82%B9%E7%9A%84%E4%BB%8E%E8%8A%82%E7%82%B9%E4%BF%A1%E6%81%AF"><span class="toc-text">查看主节点的从节点信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%BA%E5%88%B6%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB"><span class="toc-text">强制故障转移</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sentinel-%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="toc-text">Sentinel 的优缺点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%98%E7%82%B9"><span class="toc-text">优点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%BA%E7%82%B9"><span class="toc-text">缺点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF-7"><span class="toc-text">使用场景</span></a></li></ol></li></ol></div><div class="widget-footer">
+
+<a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12c0-4.714 0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12Z"/><path stroke-linecap="round" stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/></g></svg><span>Scroll to Top</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M10.46 1.25h3.08c1.603 0 2.86 0 3.864.095c1.023.098 1.861.3 2.6.752a5.75 5.75 0 0 1 1.899 1.899c.452.738.654 1.577.752 2.6c.095 1.004.095 2.261.095 3.865v1.067c0 1.141 0 2.036-.05 2.759c-.05.735-.153 1.347-.388 1.913a5.75 5.75 0 0 1-3.112 3.112c-.805.334-1.721.408-2.977.43a10.81 10.81 0 0 0-.929.036c-.198.022-.275.054-.32.08c-.047.028-.112.078-.224.232c-.121.166-.258.396-.476.764l-.542.916c-.773 1.307-2.69 1.307-3.464 0l-.542-.916a10.605 10.605 0 0 0-.476-.764c-.112-.154-.177-.204-.224-.232c-.045-.026-.122-.058-.32-.08c-.212-.023-.49-.03-.93-.037c-1.255-.021-2.171-.095-2.976-.429A5.75 5.75 0 0 1 1.688 16.2c-.235-.566-.338-1.178-.389-1.913c-.049-.723-.049-1.618-.049-2.76v-1.066c0-1.604 0-2.86.095-3.865c.098-1.023.3-1.862.752-2.6a5.75 5.75 0 0 1 1.899-1.899c.738-.452 1.577-.654 2.6-.752C7.6 1.25 8.857 1.25 10.461 1.25M6.739 2.839c-.914.087-1.495.253-1.959.537A4.25 4.25 0 0 0 3.376 4.78c-.284.464-.45 1.045-.537 1.96c-.088.924-.089 2.11-.089 3.761v1c0 1.175 0 2.019.046 2.685c.045.659.131 1.089.278 1.441a4.25 4.25 0 0 0 2.3 2.3c.515.214 1.173.294 2.429.316h.031c.398.007.747.013 1.037.045c.311.035.616.104.909.274c.29.17.5.395.682.645c.169.232.342.525.538.856l.559.944a.52.52 0 0 0 .882 0l.559-.944c.196-.331.37-.624.538-.856c.182-.25.392-.476.682-.645c.293-.17.598-.24.909-.274c.29-.032.639-.038 1.037-.045h.032c1.255-.022 1.913-.102 2.428-.316a4.25 4.25 0 0 0 2.3-2.3c.147-.352.233-.782.278-1.441c.046-.666.046-1.51.046-2.685v-1c0-1.651 0-2.837-.089-3.762c-.087-.914-.253-1.495-.537-1.959a4.25 4.25 0 0 0-1.403-1.403c-.464-.284-1.045-.45-1.96-.537c-.924-.088-2.11-.089-3.761-.089h-3c-1.651 0-2.837 0-3.762.089" clip-rule="evenodd"/><path fill="currentColor" d="M9 11a1 1 0 1 1-2 0a1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0a1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0a1 1 0 0 1 2 0"/></svg><span>Join Discussion</span></a></div></widget>
+</div></aside><div class='float-panel blur'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+<script type="text/javascript">
+  const ctx = {
+    date_suffix: {
+      just: `Just`,
+      min: `minutes ago`,
+      hour: `hours ago`,
+      day: `days ago`,
+    },
+    root : `/`,
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+  };
+  const deps = {
+    jquery: `https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.min.js`,
+    marked: `https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js`
+  }
+  
+
+</script>
+
+<script type="text/javascript">
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+    
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      let retryTimes = 3;
+      utils.onLoading(el);
+      function req() {
+        return new Promise((resolve, reject) => {
+          let status = 0; // 0 等待 1 完成 2 超时
+          let timer = setTimeout(() => {
+            if (status === 0) {
+              status = 2;
+              timer = null;
+              reject('请求超时');
+              if (retryTimes == 0) {
+                onFailure();
+              }
+            }
+          }, 5000);
+          fetch(url).then(function(response) {
+            if (status !== 2) {
+              clearTimeout(timer);
+              resolve(response);
+              timer = null;
+              status = 1;
+            }
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error('Network response was not ok.');
+          }).then(function(data) {
+            retryTimes = 0;
+            utils.onLoadSuccess(el);
+            callback(data);
+          }).catch(function(error) {
+            if (retryTimes > 0) {
+              retryTimes -= 1;
+              setTimeout(() => {
+                req();
+              }, 5000);
+            } else {
+              utils.onLoadFailure(el);
+              onFailure();
+            }
+          });
+        });
+      }
+      req();
+    },
+  };
+</script>
+
+<script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+
+<!-- required -->
+<script src="/js/main.js?v=1.28.1" async></script>
+
+<!-- optional -->
+
+
+
+<script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+  });
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://cdn.bootcdn.net/ajax/libs/flying-pages/2.1.2/flying-pages.min.js"></script><script defer src="https://cdn.bootcdn.net/ajax/libs/vanilla-lazyload/17.8.4/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+</script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://cdn.bootcdn.net/ajax/libs/fancyapps-ui/5.0.22/fancybox/fancybox.min.css`,
+    js: `https://cdn.bootcdn.net/ajax/libs/fancyapps-ui/5.0.22/fancybox/fancybox.umd.min.js`
+  };
+  var selector = '[data-fancybox]:not(.error)';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const els = document.getElementsByClassName('ds-memos');
+    if (els != undefined && els.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null
+        }
+      });
+    })
+  }
+</script>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3.1/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3.1/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          rewind: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
+
+
+<!-- inject -->
+
+</div></body></html>
